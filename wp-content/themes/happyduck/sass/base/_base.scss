@@ -1,3 +1,5 @@
 body {
   background: pink;
+  @include font-size(16);
 }
+

@@ -10,11 +10,12 @@
 /// Third party libraries and stylesheets
 @import
 'vendors/bourbon/bourbon',
-'vendors/neat/neat';
+'vendors/neat/neat',
+'vendors/neat/neat-helpers';
 
 /// Base formatting and resets
 @import
-'base/reset',
+'base/normalize',
 'base/base',
 'base/typography';
 
@@ -36,3 +37,10 @@
 //'pages/home',
 //'pages/contact';
 
+.header-container {
+  @include page-pad();
+  @include font-size(16);
+  .header {
+    @include outer-container();
+  }
+}
