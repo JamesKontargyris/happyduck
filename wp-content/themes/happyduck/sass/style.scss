@@ -2,6 +2,7 @@
 
 /// Abstracts (utilities that do not output any CSS)
 @import
+'abstracts/fonts',
 'abstracts/variables',
 'abstracts/functions',
 'abstracts/mixins',
@@ -16,31 +17,26 @@
 /// Base formatting and resets
 @import
 'base/normalize',
+'base/underscores',
 'base/base',
 'base/typography';
 
 /// Layout (page partials)
 @import
-'layout/navigation',
 'layout/grid',
+'layout/navigation',
 'layout/header',
 'layout/footer',
 'layout/sidebar',
 'layout/forms';
 
 /// Components (modules)
-//@import
-//'components/',
+@import
+'components/logo',
+'components/page-menu',
+'components/icon';
 
 /// Page-specific stylesheets
 //@import
 //'pages/home',
 //'pages/contact';
-
-.header-container {
-  @include page-pad();
-  @include font-size(16);
-  .header {
-    @include outer-container();
-  }
-}

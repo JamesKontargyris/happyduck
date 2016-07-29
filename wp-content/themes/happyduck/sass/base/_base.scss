@@ -1,5 +1,20 @@
-body {
-  background: pink;
-  @include font-size(16);
+* {
+  z-index: z('default');
+}
+.container {
+  @include outer-container();
 }
 
+.has-drop-shadow {
+  position:relative;
+  box-shadow: 0 3px 0 hsla(0, 100%, 0, 0.2);
+}
+
+// Used to toggle elements
+.show {
+  display:block !important;
+}
+
+.hide {
+  display:none !important;
+}

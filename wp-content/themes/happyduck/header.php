@@ -24,27 +24,51 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'happyduck' ); ?></a>
 
-	<header id="masthead" class="site-header" role="banner">
-		<div class="site-branding">
-			<?php
-			if ( is_front_page() && is_home() ) : ?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-			<?php else : ?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-			<?php
-			endif;
-
-			$description = get_bloginfo( 'description', 'display' );
-			if ( $description || is_customize_preview() ) : ?>
-				<p class="site-description"><?php echo $description; /* WPCS: xss ok. */ ?></p>
-			<?php
-			endif; ?>
-		</div><!-- .site-branding -->
-
-		<nav id="site-navigation" class="main-navigation" role="navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'happyduck' ); ?></button>
-			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
+	<header class="header has-drop-shadow">
+		<div class="header__inner">
+			<img class="logo" src="http://placehold.it/300x75" alt="Happy Duck Consulting">
+			<nav class="header__nav">
+				<ul class="link-group link-group--align-right">
+					<li class="link-group__item"><img src="http://placehold.it/24x24" alt=""></li>
+					<li class="link-group__item"><img src="http://placehold.it/24x24" alt=""></li>
+					<li class="link-group__item"><img src="http://placehold.it/24x24" alt=""></li>
+					<li class="link-group__item"><img src="http://placehold.it/24x24" alt=""></li>
+				</ul>
+				<ul class="menu menu--inline menu--no-bottom-margin menu--align-right">
+					<li class="menu__item"><a href="#" class="menu__link">About Us</a></li>
+					<li class="menu__item"><a href="#" class="menu__link menu__link--active">Our Services</a></li>
+					<li class="menu__item"><a href="#" class="menu__link">Articles</a></li>
+					<li class="menu__item"><a href="#" class="menu__link">Contact Us</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
 
 	<div id="content" class="site-content">
+		
+		<section class="page-menu has-drop-shadow">
+			<ul class="page-menu__items">
+				<li class="page-menu__mobile-toggle is-toggle" data-toggle-items=".page-menu__item">
+					<img class="icon icon--xsmall icon--right" src="<?php echo get_template_directory_uri(); ?>/img/menu.svg" alt=""> Our Services
+				</li>
+				<li class="page-menu__item">
+					<a class="page-menu__link" href="#">Business and Financial Analysis</a>
+				</li>
+				<li class="page-menu__item">
+					<a class="page-menu__link page-menu__link--active" href="#">Financial and Scenario Modelling</a>
+				</li>
+				<li class="page-menu__item">
+					<a class="page-menu__link" href="#">Data Manipulation and Presentation</a>
+				</li>
+				<li class="page-menu__item">
+					<a class="page-menu__link" href="#">Business Management Tools</a>
+				</li>
+				<li class="page-menu__item">
+					<a class="page-menu__link" href="#">Password Recovery / Removal</a>
+				</li>
+			</ul>
+		</section>
+
+		<section class="hero" style="background-color:#ff6666">
+			w00t
+		</section>

@@ -1,5 +1,5 @@
 // Typography
-$base-font-family: Arial;
+$base-font-family: 'UniformRounded--regular', sans-serif;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
@@ -15,22 +15,33 @@ $base-spacing: $base-line-height * 1.6rem;
 $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
 
-// Colors
-$blue: #1565c0;
-$dark-gray: #333;
-$medium-gray: #999;
-$light-gray: #ddd;
+// Primary Colours
+$yellow: hsl(45, 100, 60);
+$orange: hsl(36, 100, 50);
+$coral: hsl(0, 100, 70);
+$brown: hsl(30, 50, 40);
+
+// Secondary Colours
+$blue: hsl(180, 100, 40);
+$purple: hsl(300, 20, 50);
+$green: hsl(160, 100, 30);
+$grey: hsl(60, 33, 70);
+
+// Other Colours
+$white: hsl(0, 0, 100);
+$dark-grey: hsl(0, 0, 13);
+
 
 // Font Colors
-$base-font-color: $dark-gray;
+$base-font-color: $dark-grey;
 $action-color: $blue;
 
 // Border
-$base-border-color: $light-gray;
+$base-border-color: $grey;
 $base-border: 1px solid $base-border-color;
 
 // Background Colors
-$base-background-color: #fff;
+$base-background-color: $white;
 $secondary-background-color: tint($base-border-color, 75%);
 
 // Forms
@@ -40,3 +51,6 @@ $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $l
 // Animations
 $base-duration: 150ms;
 $base-timing: ease;
+
+// Other
+$vr: 1rem; // vertical-rhythm = 10px
