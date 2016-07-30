@@ -15,6 +15,18 @@ h6 {
   font-size: $base-font-size;
   line-height: $heading-line-height;
   margin: 0 0 $small-spacing;
+  font-weight:normal;
+}
+
+h4 {
+  @include font-size(21px, 24px);
+}
+
+h5 {
+  text-transform: uppercase;
+  @include font-weight('bold');
+  @include rem('letter-spacing', 4px);
+  @include rem('margin', 0 0 ($vr * 2) 0);
 }
 
 p {
@@ -26,9 +38,13 @@ a {
   text-decoration: none;
   transition: color $base-duration $base-timing;
 
-  &:active,
+  &:visited {
+    color: inherit;
+  }
+
   &:focus,
-  &:hover {
+  &:hover,
+  &:active {
     color: shade($action-color, 25%);
   }
 }
@@ -45,4 +61,41 @@ img,
 picture {
   margin: 0;
   max-width: 100%;
+}
+
+
+// Text font weight helper classes
+.text--light {
+  @include font-weight('light');
+}
+.text--regular {
+  @include font-weight('regular');
+}
+.text--medium {
+  @include font-weight('medium');
+}
+.text--bold {
+  @include font-weight('bold');
+}
+.text--black {
+  @include font-weight('black');
+}
+.text--ultra {
+  @include font-weight('ultra');
+}
+
+// Text style helper classes
+.text--italic {
+  font-style:italic;
+}
+
+// Text colour helper classes
+.text--light-blue {
+  color:$light-blue;
+}
+.text--yellow {
+  color:$yellow;
+}
+.text--white {
+  color:$white;
 }

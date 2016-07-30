@@ -20,41 +20,7 @@
  }
 }
 
-.menu--align-right {
-  text-align: right;
-
-  @include media($m-up) {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    align-content: center;
-    justify-content: flex-end;
-  }
-
-  > .menu__item {
-    &:not(:first-child) {
-      @include rem('margin-left', 10px);
-    }
-  }
-}
-
-.menu__link--active {
-  background-color: $coral;
-  @include font-weight('bold');
-  @include rem('border-radius', 3px);
-  color: $white;
-  &:hover {
-    color: $white;
-  }
-}
-
 .menu__item {
-  .menu__link {
-    @include rem('padding', 5px 8px);
-    @include font-weight('medium');
-    display:block;
-    text-align: center;
-  }
   // Remove padding from first and last links for nicer alignment,
   // unless the link is active, in which case, leave the existing padding
   &:first-child {
@@ -70,27 +36,49 @@
   }
 }
 
+.menu__link,
+.menu__link:visited {
+  @include rem('padding', 4px 5px);
+  display:block;
+  text-align: center;
+  color:$blue;
+}
+.menu__link:hover {
+  color:shade($blue, 25%);
+}
 
+.menu__link--active:link,
+.menu__link--active:visited {
+  background-color: $coral;
+  @include font-weight('medium');
+  @include rem('border-radius', 3px);
+  color: $white;
+}
 
+.menu--align-right {
+  text-align: right;
 
-.link-group {
-  display: flex;
-  align-items:center;
-  align-content:flex-start;
-  justify-content:flex-start;
-  @include clearfix();
-  list-style: none;
-  margin:0;
-  padding:0;
-  @include rem('margin-bottom', $vr);
-
-  &__item {
-    &:not(:last-child) {
-      @include rem('margin-right', 10px);
-    }
+  @include media($m-up) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-end;
   }
 
-  &--align-right {
-    justify-content:flex-end;
+  .menu__item:not(:first-child) {
+    @include rem('margin-left', 20px);
   }
+}
+
+
+// Link colour helper classes
+.link--white,
+.link--white:visited {
+  color:$white;
+}
+.link--white:focus,
+.link--white:hover,
+.link--white:active {
+  color:shade($white, 25%);
 }

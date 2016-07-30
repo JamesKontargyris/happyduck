@@ -1,8 +1,5 @@
-// Baseline, measured in pixels
-// The value should be the same as the font-size value for the html element
-// If the html element's font-size is set to 62.5% (of the browser's default font-size of 16px),
-// then the variable below would be 10px.
-@function parseInt($n) { /* 2 */
+/// Parse an integer
+@function parseInt($n) {
   @return $n / ($n * 0 + 1);
 }
 
@@ -88,33 +85,33 @@
 
 /// Helper to add padding to an element
 /// @param $value
-@mixin pad($value: 20px) {
-  padding-left: parseInt($value) * 1px;
-  @include rem('padding-left', $value);
-  padding-right: parseInt($value) * 1px;
-  @include rem('padding-right', $value);
-  padding-top: parseInt($value) * 1px;
-  @include rem('padding-top', $value);
-  padding-bottom: parseInt($value) * 1px;
-  @include rem('padding-bottom', $value);
+@mixin all-pad($top: $vr, $right: $lr-pad, $bottom: $top, $left: $right) {
+  padding-left: parseInt($left) * 1px;
+  @include rem('padding-left', $left);
+  padding-right: parseInt($right) * 1px;
+  @include rem('padding-right', $right);
+  padding-top: parseInt($top) * 1px;
+  @include rem('padding-top', $top);
+  padding-bottom: parseInt($bottom) * 1px;
+  @include rem('padding-bottom', $bottom);
 }
 
 /// Helper to add padding to top and bottom of element
 /// @param $value
-@mixin tb-pad($value: 10px) {
-  padding-top: parseInt($value) * 1px;
-  @include rem('padding-top', $value);
-  padding-bottom: parseInt($value) * 1px;
-  @include rem('padding-bottom', $value);
+@mixin tb-pad($top: ($vr * 2), $bottom: $top) {
+  padding-top: parseInt($top) * 1px;
+  @include rem('padding-top', $top);
+  padding-bottom: parseInt($bottom) * 1px;
+  @include rem('padding-bottom', $bottom);
 }
 
 /// Helper to add padding to left and right of element
 /// @param $value
-@mixin lr-pad($value: 20px) {
-  padding-left: parseInt($value) * 1px;
-  @include rem('padding-left', $value);
-  padding-right: parseInt($value) * 1px;
-  @include rem('padding-right', $value);
+@mixin lr-pad($left: $lr-pad, $right: $left) {
+  padding-left: parseInt($left) * 1px;
+  @include rem('padding-left', $left);
+  padding-right: parseInt($right) * 1px;
+  @include rem('padding-right', $right);
 }
 
 /// Helper function for font weights
@@ -157,7 +154,7 @@
     @include span-columns(12);
   }
   @include media($m) {
-    @include span-columns(3);
+    @include span-columns(12);
   }
   @include media($l) {
     @include span-columns(3);
@@ -178,7 +175,7 @@
     @include omega(1n);
   }
   @include media($m) {
-    @include span-columns(4);
+    @include span-columns(12);
     @include omega(3n);
   }
   @include media($l) {
@@ -200,7 +197,7 @@
     @include span-columns(12);
   }
   @include media($m) {
-    @include span-columns(4);
+    @include span-columns(12);
   }
   @include media($l) {
     @include span-columns(4);
@@ -219,7 +216,7 @@
     @include span-columns(12);
   }
   @include media($m) {
-    @include span-columns(8);
+    @include span-columns(12);
   }
   @include media($l) {
     @include span-columns(8);
@@ -239,7 +236,7 @@
     @include omega(1n);
   }
   @include media($m) {
-    @include span-columns(6);
+    @include span-columns(12);
     @include omega(2n);
   }
   @include media($l) {
@@ -262,7 +259,7 @@
     @include span-columns(12);
   }
   @include media($m) {
-    @include span-columns(6);
+    @include span-columns(12);
   }
   @include media($l) {
     @include span-columns(6);

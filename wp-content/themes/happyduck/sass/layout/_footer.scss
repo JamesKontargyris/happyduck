@@ -1,0 +1,82 @@
+.footer-head {
+  position:relative;
+  @include rem('height', 190px);
+  @include rem('margin-top', ($vr * 2));
+  background:
+    url('img/footer-waves.png') bottom left repeat-x,
+    linear-gradient($white 0, $light-blue 100%);
+}
+
+.footer-head__mascot {
+  position:absolute;
+  left:50%;
+  height:100%;
+  @include rem('margin-left', -56px);
+  @include rem('top', 30px);
+
+  @include media($l-up) {
+    height:auto;
+    @include rem('margin-left', -75px);
+    @include rem('top', 10px);
+  }
+}
+
+.footer {
+  background-color: $dark-blue;
+  @include pad(0 $lr-pad ($vr * 2) $lr-pad);
+  #{headings(5)} {
+    @include font-size(12, 16);
+    color:$yellow;
+  }
+}
+
+.footer__sections {
+  @include outer-container();
+  @include font-size(14, 24);
+}
+
+.footer__section {
+  color:$light-blue;
+  @include one-third-nom();
+  &:not(:last-child) {
+    @include rem('margin-bottom', ($vr * 4));
+  }
+
+  &:last-child {
+    @include one-third();
+  }
+
+  @include media($l-up) {
+    margin-bottom:0;
+  }
+}
+
+
+// Mailing list signup bar
+
+.footer__mailing-list {
+  background-color:$mid-blue;
+  @include lr-pad();
+  @include tb-pad();
+}
+
+// Copyright info and legal links
+.footer__site-info {
+  background-color:$deep-blue;
+  color: $mid-blue;
+  @include font-size(12, 14);
+  @include all-pad($lr-pad, $vr * 2);
+}
+
+.footer__site-info__cols {
+  @include outer-container();
+}
+
+.footer__site-info__left-col,
+.footer__site-info__right-col {
+  @include rem('margin-bottom', $vr);
+  @include media($l-up) {
+    @include span-columns(6);
+    margin-bottom:0;
+  }
+}

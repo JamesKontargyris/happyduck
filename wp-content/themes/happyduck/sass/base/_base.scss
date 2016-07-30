@@ -1,9 +1,18 @@
 * {
   z-index: z('default');
 }
-.container {
-  @include outer-container();
+
+address {
+  font-style:normal;
 }
+
+a img {
+  transition: all $base-duration $base-timing;
+  &:hover {
+    opacity:0.7;
+  }
+}
+
 
 .has-drop-shadow {
   position:relative;

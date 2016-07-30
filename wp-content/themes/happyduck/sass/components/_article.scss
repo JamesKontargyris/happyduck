@@ -1,0 +1,30 @@
+.article-extract {
+  @include clearfix();
+  &:not(:last-child) {
+    @include rem('margin-bottom', ($vr * 2));
+  }
+}
+
+.article-extract__title {
+  @include font-weight('medium');
+  @include rem('line-height', 18px);
+  display:block;
+}
+
+.article-extract--inline {
+
+  .article-extract__image {
+    float:none;
+    @include rem('margin-right', 15px);
+
+    @include media($m) {
+      float:left;
+    }
+
+    @include media($xl) {
+      float:left;
+    }
+  }
+
+}
+

@@ -1,5 +1,5 @@
 .header {
-  @include lr-pad(10px);
+  @include lr-pad();
   background-color: white;
   z-index: z('high');
 

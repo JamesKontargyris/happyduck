@@ -16,3 +16,12 @@
 
   @return map-get($z-layers, $layer);
 }
+
+// Apply styles to all or some of the 6 heading levels
+@function headings($from:1, $to:6) {
+  @if $from == $to {
+    @return 'h#{$from}';
+  } @else {
+    @return 'h#{$from},' + headings($from+1, $to);
+  }
+}

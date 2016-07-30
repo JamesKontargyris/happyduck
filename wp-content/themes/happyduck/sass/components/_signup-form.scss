@@ -1,0 +1,64 @@
+/// Mailing list sign-up form
+
+// Form container
+.signup-form {
+  @include outer-container();
+}
+
+// Add padding if needed
+.signup-form--padded {
+  @include all-pad(($vr * 2));
+}
+
+// Brief intro to the form
+.signup-form__intro {
+  @include rem('margin-bottom', $vr);
+
+  @include media($l-up) {
+    margin-bottom:0;
+  }
+}
+
+// Each field and/or label should be contained
+// within a fieldgroup
+.signup-form__fieldgroup {
+  @include rem('margin-bottom', $vr);
+
+  @include media($l-up) {
+    &:not(:last-child) {
+      margin-bottom:0;
+    }
+  }
+}
+
+// Inline version of the form
+// Order: intro | fields | submit button
+.signup-form--inline {
+
+  @include media($l-up) {
+
+    .signup-form__intro {
+      @include span-columns(4);
+    }
+
+    .signup-form__fields {
+      @include span-columns(6);
+      display:flex;
+      justify-content: space-between;
+      align-content:flex-start;
+      align-items: flex-start;
+    }
+
+    .signup-form__fieldgroup {
+      flex-grow:1;
+
+      &:not(:last-child) {
+        @include rem('margin-right', 10px);
+      }
+    }
+
+    .signup-form__submit {
+      @include span-columns(2);
+    }
+  }
+}

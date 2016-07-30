@@ -1,3 +1,8 @@
+/// A full-width menu used as a sub-navigation
+/// relevant to the content on the current page
+/// and sibling pages
+
+// Menu container
 .page-menu {
   margin: 0;
   padding: 0;
@@ -5,6 +10,7 @@
   z-index: z('medium');
 }
 
+// All items
 .page-menu__items {
   margin: 0;
   padding: 0;
@@ -19,24 +25,26 @@
   }
 }
 
+// Single item
 .page-menu__item {
-  position: relative;
+  position: relative; // needed for an active link, which is positioned absolutely
   width: 100%;
   display:none;
 
   &:not(:last-child) {
-    border-right: 1px solid rgba($dark-grey, 0.1);
+    border-right: 1px solid rgba($dark-grey, 0.1); // dividers
   }
 
   @include media($l-up) {
-    display:block;
+    display:block; // fill the parent's width
   }
 }
 
+// Toggle button on smaller screens
 .page-menu__mobile-toggle {
   text-transform: uppercase;
   cursor:pointer;
-  @include pad($vr);
+  @include all-pad();
   @include font-weight('bold');
   font-size:1.4rem;
   color:$white;
@@ -47,10 +55,12 @@
   }
 }
 
-.page-menu__link {
+// Links within items
+.page-menu__link:link,
+.page-menu__link:visited {
   display: block;
   @include tb-pad(15px);
-  @include lr-pad(10px);
+  @include lr-pad();
   @include font-size(16, 18);
   text-align: center;
   color: $dark-grey;
@@ -59,18 +69,19 @@
   border-top:1px solid rgba($dark-grey, 0.1);
 
   @include media($l-up) {
-    @include tb-pad(20px);
+    @include tb-pad();
     border-top:0;
   }
-
-  &:hover {
-    background-color: darken($yellow, 12%);
-    color: $white;
-    text-shadow: none;
-  }
+}
+.page-menu__link:hover {
+  background-color: darken($yellow, 12%);
+  color: $white;
+  text-shadow: none;
 }
 
-.page-menu__link--active {
+// Active link
+.page-menu__link--active:link,
+.page-menu__link--active:visited {
   background-color:$coral;
   @include font-weight('medium');
   color:$white;
@@ -84,10 +95,9 @@
     border-right:2px solid hsla(0, 100%, 0, 0.2);
 
   }
-
-  &:hover {
-    background-color:$coral;
-    color:$white;
-    text-shadow: 0 -1px 0 darken($coral, 30%);
-  }
+}
+.page-menu__link--active:hover {
+  background-color:$coral;
+  color:$white;
+  text-shadow: 0 -1px 0 darken($coral, 30%);
 }

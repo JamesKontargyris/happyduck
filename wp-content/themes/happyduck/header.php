@@ -28,7 +28,7 @@
 		<div class="header__inner">
 			<img class="logo" src="http://placehold.it/300x75" alt="Happy Duck Consulting">
 			<nav class="header__nav">
-				<ul class="link-group link-group--align-right">
+				<ul class="link-group link-group--inline link-group--align-right">
 					<li class="link-group__item"><img src="http://placehold.it/24x24" alt=""></li>
 					<li class="link-group__item"><img src="http://placehold.it/24x24" alt=""></li>
 					<li class="link-group__item"><img src="http://placehold.it/24x24" alt=""></li>

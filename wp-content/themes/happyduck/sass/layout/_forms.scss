@@ -1,0 +1,19 @@
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=submit] {
+  @include font-size(15, 16);
+  font-family: $base-font-family;
+  @include rem('padding', 8px);
+  border:1px solid $light-grey;
+}
+
+.input--full-span {
+  width:100%;
+}
+
+label {
+  display:block;
+  //@include font-weight('medium');
+  @include rem('margin-bottom', $small-spacing);
+}

@@ -142,3 +142,39 @@ require get_template_directory() . '/inc/customizer.php';
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/inc/jetpack.php';
+
+
+
+// Happy Duck Functions
+
+
+/**
+ * Helper function to return a theme image
+ * @param $filename
+ *
+ * @return string
+ */
+function t_img($filename)
+{
+	return get_template_directory_uri() . '/img/' . $filename;
+}
+
+/**
+ * Helper function to truncate text to a desired length,
+ * cutting off text at the first white space beyond the
+ * character count
+ * @param $text
+ * @param int $chars
+ *
+ * @return string
+ */
+function truncate($text, $chars = 25) {
+	if(strlen($text) <= $chars) return $text;
+
+	$text = $text." ";
+	$text = substr($text,0,$chars);
+	$text = substr($text,0,strrpos($text,' '));
+	$text = $text."...";
+
+	return $text;
+}
