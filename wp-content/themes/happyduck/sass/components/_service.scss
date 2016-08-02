@@ -1,0 +1,133 @@
+.service {
+  position:relative;
+  border-bottom:2px solid $white;
+
+  @include media($l-up) {
+    @include rem('padding-bottom', ($vr * 3));
+  }
+
+  &:last-child {
+    .service__content:before {
+      display:none; // hide the line on the last service of the list
+    }
+  }
+}
+
+// Default
+.service__toggle-arrow {
+  position:absolute;
+  right:($vr * 2);
+  top:40%;
+  width:12px;
+  height:12px;
+  background:url('img/arrow-down.svg') top left no-repeat;
+  background-size: 12px 12px;
+
+  &--toggled {
+    background:url('img/arrow-up.svg') top left no-repeat;
+    background-size:12px 12px;
+  }
+
+  @include media($l-up) {
+    display:none;
+  }
+}
+
+.service__bar {
+  background-color:tint($yellow, 80%); // pale yellow bar containing title
+  cursor:pointer;
+
+  @include media($m) {
+    @include tb-pad($vr);
+  }
+  @include media($l-up) {
+    cursor: default;
+  }
+}
+
+.service__header {
+  position:relative;
+  @include outer-container();
+  justify-content: flex-start;
+  align-items: center;
+  @include lr-pad();
+  z-index: z('high');
+
+  @include media($m) {
+    display:flex;
+  }
+}
+
+.service__content {
+  display:none;
+  @include lr-pad();
+  @include rem('margin-bottom', ($vr * 2));
+
+  @include media($l-up) {
+    @include outer-container();
+    display:block;
+    position:relative;
+    @include rem('margin-bottom', 0);
+
+    &:before {
+      @include media($l-up) {
+        z-index: z('low');
+        content: "";
+        width: 10px;
+        position: absolute;
+        border-left: 1px solid $yellow;
+        height: calc(100% + 30px);
+        @include rem('left', (($column + $gutter) * 2.65));
+        top: 0;
+      }
+    }
+  }
+}
+
+.service__title {
+  @extend .h4;
+  @include font-weight('bold');
+
+}
+
+.service__title,
+.service__description {
+  position:relative;
+  @include tb-pad($vr);
+
+  @include media($l-up) {
+    @include tb-pad();
+    @include rem('padding-left', (($column + $gutter) * 3));
+    @include rem('padding-right', ($column + $gutter));
+
+  }
+}
+
+.service__icon {
+  display:none;
+  @include rem('width', 40px);
+  height:auto;
+  float:left;
+
+  > svg {
+    display:block;
+    margin:0 auto;
+  }
+
+  @include media($m-up) {
+    display: flex;
+    @include background(linear-gradient(to bottom right, $yellow 0, #ffa733 100%));
+    border-radius:50%;
+    @include size(60px);
+    @include rem('margin-right', 10px);
+  }
+
+  @include media($l-up) {
+    //display:block;
+    position:absolute;
+    left:(($column + $gutter) * 2.2);
+    top:-0.7rem;
+    @include size(82px);
+
+  }
+}

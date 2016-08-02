@@ -79,10 +79,8 @@
 					<label class="text--white" for="email">Your email address</label>
 					<input type="text" class="input--full-span">
 				</div>
-			</div>
-			<div class="signup-form__submit">
 				<div class="signup-form__fieldgroup">
-					<input type="submit" value="Join">
+					<input type="submit" value="Join" class="btn btn--primary btn--fill-parent">
 				</div>
 			</div>
 		</div>

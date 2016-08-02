@@ -1,0 +1,118 @@
+// Used to toggle elements
+.show {
+  display:block !important;
+}
+
+.hide {
+  display:none !important;
+}
+
+// Show / hide helper classes
+.show--xs {
+  @include media($xs) {
+    display:block;
+  }
+}
+
+.show--s {
+  @include media($s) {
+    display:block;
+  }
+}
+
+.show--m {
+   @include media($m) {
+     display:block;
+   }
+ }
+
+.show--l {
+  @include media($l) {
+    display:block;
+  }
+}
+
+.show--xl {
+  @include media($xl) {
+    display:block;
+  }
+}
+
+.show--s-up {
+  @include media($s-up) {
+    display:block;
+  }
+}
+
+.show--m-up {
+  @include media($m-up) {
+    display:block;
+  }
+}
+
+.show--l-up {
+  @include media($l-up) {
+    display:block;
+  }
+}
+
+.show--xl-up {
+  @include media($xl-up) {
+    display:block;
+  }
+}
+
+
+.hide--xs {
+  @include media($xs) {
+    display:none;
+  }
+}
+
+.hide--s {
+  @include media($s) {
+    display:none;
+  }
+}
+
+.hide--m {
+  @include media($m) {
+    display:none;
+  }
+}
+
+.hide--l {
+  @include media($l) {
+    display:none;
+  }
+}
+
+.hide--xl {
+  @include media($xl) {
+    display:none;
+  }
+}
+
+.hide--s-up {
+  @include media($s-up) {
+    display:none;
+  }
+}
+
+.hide--m-up {
+  @include media($m-up) {
+    display:none;
+  }
+}
+
+.hide--l-up {
+  @include media($l-up) {
+    display:none;
+  }
+}
+
+.hide--xl-up {
+  @include media($xl-up) {
+    display:none;
+  }
+}

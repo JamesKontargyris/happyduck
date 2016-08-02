@@ -45,30 +45,3 @@
 	</header>
 
 	<div id="content" class="site-content">
-		
-		<section class="page-menu has-drop-shadow">
-			<ul class="page-menu__items">
-				<li class="page-menu__mobile-toggle is-toggle" data-toggle-items=".page-menu__item">
-					<img class="icon icon--xsmall icon--right" src="<?php echo get_template_directory_uri(); ?>/img/menu.svg" alt=""> Our Services
-				</li>
-				<li class="page-menu__item">
-					<a class="page-menu__link" href="#">Business and Financial Analysis</a>
-				</li>
-				<li class="page-menu__item">
-					<a class="page-menu__link page-menu__link--active" href="#">Financial and Scenario Modelling</a>
-				</li>
-				<li class="page-menu__item">
-					<a class="page-menu__link" href="#">Data Manipulation and Presentation</a>
-				</li>
-				<li class="page-menu__item">
-					<a class="page-menu__link" href="#">Business Management Tools</a>
-				</li>
-				<li class="page-menu__item">
-					<a class="page-menu__link" href="#">Password Recovery / Removal</a>
-				</li>
-			</ul>
-		</section>
-
-		<section class="hero" style="background-color:#ff6666">
-			w00t
-		</section>

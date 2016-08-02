@@ -1,0 +1,90 @@
+.btn {
+  display: inline-block;
+  @include font-weight('bold');
+  @include all-pad();
+  @include rem('border-radius', 6px);
+  @include rem('margin-bottom', $vr);
+}
+
+.btn--xsmall {
+  @include font-size(12px, 14px);
+}
+.btn--small {
+  @include font-size(14px, 16px);
+}
+.btn--large {
+  @include font-size(21px, 24px);
+}
+.btn--xlarge {
+  @include font-size(24px, 28px);
+}
+
+.btn--primary {
+  background-color: $blue !important;
+  color:$white !important;
+  text-shadow: 0 -1px 0 rgba($dark-grey, 0.2);
+  border-bottom: 2px solid rgba(shade($blue, 50%), 0.6) !important;
+
+  &:hover {
+    background-color:shade($blue, 15%) !important;
+  }
+
+  &:active {
+    background-color:shade($blue, 35%) !important;
+  }
+}
+
+.btn--secondary {
+  color:$blue !important;
+  background-color:$white;
+  border:1px solid tint($blue, 75%) !important;
+
+  &:hover {
+    background-color:tint($blue, 90%) !important;
+  }
+
+  &:active {
+    background-color:tint($blue, 50%) !important;
+  }
+}
+
+.btn--tertiary {
+  @include font-weight('regular');
+  color:darken($light-grey, 30%) !important;
+  background-color: $light-grey !important;
+
+  &:hover {
+    background-color:tint($blue, 90%) !important;
+    color:$blue !important;
+  }
+
+  &:active {
+    background-color:tint($blue, 50%) !important;
+  }
+}
+
+.btn--full-span {
+  width:100%;
+}
+
+.btn--fill-parent {
+  display:block;
+  @include size(100%);
+  margin:0;
+}
+
+
+// Button group for 1 or more buttons
+.btn-group {
+  display:block;
+}
+
+.btn-group--align-left {
+  text-align:left;
+}
+.btn-group--align-centre {
+  text-align:center;
+}
+.btn-group--align-right {
+  text-align:right;
+}

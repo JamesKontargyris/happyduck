@@ -144,8 +144,40 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/jetpack.php';
 
 
+// Allow SVG
+function cc_mime_types($mimes) {
+	$mimes['svg'] = 'image/svg+xml';
+	return $mimes;
+}
+add_filter('upload_mimes', 'cc_mime_types');
+
+//Ensure svg previews display correctly on admin pages
+function svg_size() {
+	echo '<style>
+    svg, img[src*=".svg"] {
+      max-width: 150px !important;
+      max-height: 150px !important;
+    }
+  </style>';
+}
+add_action('admin_head', 'svg_size');
+
 
 // Happy Duck Functions
+
+function get_service_areas()
+{
+	global $post;
+
+	$args = [
+		'post_type' => 'service-area',
+		'post_status' => 'publish',
+		'posts_per_page' => -1,
+		'orderby' => 'menu_order'
+	];
+
+	return get_posts($args);
+}
 
 
 /**

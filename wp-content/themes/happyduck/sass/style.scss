@@ -19,12 +19,13 @@
 'base/normalize',
 'base/underscores',
 'base/base',
+'base/grid',
 'base/typography';
 
 /// Layout (page partials)
 @import
-'layout/grid',
 'layout/navigation',
+'layout/show-hide',
 'layout/header',
 'layout/footer',
 'layout/sidebar',
@@ -32,12 +33,17 @@
 
 /// Components (modules)
 @import
+'components/para',
+'components/btn',
+'components/hero',
 'components/logo',
 'components/page-menu',
 'components/icon',
 'components/link-group',
 'components/article',
-'components/signup-form';
+'components/divider',
+'components/signup-form',
+'components/service';
 
 /// Page-specific stylesheets
 //@import

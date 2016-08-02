@@ -42,15 +42,16 @@
     }
 
     .signup-form__fields {
-      @include span-columns(6);
+      @include span-columns(8);
       display:flex;
       justify-content: space-between;
-      align-content:flex-start;
-      align-items: flex-start;
+      align-content:center;
+      align-items: stretch;
     }
 
     .signup-form__fieldgroup {
       flex-grow:1;
+      margin:0;
 
       &:not(:last-child) {
         @include rem('margin-right', 10px);

@@ -1,0 +1,21 @@
+.divider {
+  border-top:0;
+  border-left:0;
+  border-bottom:0;
+  border-right:0;
+  @include rem('margin-bottom', ($vr * 2));
+  @include rem('height', 5px);
+  background-color:$dark-grey;
+}
+
+.divider--narrow {
+   display:block;
+   @include rem('width', 60px);
+   margin-left:auto;
+   margin-right:auto;
+ }
+
+.divider--overlay {
+  background-color:$white;
+  opacity:0.3;
+}

@@ -5,12 +5,12 @@ body {
   line-height: $base-line-height;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
   font-family: $heading-font-family;
   font-size: $base-font-size;
   line-height: $heading-line-height;
@@ -18,25 +18,66 @@ h6 {
   font-weight:normal;
 }
 
-h4 {
-  @include font-size(21px, 24px);
+h2, .h2 {
+  @include font-size(32px, 36px);
+  @include rem('margin', 0 0 ($vr * 2) 0);
+
+  @include media($l-up) {
+    @include font-size(42px, 46px);
+    @include rem('margin', 0 0 ($vr * 3) 0);
+  }
 }
 
-h5 {
+h3, .h3 {
+  @include font-size(24px, 28px);
+  @include rem('margin', 0 0 ($vr * 2) 0);
+
+  @include media($l-up) {
+    @include font-size(32px, 36px);
+    @include rem('margin', 0 0 ($vr * 3) 0);
+  }
+}
+
+h4, .h4 {
+  @include font-size(18px, 21px);
+
+  @include media($l-up) {
+    @include font-size(21px, 24px);
+  }
+}
+
+h5, .h5,
+h6, .h6 {
   text-transform: uppercase;
   @include font-weight('bold');
   @include rem('letter-spacing', 4px);
   @include rem('margin', 0 0 ($vr * 2) 0);
 }
 
+h6, .h6 {
+  @include font-size(14px, 18px);
+  @include rem('margin', 0 0 $vr 0);
+}
+
+// classes that enable a header to appear styled
+// to another header's look
+// (useful when you want an H1 header to look different
+// but still remain the main page title)
+$headings: 'h1', 'h2', 'h3', 'h4', 'h5', 'h6';
+@each $heading in $headings {
+  .header--show-as-#{$heading} {
+    @extend .#{$heading};
+  }
+}
+
 p {
-  margin: 0 0 $small-spacing;
+  margin: 0 0 ($vr * 2);
 }
 
 a {
   color: $action-color;
   text-decoration: none;
-  transition: color $base-duration $base-timing;
+  transition: color $base-duration $base-timing, background-color $base-duration $base-timing;
 
   &:visited {
     color: inherit;
@@ -98,4 +139,7 @@ picture {
 }
 .text--white {
   color:$white;
+}
+.text--coral {
+  color:$coral;
 }

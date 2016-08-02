@@ -79,8 +79,8 @@
 /// @param {Length} $width
 /// @param {Length} $height
 @mixin size($width, $height: $width) {
-  width: $width;
-  height: $height;
+  @include rem('width', $width);
+  @include rem('height', $height);
 }
 
 /// Helper to add padding to an element
@@ -285,5 +285,37 @@
   }
   @include media($xl) {
     @include span-columns(12);
+  }
+}
+
+
+// Responsive mixins that can be used for interpolation
+@mixin breakpoint--xs {
+  @include media($xs) {
+    @content
+  }
+}
+
+@mixin breakpoint--s {
+  @include media($s) {
+    @content
+  }
+}
+
+@mixin breakpoint--m {
+  @include media($m) {
+    @content
+  }
+}
+
+@mixin breakpoint--l {
+  @include media($l) {
+    @content
+  }
+}
+
+@mixin breakpoint--xl {
+  @include media($xl) {
+    @content
   }
 }

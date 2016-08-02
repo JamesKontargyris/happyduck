@@ -80,3 +80,17 @@
     margin-bottom:0;
   }
 }
+
+
+// Page footer
+.page-footer {
+  @include background(linear-gradient(to bottom, $light-grey 0, $white 100%));
+  @include lr-pad();
+  @include rem('margin-top', $vr * 6);
+
+  .page-footer__content {
+    @include outer-container();
+    @include tb-pad(40px);
+    text-align:center;
+  }
+}
