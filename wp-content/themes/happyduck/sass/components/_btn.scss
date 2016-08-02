@@ -8,9 +8,11 @@
 
 .btn--xsmall {
   @include font-size(12px, 14px);
+  @include all-pad(($vr * 0.4), 8px);
 }
 .btn--small {
   @include font-size(14px, 16px);
+  @include all-pad(($vr * 0.6), 8px);
 }
 .btn--large {
   @include font-size(21px, 24px);

@@ -7,6 +7,10 @@
   @include rem('margin-bottom', $vr);
 }
 
+.icon--circle {
+  border-radius: 50%;
+}
+
 .icon--right {
   float:right;
 }
@@ -33,7 +37,7 @@ $icon-sizes: (
 }
 
 // Extra decoration
-.icon--circle {
+.icon--badge {
   box-sizing: content-box;
   background-color: $coral;
   border-radius:50%;

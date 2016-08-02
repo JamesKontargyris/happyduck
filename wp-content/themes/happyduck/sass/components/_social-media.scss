@@ -1,0 +1,44 @@
+.social-media__link {
+  display:inline-block;
+  vertical-align: middle;
+  border-radius:50%;
+  @include size(24px 24px);
+  @include all-pad($vr * 0.4, $vr * 0.4);
+  @include rem('margin-bottom', $vr);
+
+  &:hover {
+    background-color:shade($blue, 25%);
+  }
+}
+
+.social-media__link > svg,
+.social-media__link > path,
+.social-media__link > img {
+  @include size(16px 16px); // default size
+  display:block;
+  fill: $white;
+}
+
+.social-media__link--facebook {
+  background-color:$facebook;
+}
+
+.social-media__link--twitter {
+  background-color:$twitter;
+}
+
+.social-media__link--googleplus {
+  background-color:$googleplus;
+}
+
+.social-media__link--linkedin {
+  background-color:$googleplus;
+}
+
+.social-media__link--white {
+  background-color: $white;
+
+  & > path, & > svg {
+    fill: $dark-blue;
+  }
+}

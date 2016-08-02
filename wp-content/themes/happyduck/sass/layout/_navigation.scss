@@ -38,7 +38,7 @@
 
 .menu__link,
 .menu__link:visited {
-  @include rem('padding', 4px 5px);
+  @include rem('padding', 4px 7px);
   display:block;
   text-align: center;
   color:$blue;
@@ -50,8 +50,8 @@
 .menu__link--active:link,
 .menu__link--active:visited {
   background-color: $coral;
-  @include font-weight('medium');
-  @include rem('border-radius', 3px);
+  @include font-weight('bold');
+  @include rem('border-radius', 6px);
   color: $white;
 }
 

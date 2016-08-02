@@ -1,10 +1,16 @@
 .header {
-  @include lr-pad();
+  @include lr-pad($vr * 0.7);
   background-color: white;
   z-index: z('high');
 
+  @include media($l-up) {
+    @include lr-pad($lr-pad * 1.5);
+  }
+
   &__inner {
     @include outer-container();
+    display:flex;
+    justify-content: space-between;
     @include tb-pad($vr);
     height:100%;
 
@@ -20,7 +26,6 @@
     left:0;
     @include size(100% 100%);
     min-height:100%;
-    background-color: white;
 
     @include media($m-up) {
       position:relative;
@@ -34,6 +39,7 @@
 
     @include media($l-up) {
       @include span-columns(8, 'flex');
+      @include omega();
     }
   }
 }

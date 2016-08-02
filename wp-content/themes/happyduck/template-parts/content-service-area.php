@@ -14,7 +14,7 @@
 		<section class="hero hero--coral hero--align-centre">
 			<div class="hero__content">
 				<?php if(has_post_thumbnail()) : ?>
-					<img class="icon icon--xxxlarge" src="<?php echo t_img('crystalball.svg'); ?>" alt="Crystal Ball">
+					<img class="icon icon--xxxlarge hide--xs hide--s" src="<?php echo t_img('crystalball.svg'); ?>" alt="Crystal Ball">
 				<?php endif; ?>
 				<h1 class="entry-title header--show-as-h6 text--white hide--l-up"><?php the_title(); ?></h1>
 				<h2 class="text--white text--regular"><?php echo get_field('headline'); ?></h2>
@@ -73,7 +73,7 @@
 
 	<footer class="entry-footer page-footer">
 		<div class="page-footer__content padding--no-top">
-			<i class="icon icon--circle icon--centred icon--nudge-up">
+			<i class="icon icon--badge icon--centred icon--nudge-up">
 				<img class="svg" src="<?php echo t_img('speech-bubble.svg'); ?>">
 			</i>
 			<h3 class="text--coral">Ready to discuss your project?</h3>

@@ -60,6 +60,16 @@
 					Tel. 01234 5678910 <br>
 					<a href="#" class="link--white text--medium">hello@happyduckco.co.uk</a>
 				</address>
+
+				<ul class="link-group link-group--inline">
+					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--white" href="http://facebook.com"><img class="svg" src="<?php echo t_img('facebook-logo.svg'); ?>" alt="Facebook"></a></li>
+					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--white" href="http://twitter.com"><img class="svg" src="<?php echo t_img('twitter-logo.svg'); ?>" alt="Twitter"></a></li>
+					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--white" href="http://plus.google.com"><img class="svg" src="<?php echo t_img('googleplus-logo.svg'); ?>" alt="Google+"></a></li>
+					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--white" href="http://linkedin.com"><img class="svg" src="<?php echo t_img('linkedin-logo.svg'); ?>" alt="LinkedIn"></a></li>
+				</ul>
+
+				<a href="#" class="btn btn--primary btn--small">Live Chat</a>
+
 			</section>
 		</div>
 	</footer>
@@ -99,7 +109,6 @@
 					<li class="link-group__item"><a class="link-group__link link--white text--medium" href="#">Privacy Policy</a></li>
 				</ul>
 			</div>
-
 		</div>
 	</section>
 

@@ -26,13 +26,14 @@
 
 	<header class="header has-drop-shadow">
 		<div class="header__inner">
-			<img class="logo" src="http://placehold.it/300x75" alt="Happy Duck Consulting">
+			<img class="logo" src="<?php echo t_img('hdc_logo.svg'); ?>" alt="Happy Duck Consulting">
 			<nav class="header__nav">
 				<ul class="link-group link-group--inline link-group--align-right">
-					<li class="link-group__item"><img src="http://placehold.it/24x24" alt=""></li>
-					<li class="link-group__item"><img src="http://placehold.it/24x24" alt=""></li>
-					<li class="link-group__item"><img src="http://placehold.it/24x24" alt=""></li>
-					<li class="link-group__item"><img src="http://placehold.it/24x24" alt=""></li>
+					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--facebook" href="http://facebook.com"><img class="svg" src="<?php echo t_img('facebook-logo.svg'); ?>" alt="Facebook"></a></li>
+					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--twitter" href="http://twitter.com"><img class="svg" src="<?php echo t_img('twitter-logo.svg'); ?>" alt="Twitter"></a></li>
+					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--googleplus" href="http://plus.google.com"><img class="svg" src="<?php echo t_img('googleplus-logo.svg'); ?>" alt="Google+"></a></li>
+					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--linkedin" href="http://linkedin.com"><img class="svg" src="<?php echo t_img('linkedin-logo.svg'); ?>" alt="LinkedIn"></a></li>
+					<li class="link-group__item"><a class="btn btn--primary btn--xsmall margin--none" href="#">Live Chat</a></li>
 				</ul>
 				<ul class="menu menu--inline menu--no-bottom-margin menu--align-right">
 					<li class="menu__item"><a href="#" class="menu__link">About Us</a></li>

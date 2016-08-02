@@ -86,7 +86,7 @@
 .page-footer {
   @include background(linear-gradient(to bottom, $light-grey 0, $white 100%));
   @include lr-pad();
-  @include rem('margin-top', $vr * 6);
+  @include rem('margin-top', $vr * 4);
 
   .page-footer__content {
     @include outer-container();
