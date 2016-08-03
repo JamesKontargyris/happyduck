@@ -28,6 +28,7 @@
 		<div class="header__inner">
 			<img class="logo" src="<?php echo t_img('hdc_logo.svg'); ?>" alt="Happy Duck Consulting">
 			<nav class="header__nav">
+<!--				<i class="header__nav-mobile-menu-toggle icon icon--medium"><img class="svg" src="--><?php //t_img( 'menu.svg' ); ?><!--" alt=""></i>-->
 				<ul class="link-group link-group--inline link-group--align-right">
 					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--facebook" href="http://facebook.com"><img class="svg" src="<?php echo t_img('facebook-logo.svg'); ?>" alt="Facebook"></a></li>
 					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--twitter" href="http://twitter.com"><img class="svg" src="<?php echo t_img('twitter-logo.svg'); ?>" alt="Twitter"></a></li>

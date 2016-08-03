@@ -2,7 +2,9 @@
 	<section class="page-menu has-drop-shadow">
 		<ul class="page-menu__items">
 			<li class="page-menu__mobile-toggle is-toggle" data-toggle-items=".page-menu__item">
-				<img class="icon icon--small icon--right" src="<?php echo get_template_directory_uri(); ?>/img/menu.svg" alt=""> Our Services
+				<i class="icon icon--small icon--right">
+					<img class="svg" src="<?php echo get_template_directory_uri(); ?>/img/menu.svg" alt="Menu">
+				</i> Our Services
 			</li>
 			<?php foreach($areas as $area) :?>
 			<li class="page-menu__item">

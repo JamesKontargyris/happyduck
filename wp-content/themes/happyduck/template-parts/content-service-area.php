@@ -60,7 +60,7 @@
 
 	<footer class="entry-footer page-footer">
 		<div class="page-footer__content padding--no-top">
-			<i class="icon icon--badge icon--small icon--centred icon--nudge-up">
+			<i class="icon icon--badge icon--small icon--nudge-up">
 				<img class="svg" src="<?php echo t_img('speech-bubbles.svg'); ?>">
 			</i>
 			<h3 class="text--coral">Ready to discuss your project?</h3>

@@ -50,6 +50,10 @@
   color:$white;
   background-color:rgba($dark-grey, 0.1);
 
+  svg {
+    fill:$white;
+  }
+
   @include media($l-up) {
     display:none;
   }

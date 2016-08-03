@@ -103,6 +103,15 @@
 }
 
 .service__icon {
+  text-align: center;
+
+  &:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    margin-left:-4px; // hack to make up for the icon being pushed to the right slightly
+  }
 
   > svg {
     fill:shade($brown, 25%);
