@@ -149,3 +149,8 @@ picture {
 .text--brown {
   color:$brown;
 }
+
+// Text size helper classes
+.text--12 {
+  @include font-size(12px, 14px);
+}

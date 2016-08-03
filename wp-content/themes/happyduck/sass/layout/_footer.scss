@@ -24,10 +24,6 @@
 .footer {
   background-color: $dark-blue;
   @include pad(0 $lr-pad ($vr * 2) $lr-pad);
-  #{headings(5)} {
-    @include font-size(12, 16);
-    color:$yellow;
-  }
 }
 
 .footer__sections {

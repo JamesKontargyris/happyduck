@@ -20,7 +20,7 @@
 	<footer class="footer">
 		<div class="footer__sections">
 			<section class="footer__section">
-				<h5>Quicklinks</h5>
+				<h5 class="text--12">Quicklinks</h5>
 				<ul class="link-group">
 					<li class="link-group__item"><a class="link-group__link link--white text--medium" href="#">About Us</a></li>
 					<li class="link-group__item"><a class="link-group__link link--white text--medium" href="#">Business and Financial Analysis</a></li>
@@ -30,7 +30,7 @@
 				</ul>
 			</section>
 			<section class="footer__section">
-				<h5>Recent Articles</h5>
+				<h5 class="text--12">Recent Articles</h5>
 				<div class="article-extract article-extract--inline">
 					<a class="link--white" href="#">
 						<img class="article-extract__image" src="http://lorempixel.com/120/80" alt="Article Title">						<span class="article-extract__title"><?php echo truncate('Basic Microsoft Excel functions: SUM and operators blah blah blah Basic Microsoft Excel functions: SUM and operators blah blah blah', 80); ?></span>
@@ -51,7 +51,7 @@
 				</div>
 			</section>
 			<section class="footer__section">
-				<h5>Contact Us</h5>
+				<h5 class="text--12">Contact Us</h5>
 				<address>
 					111 Western Avenue, Pontefract,<br>
 					West Yorkshire, WF1 2AB <br>
