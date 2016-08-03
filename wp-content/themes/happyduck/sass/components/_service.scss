@@ -18,14 +18,13 @@
   position:absolute;
   right:($vr * 2);
   top:40%;
-  width:12px;
-  height:12px;
+  @include size(10px);
   background:url('img/arrow-down.svg') top left no-repeat;
-  background-size: 12px 12px;
+  background-size: 10px 10px;
 
   &--toggled {
     background:url('img/arrow-up.svg') top left no-repeat;
-    background-size:12px 12px;
+    background-size:10px 10px;
   }
 
   @include media($l-up) {
@@ -104,30 +103,31 @@
 }
 
 .service__icon {
-  display:none;
-  @include rem('width', 40px);
-  height:auto;
-  float:left;
 
   > svg {
-    display:block;
-    margin:0 auto;
+    fill:shade($brown, 25%);
+  }
+
+  @include media($xs) {
+    display:none;
+  }
+
+  @include media($s) {
+    display:none;
   }
 
   @include media($m-up) {
-    display: flex;
     @include background(linear-gradient(to bottom right, $yellow 0, #ffa733 100%));
     border-radius:50%;
     @include size(60px);
+    @include rem('margin-left', 0);
     @include rem('margin-right', 10px);
   }
 
   @include media($l-up) {
-    //display:block;
     position:absolute;
     left:(($column + $gutter) * 2.2);
     top:-0.7rem;
     @include size(82px);
-
   }
 }

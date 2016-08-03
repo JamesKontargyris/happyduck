@@ -1,34 +1,33 @@
+/*
+* Icon classes
+* Always nest the actual image or SVG inside the icon element
+* Example: <i class="icon icon--medium icon--circle"><img class="svg" src="iconname.svg"></i>
+*/
+
 .icon, .icon > img, .icon > svg {
+  display:flex;
+  margin:0 auto;
   vertical-align: middle;
-  @include size(32px auto); // default size
 }
 
 .icon {
   @include rem('margin-bottom', $vr);
 }
 
-.icon--circle {
-  border-radius: 50%;
-}
-
-.icon--right {
-  float:right;
-}
-
 $icon-sizes: (
-  'xsmall': 16px,
-  'small': 24px,
-  'medium': 32px,
-  'large': 48px,
-  'xlarge': 60px,
-  'xxlarge': 100px,
-  'xxxlarge': 150px
+        'xsmall': 16px,
+        'small': 24px,
+        'medium': 32px,
+        'large': 48px,
+        'xlarge': 60px,
+        'xxlarge': 100px,
+        'xxxlarge': 150px
 );
 
 @each $label, $value in $icon-sizes {
   .icon--#{$label}, .icon--#{$label} > img, .icon--#{$label} > svg {
     height:auto;
-    @include rem('width', (map-get($icon-sizes, $label) * 0.7));
+    @include rem('width', (map-get($icon-sizes, $label) * 0.8));
 
     @include media($l-up) {
       @include rem('width', map-get($icon-sizes, $label));
@@ -36,19 +35,31 @@ $icon-sizes: (
   }
 }
 
-// Extra decoration
-.icon--badge {
-  box-sizing: content-box;
-  background-color: $coral;
-  border-radius:50%;
-  @include all-pad($vr, $vr);
-  border:4px solid $white;
+// Alignment
+.icon--right {
+  float:right;
 }
 
 .icon--centred {
   display:block;
   margin-left:auto;
   margin-right:auto;
+}
+
+
+
+// Extra decoration
+.icon--circle {
+  border-radius: 50%;
+}
+
+.icon--badge {
+  box-sizing: content-box;
+  background-color: $coral;
+  border-radius:50%;
+  @include all-pad($vr * 1.3, $vr * 1.3);
+  border:4px solid $white;
+  fill:$white;
 }
 
 .icon--nudge-up {

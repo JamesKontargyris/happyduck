@@ -90,7 +90,7 @@
 
   .page-footer__content {
     @include outer-container();
-    @include tb-pad(40px);
+    @include tb-pad();
     text-align:center;
   }
 }

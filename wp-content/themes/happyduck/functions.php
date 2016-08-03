@@ -179,7 +179,6 @@ function get_service_areas()
 	return get_posts($args);
 }
 
-
 /**
  * Helper function to return a theme image
  * @param $filename

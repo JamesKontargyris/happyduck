@@ -65,54 +65,54 @@
 
 .hide--xs {
   @include media($xs) {
-    display:none;
+    display:none !important;
   }
 }
 
 .hide--s {
   @include media($s) {
-    display:none;
+    display:none !important;
   }
 }
 
 .hide--m {
   @include media($m) {
-    display:none;
+    display:none !important;
   }
 }
 
 .hide--l {
   @include media($l) {
-    display:none;
+    display:none !important;
   }
 }
 
 .hide--xl {
   @include media($xl) {
-    display:none;
+    display:none !important;
   }
 }
 
 .hide--s-up {
   @include media($s-up) {
-    display:none;
+    display:none !important;
   }
 }
 
 .hide--m-up {
   @include media($m-up) {
-    display:none;
+    display:none !important;
   }
 }
 
 .hide--l-up {
   @include media($l-up) {
-    display:none;
+    display:none !important;
   }
 }
 
 .hide--xl-up {
   @include media($xl-up) {
-    display:none;
+    display:none !important;
   }
 }

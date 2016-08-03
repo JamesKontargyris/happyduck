@@ -14,7 +14,9 @@
 		<section class="hero hero--coral hero--align-centre">
 			<div class="hero__content">
 				<?php if(has_post_thumbnail()) : ?>
-					<img class="icon icon--xxxlarge hide--xs hide--s" src="<?php echo t_img('crystalball.svg'); ?>" alt="Crystal Ball">
+					<i class="icon icon--xxxlarge hide--xs hide--s">
+						<img src="<?php echo t_img('crystalball.svg'); ?>" alt="Crystal Ball">
+					</i>
 				<?php endif; ?>
 				<h1 class="entry-title header--show-as-h6 text--white hide--l-up"><?php the_title(); ?></h1>
 				<h2 class="text--white text--regular"><?php echo get_field('headline'); ?></h2>
@@ -27,54 +29,39 @@
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
-		<div class="service">
-			<div class="service__bar is-toggle" data-toggle-items=".service__content">
-				<div class="service__header">
-					<i class="service__toggle-arrow"></i>
-					<div class="service__icon icon icon--large margin--no-bottom"><img class="svg" src="<?php echo t_img('modelling.svg'); ?>"></div>
-					<div class="service__title text--mid-grey">Financial Modelling</div>
+		<?php if(get_field('services')) : ?>
+			<?php foreach(get_field('services') as $service_id) : ?>
+				<div class="service">
+					<div class="service__bar is-toggle" data-toggle-items=".service__content">
+						<div class="service__header">
+							<i class="service__toggle-arrow"></i>
+							<i class="service__icon icon icon--large margin--no-bottom">
+								<?php if( ! has_post_thumbnail($service_id)) : ?>
+									<img class="svg" src="<?php echo t_img('modelling.svg'); ?>">
+								<?php else : ?>
+									<img class="svg" src="<?php echo get_the_post_thumbnail_url($service_id); ?>">
+								<?php endif; ?>
+
+							</i>
+							<div class="service__title text--brown"><?php echo get_the_title($service_id); ?></div>
+						</div>
+					</div>
+					<div class="service__content">
+						<div class="service__description">
+							<p><?php echo get_field('description', $service_id); ?></p> <a class="btn btn--secondary btn--small" href="#">Contact us for more information</a>
+	<!--						TODO: Update contact us link with subject line -->
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="service__content">
-				<div class="service__description">
-					<p>Gain valuable insights into the financial future of your business, taking into account internal and external factors. What would happen if an exchange rate changed, that company you just pitched to came on board or material prices decreased? In conjunction with our budgeting tools, you’ll get the full picture for the here and now, as well as the future.</p> <a class="btn btn--secondary btn--small" href="#">Contact us for more information</a>
-				</div>
-			</div>
-		</div>
-		<div class="service">
-			<div class="service__bar is-toggle" data-toggle-items=".service__content">
-				<div class="service__header">
-					<i class="service__toggle-arrow"></i>
-					<div class="service__icon icon icon--large margin--no-bottom"><img class="svg" src="<?php echo t_img('modelling.svg'); ?>"></div>
-					<div class="service__title text--mid-grey">Financial Modelling</div>
-				</div>
-			</div>
-			<div class="service__content">
-				<div class="service__description">
-					<p>Gain valuable insights into the financial future of your business, taking into account internal and external factors. What would happen if an exchange rate changed, that company you just pitched to came on board or material prices decreased? In conjunction with our budgeting tools, you’ll get the full picture for the here and now, as well as the future.</p> <a class="btn btn--secondary btn--small" href="#">Contact us for more information</a>
-				</div>
-			</div>
-		</div>
-		<div class="service">
-			<div class="service__bar is-toggle" data-toggle-items=".service__content">
-				<div class="service__header">
-					<i class="service__toggle-arrow"></i>
-					<div class="service__icon icon icon--large margin--no-bottom"><img class="svg" src="<?php echo t_img('modelling.svg'); ?>"></div>
-					<div class="service__title text--mid-grey">Financial Modelling</div>
-				</div>
-			</div>
-			<div class="service__content">
-				<div class="service__description">
-					<p>Gain valuable insights into the financial future of your business, taking into account internal and external factors. What would happen if an exchange rate changed, that company you just pitched to came on board or material prices decreased? In conjunction with our budgeting tools, you’ll get the full picture for the here and now, as well as the future.</p> <a class="btn btn--secondary btn--small" href="#">Contact us for more information</a>
-				</div>
-			</div>
-		</div>
+			<?php endforeach; ?>
+		<?php endif; ?>
+
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer page-footer">
 		<div class="page-footer__content padding--no-top">
-			<i class="icon icon--badge icon--centred icon--nudge-up">
-				<img class="svg" src="<?php echo t_img('speech-bubble.svg'); ?>">
+			<i class="icon icon--badge icon--small icon--centred icon--nudge-up">
+				<img class="svg" src="<?php echo t_img('speech-bubbles.svg'); ?>">
 			</i>
 			<h3 class="text--coral">Ready to discuss your project?</h3>
 			<a href="#" class="btn btn--primary btn--large">Contact us</a>
