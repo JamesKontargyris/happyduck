@@ -31,8 +31,8 @@
 			<div class="service__bar is-toggle" data-toggle-items=".service__content">
 				<div class="service__header">
 					<i class="service__toggle-arrow"></i>
-					<div class="service__icon icon icon--large margin--no-bottom"><img class="svg" src="<?php echo t_img('speech-bubble.svg'); ?>"></div>
-					<div class="service__title">Financial Modelling</div>
+					<div class="service__icon icon icon--large margin--no-bottom"><img class="svg" src="<?php echo t_img('modelling.svg'); ?>"></div>
+					<div class="service__title text--mid-grey">Financial Modelling</div>
 				</div>
 			</div>
 			<div class="service__content">
@@ -45,8 +45,8 @@
 			<div class="service__bar is-toggle" data-toggle-items=".service__content">
 				<div class="service__header">
 					<i class="service__toggle-arrow"></i>
-					<div class="service__icon icon icon--large margin--no-bottom"><img class="svg" src="<?php echo t_img('speech-bubble.svg'); ?>"></div>
-					<div class="service__title">Financial Modelling</div>
+					<div class="service__icon icon icon--large margin--no-bottom"><img class="svg" src="<?php echo t_img('modelling.svg'); ?>"></div>
+					<div class="service__title text--mid-grey">Financial Modelling</div>
 				</div>
 			</div>
 			<div class="service__content">
@@ -59,8 +59,8 @@
 			<div class="service__bar is-toggle" data-toggle-items=".service__content">
 				<div class="service__header">
 					<i class="service__toggle-arrow"></i>
-					<div class="service__icon icon icon--large margin--no-bottom"><img class="svg" src="<?php echo t_img('speech-bubble.svg'); ?>"></div>
-					<div class="service__title">Financial Modelling</div>
+					<div class="service__icon icon icon--large margin--no-bottom"><img class="svg" src="<?php echo t_img('modelling.svg'); ?>"></div>
+					<div class="service__title text--mid-grey">Financial Modelling</div>
 				</div>
 			</div>
 			<div class="service__content">

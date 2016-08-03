@@ -40,6 +40,7 @@
 .menu__link:visited {
   @include rem('padding', 4px 7px);
   display:block;
+  @include font-weight('medium');
   text-align: center;
   color:$blue;
 }

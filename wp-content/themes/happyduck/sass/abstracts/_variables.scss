@@ -30,6 +30,7 @@ $grey: hsl(60, 33, 70);
 // Other Colours
 $white: hsl(0, 0, 100);
 $dark-grey: hsl(0, 0, 13);
+$mid-grey: lighten($dark-grey, 30%);
 $light-grey: lighten($dark-grey, 80%);
 $deep-blue: hsl(204, 98, 18);
 $dark-blue: hsl(204, 100, 33);
