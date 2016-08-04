@@ -102,7 +102,7 @@
 				&copy; Happy Duck Consulting Ltd. <?php echo date('Y'); ?>. All rights reserved.
 			</div>
 			<div class="footer__site-info__right-col">
-				<ul class="link-group link-group--inline link-group--align-right">
+				<ul class="link-group link-group--inline link-group--align-right link-group--list-when-small">
 					<li class="link-group__item"><a class="link-group__link link--white text--medium" href="#">About Us</a></li>
 					<li class="link-group__item"><a class="link-group__link link--white text--medium" href="#">Legal information</a></li>
 					<li class="link-group__item"><a class="link-group__link link--white text--medium" href="#">Terms of Service </a></li>

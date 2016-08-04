@@ -17,27 +17,72 @@
 
 // Make a link-group inline on large screens
 .link-group--inline {
+  flex-direction:row; // convert to row from column
 
-  @include media($m-up) {
-    flex-direction:row; // convert to row from column
-
-    .link-group__item {
-      @include rem('margin-left', 0); // margin between items
-      @include rem('margin-right', 7px);
-      margin-bottom:0; // remove margin set for vertical list
-    }
+  .link-group__item {
+    @include rem('margin-left', 0); // margin between items
+    @include rem('margin-right', 7px);
+    margin-bottom:0; // remove margin set for vertical list
   }
 
-
   &.link-group--align-right {
-    @include media($m-up) {
+    @include media($l-up) {
       justify-content:flex-end;
       .link-group__item {
         @include rem('margin-left', 7px); // swap margins around
         @include rem('margin-right', 0);
       }
     }
+  }
+}
 
+.link-group--list-when-xsmall {
+  @include media($xs) {
+    flex-direction:column;
+
+    .link-group__item {
+      @include rem('margin-bottom', $vr);
+    }
+  }
+}
+
+.link-group--list-when-small {
+  @include media($s) {
+    flex-direction:column;
+
+    .link-group__item {
+      @include rem('margin-bottom', $vr);
+    }
+  }
+}
+
+.link-group--list-when-medium {
+  @include media($m) {
+    flex-direction:column;
+
+    .link-group__item {
+      @include rem('margin-bottom', $vr);
+    }
+  }
+}
+
+.link-group--list-when-large {
+  @include media($l) {
+    flex-direction:column;
+
+    .link-group__item {
+      @include rem('margin-bottom', $vr);
+    }
+  }
+}
+
+.link-group--list-when-xlarge {
+  @include media($xl) {
+    flex-direction:column;
+
+    .link-group__item {
+      @include rem('margin-bottom', $vr);
+    }
   }
 }
 

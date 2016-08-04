@@ -5,6 +5,8 @@
         $(this).siblings($(this).data('toggle-items')).toggleClass('show');
         // toggle the down/up arrow on service bar clicks
         $(this).find('.service__header i').toggleClass('service__toggle-arrow--toggled');
+        // Toggle an .is-toggle--open class to adjust this element when toggled
+        $(this).toggleClass('is-toggle--open');
         return false;
     })
 

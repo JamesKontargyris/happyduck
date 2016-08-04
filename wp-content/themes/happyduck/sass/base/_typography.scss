@@ -18,6 +18,16 @@ h6, .h6 {
   font-weight:normal;
 }
 
+h1, .h1 {
+  @include font-size(38px, 42px);
+  @include rem('margin', 0 0 ($vr * 2) 0);
+
+  @include media($l-up) {
+    @include font-size(48px, 54px);
+    @include rem('margin', 0 0 ($vr * 3) 0);
+  }
+}
+
 h2, .h2 {
   @include font-size(32px, 36px);
   @include rem('margin', 0 0 ($vr * 2) 0);
@@ -65,7 +75,7 @@ h6, .h6 {
 // but still remain the main page title)
 $headings: 'h1', 'h2', 'h3', 'h4', 'h5', 'h6';
 @each $heading in $headings {
-  .header--show-as-#{$heading} {
+  .heading--show-as-#{$heading} {
     @extend .#{$heading};
   }
 }
@@ -104,6 +114,10 @@ picture {
   max-width: 100%;
 }
 
+// Text transform helper classes
+.text--uppercase {
+  text-transform: uppercase;
+}
 
 // Text font weight helper classes
 .text--light {

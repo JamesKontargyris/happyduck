@@ -1,4 +1,5 @@
 .header {
+  position: relative;
   @include lr-pad($vr * 0.7);
   background-color: white;
   z-index: z('high');
@@ -7,7 +8,29 @@
     @include lr-pad($lr-pad * 1.5);
   }
 
-  &__inner {
+  &__logo {
+    @include size(250px 60px);
+    background-size: contain;
+    background: url('img/hdc_logo_no_mascot.svg') left center no-repeat;
+
+    @include media($m-up) {
+      @include size(300px 60px);
+      background: url('img/hdc_logo.svg') left center no-repeat;
+
+    }
+
+    @include media($l-up) {
+      @include span-columns(4);
+      height:auto;
+      //@include size(100%);
+      //height:100%;
+      //@include rem('max-width', 300px);
+      //background-size: contain;
+    }
+    text-indent: -9999px;
+  }
+
+  &__content {
     @include outer-container();
     display:flex;
     justify-content: space-between;
@@ -15,31 +38,39 @@
     height:100%;
 
     @include media($l-up) {
-      @include tb-pad(($vr * 3));
+      @include tb-pad(($vr * 2));
     }
   }
 
   &__nav {
-    position: fixed;
+    @include clearfix();
+    position: absolute;
     display:none;
-    top:0;
+    top:100%;
     left:0;
-    @include size(100% 100%);
     min-height:100%;
+    width:100%;
+    background-color: $white;
+    box-shadow:0 3px 1px rgba($dark-grey, 0.3);
 
-    @include media($m-up) {
-      position:relative;
-      @include span-columns(12, 'flex');
-      display:none;
-
-      //flex-direction: column;
-      //align-items: stretch;
-      //align-content: space-between;
-    }
+    //@include media($m-up) {
+    //  position:relative;
+    //  @include span-columns(12, 'flex');
+    //  //display:none;
+    //
+    //  flex-direction: column;
+    //  align-items: stretch;
+    //  align-content: space-between;
+    //}
 
     @include media($l-up) {
+      display: block;
+      position:relative;
+      min-height:auto;
       @include span-columns(8, 'flex');
       @include omega();
+      background-color: transparent;
+      box-shadow:none;
     }
   }
 }

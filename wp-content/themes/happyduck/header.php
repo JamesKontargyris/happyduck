@@ -25,11 +25,13 @@
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'happyduck' ); ?></a>
 
 	<header class="header has-drop-shadow">
-		<div class="header__inner">
-			<img class="logo" src="<?php echo t_img('hdc_logo.svg'); ?>" alt="Happy Duck Consulting">
+		<div class="header__content">
+			<h1 class="header__logo heading--show-as-h4 text--black text--coral"><?php bloginfo(); ?></h1>
+<!--			<img class="logo" src="--><?php //echo t_img('hdc_logo.svg'); ?><!--" alt="Happy Duck Consulting">-->
+			<a class="btn btn--secondary btn--small text--uppercase header__nav-mobile-menu-toggle is-toggle" data-toggle-items=".header__nav">Menu</a>
 			<nav class="header__nav">
-<!--				<i class="header__nav-mobile-menu-toggle icon icon--medium"><img class="svg" src="--><?php //t_img( 'menu.svg' ); ?><!--" alt=""></i>-->
-				<ul class="link-group link-group--inline link-group--align-right">
+
+				<ul class="link-group link-group--inline link-group--align-right hide--xs hide--s hide--m">
 					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--facebook" href="http://facebook.com"><img class="svg" src="<?php echo t_img('facebook-logo.svg'); ?>" alt="Facebook"></a></li>
 					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--twitter" href="http://twitter.com"><img class="svg" src="<?php echo t_img('twitter-logo.svg'); ?>" alt="Twitter"></a></li>
 					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--googleplus" href="http://plus.google.com"><img class="svg" src="<?php echo t_img('googleplus-logo.svg'); ?>" alt="Google+"></a></li>

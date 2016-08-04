@@ -18,7 +18,7 @@
 						<img src="<?php echo t_img('crystalball.svg'); ?>" alt="Crystal Ball">
 					</i>
 				<?php endif; ?>
-				<h1 class="entry-title header--show-as-h6 text--white hide--l-up"><?php the_title(); ?></h1>
+				<h1 class="entry-title heading--show-as-h6 text--white hide--l-up"><?php the_title(); ?></h1>
 				<h2 class="text--white text--regular"><?php echo get_field('headline'); ?></h2>
 				<?php if(get_field('lead_paragraph')) : ?>
 					<hr class="divider divider--narrow divider--overlay">

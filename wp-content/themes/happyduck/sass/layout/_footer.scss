@@ -1,7 +1,7 @@
 .footer-head {
   position:relative;
   @include rem('height', 190px);
-  @include rem('margin-top', ($vr * 2));
+  @include rem('margin-top', $vr);
   background:
     url('img/footer-waves.png') bottom left repeat-x,
     linear-gradient($white 0, $light-blue 100%);
