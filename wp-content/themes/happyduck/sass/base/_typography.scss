@@ -14,12 +14,12 @@ h6, .h6 {
   font-family: $heading-font-family;
   font-size: $base-font-size;
   line-height: $heading-line-height;
-  margin: 0 0 $small-spacing;
+  margin: 0 0 ($vr * 2);
   font-weight:normal;
 }
 
 h1, .h1 {
-  @include font-size(38px, 42px);
+  @include font-size(32px, 42px);
   @include rem('margin', 0 0 ($vr * 2) 0);
 
   @include media($l-up) {
@@ -29,30 +29,30 @@ h1, .h1 {
 }
 
 h2, .h2 {
-  @include font-size(32px, 36px);
+  @include font-size(26px, 32px);
   @include rem('margin', 0 0 ($vr * 2) 0);
 
   @include media($l-up) {
-    @include font-size(42px, 46px);
+    @include font-size(36px, 44px);
     @include rem('margin', 0 0 ($vr * 3) 0);
   }
 }
 
 h3, .h3 {
-  @include font-size(24px, 28px);
+  @include font-size(21px, 28px);
   @include rem('margin', 0 0 ($vr * 2) 0);
 
   @include media($l-up) {
-    @include font-size(32px, 36px);
+    @include font-size(24px, 36px);
     @include rem('margin', 0 0 ($vr * 3) 0);
   }
 }
 
 h4, .h4 {
-  @include font-size(18px, 21px);
+  @include font-size(18px, 24px);
 
   @include media($l-up) {
-    @include font-size(21px, 24px);
+    @include font-size(21px, 30px);
   }
 }
 
@@ -114,6 +114,11 @@ picture {
   max-width: 100%;
 }
 
+// Text alignment helper classes
+.text--align-centre {
+  text-align: center;
+}
+
 // Text transform helper classes
 .text--uppercase {
   text-transform: uppercase;
@@ -159,6 +164,9 @@ picture {
 }
 .text--mid-grey {
   color:$mid-grey;
+}
+.text--light-grey {
+  color:$light-grey;
 }
 .text--brown {
   color:$brown;

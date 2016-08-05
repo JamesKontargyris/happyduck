@@ -42,11 +42,6 @@ function happyduck_setup() {
 	 */
 	add_theme_support( 'post-thumbnails' );
 
-	// This theme uses wp_nav_menu() in one location.
-	register_nav_menus( array(
-		'primary' => esc_html__( 'Primary', 'happyduck' ),
-	) );
-
 	/*
 	 * Switch default core markup for search form, comment form, and comments
 	 * to output valid HTML5.
@@ -60,10 +55,10 @@ function happyduck_setup() {
 	) );
 
 	// Set up the WordPress core custom background feature.
-	add_theme_support( 'custom-background', apply_filters( 'happyduck_custom_background_args', array(
-		'default-color' => 'ffffff',
-		'default-image' => '',
-	) ) );
+//	add_theme_support( 'custom-background', apply_filters( 'happyduck_custom_background_args', array(
+//		'default-color' => 'ffffff',
+//		'default-image' => '',
+//	) ) );
 }
 endif;
 add_action( 'after_setup_theme', 'happyduck_setup' );
@@ -80,6 +75,18 @@ function happyduck_content_width() {
 }
 add_action( 'after_setup_theme', 'happyduck_content_width', 0 );
 
+
+/**
+ * Register menu areas.
+ */
+function register_menus() {
+	register_nav_menus([
+		'main-navigation-menu' => __( 'Main Navigation Menu' ),
+		'quicklinks-menu' => __( 'QuickLinks Footer Menu' )
+	]);
+}
+add_action( 'init', 'register_menus' );
+
 /**
  * Register widget area.
  *
@@ -92,8 +99,8 @@ function happyduck_widgets_init() {
 		'description'   => esc_html__( 'Add widgets here.', 'happyduck' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'before_title'  => '<h6 class="widget-title text--light-grey text--medium">',
+		'after_title'   => '</h6>',
 	) );
 }
 add_action( 'widgets_init', 'happyduck_widgets_init' );
@@ -143,15 +150,28 @@ require get_template_directory() . '/inc/customizer.php';
  */
 require get_template_directory() . '/inc/jetpack.php';
 
+/**
+ * Import the bem_menu function for better control of Wordpress menus
+ * by implementing BEM naming conventions
+ */
+include('inc/bem_menu.php');
 
-// Allow SVG
+/**
+ * Allow SVG.
+ *
+ * @param $mimes
+ *
+ * @return mixed
+ */
 function cc_mime_types($mimes) {
 	$mimes['svg'] = 'image/svg+xml';
 	return $mimes;
 }
 add_filter('upload_mimes', 'cc_mime_types');
 
-//Ensure svg previews display correctly on admin pages
+/**
+ * Ensure svg previews display correctly on admin pages
+ */
 function svg_size() {
 	echo '<style>
     svg, img[src*=".svg"] {
@@ -209,3 +229,9 @@ function truncate($text, $chars = 25) {
 
 	return $text;
 }
+
+// Import shortcode functions and registrations
+include 'inc/shortcodes.php';
+
+// Add site css styles for the Wordpress editor
+add_editor_style('style.css');

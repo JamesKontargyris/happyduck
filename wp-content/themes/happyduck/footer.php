@@ -77,7 +77,7 @@
 	<section class="footer__mailing-list">
 		<div class="signup-form signup-form--inline">
 			<div class="signup-form__intro text--white">
-				<h4 class="text--yellow text--bold">Join our Mailing List</h4>
+				<h4 class="text--yellow text--bold margin--none">Join our Mailing List</h4>
 				Receive tips, articles and advice direct from HDHQ to your inbox.
 			</div>
 			<div class="signup-form__fields">

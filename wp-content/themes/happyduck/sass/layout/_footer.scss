@@ -80,7 +80,7 @@
 
 // Page footer
 .page-footer {
-  @include background(linear-gradient(to bottom, $light-grey 0, $white 100%));
+  @include background(linear-gradient(to bottom, $pale-grey 0, $white 100%));
   @include lr-pad();
   @include rem('margin-top', $vr * 4);
 

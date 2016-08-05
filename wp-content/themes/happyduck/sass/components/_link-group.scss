@@ -36,6 +36,10 @@
   }
 }
 
+.link-group--is-button {
+  line-height:1;
+}
+
 .link-group--list-when-xsmall {
   @include media($xs) {
     flex-direction:column;

@@ -26,24 +26,29 @@
 
 	<header class="header has-drop-shadow">
 		<div class="header__content">
-			<h1 class="header__logo heading--show-as-h4 text--black text--coral"><?php bloginfo(); ?></h1>
-<!--			<img class="logo" src="--><?php //echo t_img('hdc_logo.svg'); ?><!--" alt="Happy Duck Consulting">-->
+			<h1 class="header__logo heading--show-as-h4 text--black text--coral margin--none"><?php bloginfo(); ?></h1>
 			<a class="btn btn--secondary btn--small text--uppercase header__nav-mobile-menu-toggle is-toggle" data-toggle-items=".header__nav">Menu</a>
-			<nav class="header__nav">
 
+			<nav class="header__nav">
+<!--				TODO: add search bar-->
+<!--				TODO: add widget area for this link-group-->
 				<ul class="link-group link-group--inline link-group--align-right hide--xs hide--s hide--m">
 					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--facebook" href="http://facebook.com"><img class="svg" src="<?php echo t_img('facebook-logo.svg'); ?>" alt="Facebook"></a></li>
 					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--twitter" href="http://twitter.com"><img class="svg" src="<?php echo t_img('twitter-logo.svg'); ?>" alt="Twitter"></a></li>
 					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--googleplus" href="http://plus.google.com"><img class="svg" src="<?php echo t_img('googleplus-logo.svg'); ?>" alt="Google+"></a></li>
 					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--linkedin" href="http://linkedin.com"><img class="svg" src="<?php echo t_img('linkedin-logo.svg'); ?>" alt="LinkedIn"></a></li>
-					<li class="link-group__item"><a class="btn btn--primary btn--xsmall margin--none" href="#">Live Chat</a></li>
+					<li class="link-group__item link-group--is-button"><a class="btn btn--primary btn--xsmall margin--none" href="#">Live Chat</a></li>
 				</ul>
-				<ul class="menu menu--inline menu--no-bottom-margin menu--align-right">
+
+				<?php bem_menu('main-navigation-menu', 'menu', ['menu--inline', 'menu--no-bottom-margin', 'menu--align-right']); ?>
+<!--				<ul class="menu menu--inline menu--no-bottom-margin menu--align-right">-->
+<!--
 					<li class="menu__item"><a href="#" class="menu__link">About Us</a></li>
 					<li class="menu__item"><a href="#" class="menu__link menu__link--active">Our Services</a></li>
 					<li class="menu__item"><a href="#" class="menu__link">Articles</a></li>
 					<li class="menu__item"><a href="#" class="menu__link">Contact Us</a></li>
-				</ul>
+				</ul>-->
+
 			</nav>
 		</div>
 	</header>

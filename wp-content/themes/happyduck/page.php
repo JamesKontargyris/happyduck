@@ -25,15 +25,15 @@ get_header(); ?>
 						get_template_part( 'template-parts/content', 'service-area' );
 						break;
 					default:
-						echo get_post_type();
-						get_template_part( 'template-parts/content', 'page' );
+//						By default, load the template part with the suffix that matches the page layout selected for the current page
+						get_template_part( 'template-parts/content', 'page-' . get_field('page_layout') );
 						break;
 				}
 
 				// If comments are open or we have at least one comment, load up the comment template.
-				if ( comments_open() || get_comments_number() ) :
-					comments_template();
-				endif;
+//				if ( comments_open() || get_comments_number() ) :
+//					comments_template();
+//				endif;
 
 			endwhile; // End of the loop.
 			?>
@@ -42,5 +42,4 @@ get_header(); ?>
 	</div><!-- #primary -->
 
 <?php
-get_sidebar();
 get_footer();

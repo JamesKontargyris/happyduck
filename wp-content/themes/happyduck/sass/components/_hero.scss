@@ -10,15 +10,20 @@
 
 .hero__content {
   @include outer-container();
-  @include all-pad(($vr * 2), $lr-pad);
+  @include all-pad(($vr * 3), $lr-pad);
 
   @include media($l-up) {
-    @include all-pad(($vr * 5), $lr-pad);
+    @include all-pad(($vr * 6), $lr-pad);
   }
 }
 
 .hero--coral {
   background-color:$coral;
+  @include background(linear-gradient(to bottom, $coral 50%, shade($coral, 6%) 100%));
+}
+
+.hero--yellow {
+  @include background(linear-gradient(to top, $yellow 50%, #ffbb2e 100%));
 }
 
 .hero--align-centre {

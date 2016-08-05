@@ -21,10 +21,12 @@
 'base/underscores',
 'base/base',
 'base/grid',
+'base/helpers',
 'base/typography';
 
 /// Layout (page partials)
 @import
+'layout/page-section',
 'layout/navigation',
 'layout/show-hide',
 'layout/header',
@@ -45,7 +47,8 @@
 'components/divider',
 'components/signup-form',
 'components/service',
-'components/social-media';
+'components/social-media',
+'components/feature';
 
 /// Page-specific stylesheets
 //@import

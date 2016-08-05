@@ -36,12 +36,18 @@ $icon-sizes: (
   }
 }
 
+.icon--xxlarge, .icon--xxxlarge {
+  @include media($l-up) {
+    @include rem('margin-bottom', ($vr * 3)); // Extra margin for the really big icons
+  }
+}
+
 // Alignment
-.icon--right {
+.icon--align-right {
   float:right;
 }
 
-.icon--centred {
+.icon--align-centre {
   display:block;
   margin-left:auto;
   margin-right:auto;

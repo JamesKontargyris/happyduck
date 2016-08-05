@@ -3,7 +3,7 @@
   border-left:0;
   border-bottom:0;
   border-right:0;
-  @include rem('margin-bottom', ($vr * 2));
+  @include rem('margin', ($vr * 3) 0);
   @include rem('height', 5px);
   background-color:$dark-grey;
 }
@@ -15,7 +15,12 @@
    margin-right:auto;
  }
 
-.divider--overlay {
+.divider--overlay-light {
   background-color:$white;
   opacity:0.3;
+}
+
+.divider--overlay-dark {
+  background-color:$dark-grey;
+  opacity:0.15;
 }

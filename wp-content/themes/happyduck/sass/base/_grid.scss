@@ -25,3 +25,33 @@ $l: new-breakpoint(min-width map-get($breakpoints, 'm') max-width map-get($break
 $l-up: new-breakpoint(min-width map-get($breakpoints, 'm') + 1);
 $xl: new-breakpoint(min-width map-get($breakpoints, 'l'));
 $xl-up: new-breakpoint(min-width map-get($breakpoints, 'l')+ 1);
+
+
+// Generic layout classes
+ .grid__one-quarter {
+   @include span-columns(12);
+
+   @include media($l-up) {
+     @include span-columns(3);
+   }
+ }
+
+ .grid__one-half {
+   @include span-columns(12);
+
+   @include media($l-up) {
+     @include span-columns(6);
+   }
+ }
+
+ .grid__three-quarters {
+   @include span-columns(12);
+
+   @include media($l-up) {
+     @include span-columns(9);
+   }
+ }
+
+ .grid__full-width {
+   @include span-columns(12);
+ }

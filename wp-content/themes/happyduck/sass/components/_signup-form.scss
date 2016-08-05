@@ -13,6 +13,7 @@
 // Brief intro to the form
 .signup-form__intro {
   @include rem('margin-bottom', $vr);
+  @include font-size(16px, 21px);
 
   @include media($l-up) {
     margin-bottom:0;

@@ -1,0 +1,43 @@
+.page-section {
+  &--light-grey {
+    background-color:$pale-grey;
+  }
+}
+
+.page-section__container {
+  @include outer-container();
+  @include lr-pad();
+  @include tb-pad($vr * 3);
+}
+
+.page-section__main {
+  @include media($l-up) {
+    @include span-columns(8);
+  }
+}
+
+.page-section__main--full-width {
+  @include media($l-up) {
+    @include span-columns(12);
+  }
+}
+
+.page-section__main--shift-right {
+  @include media($l-up) {
+    @include span-columns(8);
+    @include shift(4);
+  }
+}
+
+.page-section__sidebar {
+  @include media($l-up) {
+    @include span-columns(4);
+  }
+}
+
+.page-section__sidebar--shift-left {
+  @include media($l-up) {
+    @include span-columns(4);
+    @include shift(-12);
+  }
+}

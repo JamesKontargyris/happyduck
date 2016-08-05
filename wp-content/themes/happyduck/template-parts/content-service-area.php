@@ -15,13 +15,13 @@
 			<div class="hero__content">
 				<?php if(has_post_thumbnail()) : ?>
 					<i class="icon icon--xxxlarge hide--xs hide--s">
-						<img src="<?php echo t_img('crystalball.svg'); ?>" alt="Crystal Ball">
+						<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="Crystal Ball">
 					</i>
 				<?php endif; ?>
 				<h1 class="entry-title heading--show-as-h6 text--white hide--l-up"><?php the_title(); ?></h1>
 				<h2 class="text--white text--regular"><?php echo get_field('headline'); ?></h2>
 				<?php if(get_field('lead_paragraph')) : ?>
-					<hr class="divider divider--narrow divider--overlay">
+					<hr class="divider divider--narrow divider--overlay-light">
 					<p class="text--white para--narrow para--lead margin--none"><?php echo get_field('lead_paragraph'); ?></p>
 				<?php endif; ?>
 			</div>
@@ -37,7 +37,7 @@
 							<i class="service__toggle-arrow"></i>
 							<i class="service__icon icon icon--large margin--no-bottom">
 								<?php if( ! has_post_thumbnail($service_id)) : ?>
-									<img class="svg" src="<?php echo t_img('modelling.svg'); ?>">
+									<img class="svg" src="<?php echo t_img('hdc_mascot.svg'); ?>">
 								<?php else : ?>
 									<img class="svg" src="<?php echo get_the_post_thumbnail_url($service_id); ?>">
 								<?php endif; ?>
@@ -63,7 +63,7 @@
 			<i class="icon icon--badge icon--small icon--nudge-up">
 				<img class="svg" src="<?php echo t_img('speech-bubbles.svg'); ?>">
 			</i>
-			<h3 class="text--coral">Ready to discuss your project?</h3>
+			<h2 class="text--coral">Ready to discuss your project?</h2>
 			<a href="#" class="btn btn--primary btn--large">Contact us</a>
 		</div>
 	</footer><!-- .entry-footer -->

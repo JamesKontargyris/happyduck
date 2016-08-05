@@ -11,6 +11,18 @@
   }
 }
 
+.para--extra-narrow {
+  @include media($l-up) {
+    padding-left:(($column + $gutter) * 1.5);
+    padding-right:(($column + $gutter) * 1.5);
+  }
+
+  @include media($xl-up) {
+    padding-left:(($column + $gutter) * 2.5);
+    padding-right:(($column + $gutter) * 2.5);
+  }
+}
+
 .para--lead {
   @include media($l-up) {
     @include font-size(18, 30);
