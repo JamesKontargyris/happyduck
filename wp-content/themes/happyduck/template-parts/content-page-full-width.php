@@ -56,5 +56,7 @@
 <!--		</div>-->
 
 		<?php the_content(); ?>
+
+		<?php include('partials/testimonials.php'); ?>
 	</div>
 </div>

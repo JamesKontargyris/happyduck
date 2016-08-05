@@ -2,7 +2,7 @@
 	<section class="page-menu has-drop-shadow">
 		<ul class="page-menu__items">
 			<li class="page-menu__mobile-toggle is-toggle" data-toggle-items=".page-menu__item">
-				<i class="icon icon--small icon--right">
+				<i class="icon icon--small icon--align-right">
 					<img class="svg" src="<?php echo get_template_directory_uri(); ?>/img/menu.svg" alt="Menu">
 				</i> Our Services
 			</li>

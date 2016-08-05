@@ -1,10 +1,15 @@
 .footer-head {
   position:relative;
   @include rem('height', 190px);
-  @include rem('margin-top', $vr);
   background:
     url('img/footer-waves.png') bottom left repeat-x,
     linear-gradient($white 0, $light-blue 100%);
+}
+
+.footer-head--with-testimonials { // If the testimonials bar is present, recolour the background of footer-head so it blends in
+  background:
+          url('img/footer-waves.png') bottom left repeat-x,
+          lighten($yellow, 30%);
 }
 
 .footer-head__mascot {
@@ -12,7 +17,7 @@
   left:50%;
   height:100%;
   @include rem('margin-left', -56px);
-  @include rem('top', 30px);
+  @include rem('top', 40px);
 
   @include media($l-up) {
     height:auto;

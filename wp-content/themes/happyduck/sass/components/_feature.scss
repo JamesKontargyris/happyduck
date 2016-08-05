@@ -47,6 +47,14 @@
   }
 }
 
+.feature__text--no-icon {
+  @include media($l-up) {
+    @include span-columns(8);
+    @include shift(2);
+    @include omega();
+  }
+}
+
 .feature__content--reverse {
 
   @include direction-context($direction: right-to-left) {

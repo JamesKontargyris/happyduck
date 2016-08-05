@@ -40,7 +40,7 @@
 					<li class="link-group__item link-group--is-button"><a class="btn btn--primary btn--xsmall margin--none" href="#">Live Chat</a></li>
 				</ul>
 
-				<?php bem_menu('main-navigation-menu', 'menu', ['menu--inline', 'menu--no-bottom-margin', 'menu--align-right']); ?>
+				<?php bem_menu('main-navigation-menu', 'menu', ['menu--inline', 'menu--no-bottom-margin', 'menu--align-right', 'margin--none']); ?>
 <!--				<ul class="menu menu--inline menu--no-bottom-margin menu--align-right">-->
 <!--
 					<li class="menu__item"><a href="#" class="menu__link">About Us</a></li>

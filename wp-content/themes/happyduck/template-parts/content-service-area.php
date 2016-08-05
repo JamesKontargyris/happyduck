@@ -43,7 +43,7 @@
 								<?php endif; ?>
 
 							</i>
-							<div class="service__title text--brown"><?php echo get_the_title($service_id); ?></div>
+							<div class="service__title text--brown margin--none"><?php echo get_the_title($service_id); ?></div>
 						</div>
 					</div>
 					<div class="service__content">

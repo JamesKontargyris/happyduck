@@ -109,6 +109,7 @@ add_action( 'widgets_init', 'happyduck_widgets_init' );
  * Enqueue scripts and styles.
  */
 function happyduck_scripts() {
+	wp_enqueue_style( 'happyduck-slick-css', get_template_directory_uri() . '/js/slick/slick.css' );
 	wp_enqueue_style( 'happyduck-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( 'happyduck-jquery', get_template_directory_uri() . '/js/jquery-3.1.0.min.js', array(), '20160728', true );
@@ -117,7 +118,10 @@ function happyduck_scripts() {
 
 	wp_enqueue_script( 'happyduck-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
+	wp_enqueue_script( 'happyduck-match-height-js', get_template_directory_uri() . '/js/jquery.matchHeight.js', array(), '20160805', true );
+	wp_enqueue_script( 'happyduck-slick-js', get_template_directory_uri() . '/js/slick/slick.js', array(), '20160805', true );
 	wp_enqueue_script( 'happyduck-site-js', get_template_directory_uri() . '/js/site.js', array(), '20160728', true );
+	wp_enqueue_script( 'happyduck-testimonial-js', get_template_directory_uri() . '/js/testimonial.js', array(), '20160805', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -211,6 +215,17 @@ function t_img($filename)
 }
 
 /**
+ * Include a script in the inc folder
+ * @param $filename
+ *
+ * @return string
+ */
+function t_include($filename)
+{
+	return get_template_directory_uri() . '/inc/' . $filename;
+}
+
+/**
  * Helper function to truncate text to a desired length,
  * cutting off text at the first white space beyond the
  * character count
@@ -219,7 +234,8 @@ function t_img($filename)
  *
  * @return string
  */
-function truncate($text, $chars = 25) {
+function truncate($text, $chars = 25)
+{
 	if(strlen($text) <= $chars) return $text;
 
 	$text = $text." ";
@@ -230,8 +246,23 @@ function truncate($text, $chars = 25) {
 	return $text;
 }
 
+function clean_testimonial_quote($quote)
+{
+	$quote = trim($quote);
+	$quote = ltrim($quote, '"');
+	$quote = ltrim($quote, "'");
+	$quote = rtrim($quote, '"');
+	$quote = rtrim($quote, "'");
+
+	return '&quot;' . $quote . '&quot;';
+}
+
 // Import shortcode functions and registrations
 include 'inc/shortcodes.php';
+
+// Import custom post types
+//include 'inc/custom-post-types.php';
+
 
 // Add site css styles for the Wordpress editor
 add_editor_style('style.css');

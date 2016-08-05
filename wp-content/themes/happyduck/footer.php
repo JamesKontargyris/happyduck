@@ -13,7 +13,7 @@
 
 	</div><!-- #content -->
 
-	<div class="footer-head">
+	<div class="footer-head <?php if(get_field('testimonials')) : ?>footer-head--with-testimonials <?php endif; ?>">
 		<img class="footer-head__mascot" src="<?php echo t_img('footer-mascot.png'); ?>" alt="Happy Duck Mascot">
 	</div>
 
