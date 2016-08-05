@@ -27,7 +27,8 @@
   @include media($l-up) {
     @include span-columns(3);
     @include shift(1);
-    //@include rem('margin-left', $column);
+    @include rem('max-width', 300px);
+    @include rem('margin-right', $column);
   }
 }
 
@@ -41,7 +42,7 @@
 
 .feature__text {
   @include media($l-up) {
-    @include span-columns(7);
+    @include span-columns(6);
     @include omega();
   }
 }
@@ -54,12 +55,14 @@
       @include media($l-up) {
         @include span-columns(3);
         @include shift(1);
+        @include rem('max-width', 300px);
+        @include rem('margin-left', $column);
       }
     }
 
     .feature__text {
       @include media($l-up) {
-        @include span-columns(7);
+        @include span-columns(6);
       }
     }
   }

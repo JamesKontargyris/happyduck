@@ -22,22 +22,28 @@
   }
 }
 
-.page-section__main--shift-right {
-  @include media($l-up) {
-    @include span-columns(8);
-    @include shift(4);
-  }
-}
-
 .page-section__sidebar {
   @include media($l-up) {
     @include span-columns(4);
   }
 }
 
-.page-section__sidebar--shift-left {
-  @include media($l-up) {
-    @include span-columns(4);
-    @include shift(-12);
+.page-section__container--reverse {
+  // Reverse order of main and sidebar columns
+
+  @include direction-context($direction: right-to-left) {
+    .page-section__main {
+      @include media($l-up) {
+        @include span-columns(8);
+        @include shift(0);
+      }
+    }
+
+    .page-section__sidebar {
+      @include media($l-up) {
+        @include span-columns(4);
+      }
+    }
   }
+
 }
