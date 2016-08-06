@@ -1,4 +1,11 @@
 (function() {
+
+    // Redirect the user to the homepage if they click on the header logo
+    $('.header__logo').on('click', function()
+    {
+        window.location.href = '/';
+    });
+
     // Show/hide toggle for siblings of the clicked element
     $('.is-toggle').on('click', function()
     {

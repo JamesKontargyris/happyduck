@@ -64,7 +64,7 @@
 				<img class="svg" src="<?php echo t_img('speech-bubbles.svg'); ?>">
 			</i>
 			<h2 class="text--coral">Ready to discuss your project?</h2>
-			<a href="#" class="btn btn--primary btn--large">Contact us</a>
+			<a href="#" class="btn btn--primary btn--medium">Contact us</a>
 		</div>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-## -->

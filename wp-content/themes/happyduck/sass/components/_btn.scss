@@ -15,10 +15,18 @@
   @include all-pad(($vr * 0.6), 8px);
 }
 .btn--large {
-  @include font-size(21px, 24px);
+  @include font-size(18px, 21px);
+
+  @include media($l-up) {
+    @include font-size(21px, 28px);
+  }
 }
 .btn--xlarge {
-  @include font-size(24px, 28px);
+  @include font-size(18px, 21px);
+
+  @include media($l-up) {
+    @include font-size(24px, 28px);
+  }
 }
 
 .btn--primary {

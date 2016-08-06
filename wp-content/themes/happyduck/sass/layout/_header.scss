@@ -12,6 +12,7 @@
     @include size(250px 60px);
     background-size: contain;
     background: url('img/hdc_logo_no_mascot.svg') left center no-repeat;
+    cursor:pointer;
 
     @include media($m-up) {
       @include size(300px 60px);

@@ -1,21 +1,20 @@
 .testimonial {
-  @include background(
-                  url('img/testimonial_quotemarks.svg') center no-repeat,
-                  linear-gradient(to bottom, $yellow 0, lighten($yellow, 30%))
-            );
-  background-size:cover;
+  @include background(linear-gradient(to bottom, $yellow 0, lighten($yellow, 30%)));
+  background-size:contain;
   @include all-pad(($vr * 2), $lr-pad);
-  //@include rem('margin-bottom', ($vr * 3));
 
   @include media($l-up) {
     @include all-pad(($vr * 5), $lr-pad);
-    background-size:contain;
+    @include background(
+      url('img/testimonial_quotemarks.svg') center no-repeat,
+      linear-gradient(to bottom, $yellow 0, lighten($yellow, 30%))
+    );
   }
 }
 
 .testimonial__content {
   margin: 0 auto;
-  color:$dark-blue;
+  color:$brown;
   @include font-weight('medium');
   display:flex !important;
   flex-direction: column;

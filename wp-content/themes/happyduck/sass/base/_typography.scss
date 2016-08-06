@@ -37,7 +37,7 @@ h2, .h2 {
   @include rem('margin', 0 0 ($vr * 2) 0);
 
   @include media($l-up) {
-    @include font-size(36px, 44px);
+    @include font-size(32px, 36px);
     @include rem('margin', 0 0 ($vr * 3) 0);
   }
 }

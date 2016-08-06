@@ -13,17 +13,16 @@
   }
 }
 
-// Default
 .service__toggle-arrow {
   position:absolute;
   right:($vr * 2);
   top:40%;
   @include size(10px);
-  background:url('img/arrow-down.svg') top left no-repeat;
+  background:url('img/arrow-down-grey.svg') top left no-repeat;
   background-size: 10px 10px;
 
   &--toggled {
-    background:url('img/arrow-up.svg') top left no-repeat;
+    background:url('img/arrow-up-grey.svg') top left no-repeat;
     background-size:10px 10px;
   }
 
