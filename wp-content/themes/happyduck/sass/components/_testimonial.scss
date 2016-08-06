@@ -1,5 +1,5 @@
 .testimonial {
-  @include background(linear-gradient(to bottom, $yellow 0, lighten($yellow, 30%)));
+  @include background(linear-gradient(to bottom, $yellow 0, lighten($yellow, 25%)));
   background-size:contain;
   @include all-pad(($vr * 2), $lr-pad);
 
@@ -7,7 +7,7 @@
     @include all-pad(($vr * 5), $lr-pad);
     @include background(
       url('img/testimonial_quotemarks.svg') center no-repeat,
-      linear-gradient(to bottom, $yellow 0, lighten($yellow, 30%))
+      linear-gradient(to bottom, $yellow 0, lighten($yellow, 25%))
     );
   }
 }

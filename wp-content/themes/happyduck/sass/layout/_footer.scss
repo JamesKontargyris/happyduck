@@ -9,7 +9,7 @@
 .footer-head--with-testimonials { // If the testimonials bar is present, recolour the background of footer-head so it blends in
   background:
           url('img/footer-waves.png') bottom left repeat-x,
-          lighten($yellow, 30%);
+          lighten($yellow, 25%);
 }
 
 .footer-head__mascot {

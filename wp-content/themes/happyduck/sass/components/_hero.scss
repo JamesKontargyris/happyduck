@@ -10,10 +10,10 @@
 
 .hero__content {
   @include outer-container();
-  @include all-pad(($vr * 2), $lr-pad);
+  @include all-pad(($vr * 3), $lr-pad);
 
   @include media($l-up) {
-    @include all-pad(($vr * 4), $lr-pad);
+    @include all-pad(($vr * 6), $lr-pad);
   }
 }
 
