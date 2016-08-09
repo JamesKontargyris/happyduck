@@ -26,6 +26,22 @@
   }
 }
 
+.footer, .footer__site-info {
+  a {
+    &:link, &:visited {
+      color: $white;
+      text-decoration: none;
+      transition: color $base-duration $base-timing, background-color $base-duration $base-timing;
+    }
+
+    &:focus,
+    &:hover,
+    &:active {
+      color: shade($white, 25%);
+    }
+  }
+}
+
 .footer {
   background-color: $dark-blue;
   @include pad(0 $lr-pad ($vr * 2) $lr-pad);

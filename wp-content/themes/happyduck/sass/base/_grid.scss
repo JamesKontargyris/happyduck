@@ -1,15 +1,15 @@
  //Neat Overrides
- $column: 55px;
- $gutter: 40px;
+ $column: 50px;
+ $gutter: 50px;
  $grid-columns: 12;
- $max-width: 1140px;
+ $max-width: 1150px;
 
 // Breakpoints
 $breakpoints: (
   'xs': 320px,
   's': 480px,
-  'm': 750px,
-  'l': 1026px
+  'm': 900px,
+  'l': 1100px
 );
 
 //XS 2 column grid
@@ -49,6 +49,22 @@ $xl-up: new-breakpoint(min-width map-get($breakpoints, 'l')+ 1);
 
    @include media($l-up) {
      @include span-columns(9);
+   }
+ }
+
+ .grid__one-third {
+   @include span-columns(12);
+
+   @include media($l-up) {
+     @include span-columns(4);
+   }
+ }
+
+ .grid__two-thirds {
+   @include span-columns(12);
+
+   @include media($l-up) {
+     @include span-columns(8);
    }
  }
 

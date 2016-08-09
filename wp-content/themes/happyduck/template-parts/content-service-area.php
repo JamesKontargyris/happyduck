@@ -18,7 +18,7 @@
 						<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="Crystal Ball">
 					</i>
 				<?php endif; ?>
-				<h1 class="entry-title heading--show-as-h6 text--white hide--l-up"><?php the_title(); ?></h1>
+				<h1 class="entry-title heading--show-as-h6 text--white text--uppercase hide--l-up"><?php the_title(); ?></h1>
 				<h2 class="text--white text--regular"><?php echo get_field('headline'); ?></h2>
 				<?php if(get_field('lead_paragraph')) : ?>
 					<hr class="divider divider--narrow divider--overlay-light">
@@ -37,7 +37,7 @@
 							<i class="service__toggle-arrow"></i>
 							<i class="service__icon icon icon--large margin--no-bottom">
 								<?php if( ! has_post_thumbnail($service_id)) : ?>
-									<img class="svg" src="<?php echo t_img('hdc_mascot.svg'); ?>">
+									<img class="svg" src="<?php echo t_img('icon-hdc_mascot.svg'); ?>">
 								<?php else : ?>
 									<img class="svg" src="<?php echo get_the_post_thumbnail_url($service_id); ?>">
 								<?php endif; ?>

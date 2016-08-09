@@ -24,6 +24,9 @@ get_header(); ?>
 					case 'service-area':
 						get_template_part( 'template-parts/content', 'service-area' );
 						break;
+					case 'article':
+						get_template_part( 'template-parts/content', 'article' );
+						break;
 					default:
 //						By default, load the template part with the suffix that matches the page layout selected for the current page
 						get_template_part( 'template-parts/content', 'page-' . get_field('page_layout') );

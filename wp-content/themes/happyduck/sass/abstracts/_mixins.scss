@@ -14,8 +14,6 @@
   line-height: (parseInt($lineHeight) / 10) + rem;
 }
 
-
-
 @mixin rem($property, $values) {
   $px : (); /* 3 */
   $rem: (); /* 3 */

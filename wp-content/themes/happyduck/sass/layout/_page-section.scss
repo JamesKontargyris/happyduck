@@ -8,6 +8,10 @@
   @include outer-container();
   @include lr-pad();
   @include tb-pad($vr * 3);
+
+  @include media($l-up) {
+    @include tb-pad($vr * 4);
+  }
 }
 
 .page-section__main {

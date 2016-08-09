@@ -112,7 +112,7 @@ dfn {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 2rem;
   margin: 0.67em 0;
 }
 
@@ -134,11 +134,11 @@ sup {
 }
 
 sup {
-  top: -0.5em;
+  top: -0.5rem;
 }
 
 sub {
-  bottom: -0.25em;
+  bottom: -0.25rem;
 }
 
 img {
@@ -167,7 +167,7 @@ kbd,
 pre,
 samp {
   font-family: monospace, monospace;
-  font-size: 1em;
+  //font-size: 1rem;
 }
 
 button,
@@ -231,7 +231,7 @@ input[type="search"]::-webkit-search-decoration {
 fieldset {
   border: 1px solid #c0c0c0;
   margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
+  padding: 0.35em 0.625em 0.75rem;
 }
 
 legend {
@@ -282,7 +282,7 @@ h6 {
 }
 
 p {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.5rem;
 }
 
 dfn,
@@ -293,23 +293,23 @@ i {
 }
 
 blockquote {
-  margin: 0 1.5em;
+  margin: 0 1.5rem;
 }
 
 address {
-  margin: 0 0 1.5em;
+  margin: 0 0 1.5rem;
 }
 
 pre {
   background: #eee;
   font-family: "Courier 10 Pitch", Courier, monospace;
-  font-size: 15px;
-  font-size: 0.9375rem;
+  //font-size: 15px;
+  //font-size: 0.9375rem;
   line-height: 1.6;
-  margin-bottom: 1.6em;
+  margin-bottom: 1.6rem;
   max-width: 100%;
   overflow: auto;
-  padding: 1.6em;
+  //padding: 1.6rem;
 }
 
 code,
@@ -317,8 +317,8 @@ kbd,
 tt,
 var {
   font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
-  font-size: 15px;
-  font-size: 0.9375rem;
+  //font-size: 15px;
+  //font-size: 0.9375rem;
 }
 
 abbr,
@@ -370,7 +370,7 @@ hr {
   background-color: #ccc;
   border: 0;
   height: 1px;
-  margin-bottom: 1.5em;
+  margin-bottom: 1.5rem;
 }
 
 ul,
@@ -390,7 +390,7 @@ ol {
 li > ul,
 li > ol {
   margin-bottom: 0;
-  margin-left: 1.5em;
+  margin-left: 1.5rem;
 }
 
 dt {
@@ -398,7 +398,7 @@ dt {
 }
 
 dd {
-  margin: 0 1.5em 1.5em;
+  margin: 0 1.5em 1.5rem;
 }
 
 img {
@@ -407,7 +407,7 @@ img {
 }
 
 table {
-  margin: 0 0 1.5em;
+  margin: 0 0 1.5rem;
   width: 100%;
 }
 
@@ -427,7 +427,7 @@ input[type="submit"] {
   font-size: 12px;
   font-size: 0.75rem;
   line-height: 1;
-  padding: .6em 1em .4em;
+  padding: .6em 1em .4rem;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
@@ -560,13 +560,13 @@ a:active {
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
   float: left;
   position: absolute;
-  top: 1.5em;
-  left: -999em;
+  top: 1.5rem;
+  left: -999rem;
   z-index: 99999;
 }
 
 .main-navigation ul ul ul {
-  left: -999em;
+  left: -999rem;
   top: 0;
 }
 
@@ -624,7 +624,7 @@ a:active {
 .site-main .comment-navigation,
 .site-main .posts-navigation,
 .site-main .post-navigation {
-  margin: 0 0 1.5em;
+  margin: 0 0 1.5rem;
   overflow: hidden;
 }
 
@@ -686,13 +686,13 @@ a:active {
 .alignleft {
   display: inline;
   float: left;
-  margin-right: 1.5em;
+  margin-right: 1.5rem;
 }
 
 .alignright {
   display: inline;
   float: right;
-  margin-left: 1.5em;
+  margin-left: 1.5rem;
 }
 
 .aligncenter {
@@ -735,7 +735,7 @@ a:active {
 # Widgets
 --------------------------------------------------------------*/
 .widget {
-  margin: 0 0 1.5em;
+  margin: 0 0 1.5rem;
 }
 
 /* Make sure select elements fit in widgets. */
@@ -754,7 +754,7 @@ a:active {
 }
 
 .hentry {
-  margin: 0 0 1.5em;
+  margin: 0 0 1.5rem;
 }
 
 .byline,
@@ -770,12 +770,12 @@ a:active {
 .page-content,
 .entry-content,
 .entry-summary {
-  margin: 1.5em 0 0;
+  margin: 0;
 }
 
 .page-links {
   clear: both;
-  margin: 0 0 1.5em;
+  margin: 0 0 1.5rem;
 }
 
 /*--------------------------------------------------------------
@@ -826,7 +826,7 @@ object {
 ## Captions
 --------------------------------------------------------------*/
 .wp-caption {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.5rem;
   max-width: 100%;
 }
 
@@ -848,7 +848,7 @@ object {
 ## Galleries
 --------------------------------------------------------------*/
 .gallery {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.5rem;
 }
 
 .gallery-item {

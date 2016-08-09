@@ -3,6 +3,8 @@
 // Form container
 .signup-form {
   @include outer-container();
+  background-color:$mid-blue;
+  @include rem('margin-bottom', $vr * 2);
 }
 
 // Add padding if needed
@@ -10,36 +12,44 @@
   @include all-pad(($vr * 2));
 }
 
+// Make corners rounded
+.signup-form--rounded-corners {
+  border-radius: 5px;
+}
+
+.signup-form--rounded-corners-top {
+  border-radius: 5px 5px 0 0;
+}
+
+.signup-form--rounded-corners-bottom {
+  border-radius: 0 0 5px 5px;
+}
+
 // Brief intro to the form
 .signup-form__intro {
   @include rem('margin-bottom', $vr);
   @include font-size(16px, 21px);
-
-  @include media($l-up) {
-    margin-bottom:0;
-  }
 }
 
 // Each field and/or label should be contained
 // within a fieldgroup
 .signup-form__fieldgroup {
   @include rem('margin-bottom', $vr);
-
-  @include media($l-up) {
-    &:not(:last-child) {
-      margin-bottom:0;
-    }
-  }
 }
 
 // Inline version of the form
 // Order: intro | fields | submit button
 .signup-form--inline {
+  margin-bottom:0;
 
   @include media($l-up) {
 
     .signup-form__intro {
       @include span-columns(4);
+
+      @include media($l-up) {
+        margin-bottom:0;
+      }
     }
 
     .signup-form__fields {

@@ -1,0 +1,10 @@
+.widget {
+  @include rem('padding-top', ($vr * 2));
+  @include rem('margin-top', ($vr * 2));
+  @include rem('margin-bottom', ($vr * 4));
+  @include font-size(14px, 20px);
+  border-top:1px solid $grey;
+  &:first-child {
+    border-top:0;
+  }
+}

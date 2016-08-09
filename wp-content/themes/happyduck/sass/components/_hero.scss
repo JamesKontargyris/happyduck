@@ -2,6 +2,7 @@
 
 .hero {
   @include rem('margin-bottom', ($vr * 3));
+  z-index: z('medium');
 
   @include media($l-up) {
     @include rem('margin-bottom', ($vr * 6));

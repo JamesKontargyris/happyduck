@@ -1,3 +1,56 @@
+// Wordpress class for all single article post types
+.type-article {
+  @include background(
+                  linear-gradient(to bottom, rgba($orange, 0.5) 0, $yellow 150px, $white 500px),
+                  linear-gradient(to bottom, $yellow 0, $white 500px)
+  );
+}
+
+.article__title {
+  @include font-weight('medium');
+
+  @include media($l-up) {
+    letter-spacing:-0.7px;
+    //width: (($column * 8) / ($column * 12)) * 100%;
+  }
+}
+
+.article__meta {
+  @include rem('margin-bottom', $vr * 3);
+
+  .icon svg {
+    fill:$brown;
+  }
+}
+
+.article__content {
+  h1, .h1,
+  h2, .h2,
+  h3, .h3,
+  h4, .h4,
+  h5, .h5,
+  h6, .h6 {
+    color:$coral;
+    @include font-weight('bold');
+  }
+}
+
+.article__featured-image {
+  @include rem('margin-bottom', $vr * 2);
+  border:1px solid $pale-grey;
+}
+
+.article__lead-para {
+  @include font-weight('medium');
+
+  @include media($l-up) {
+    @include font-size(19px, 30px);
+  }
+}
+
+//-----
+
+
 .article-extract {
   @include clearfix();
   &:not(:last-child) {

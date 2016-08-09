@@ -93,15 +93,64 @@ add_action( 'init', 'register_menus' );
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
 function happyduck_widgets_init() {
-	register_sidebar( array(
-		'name'          => esc_html__( 'Sidebar', 'happyduck' ),
-		'id'            => 'sidebar-1',
-		'description'   => esc_html__( 'Add widgets here.', 'happyduck' ),
+	register_sidebar( [
+		'name'          => esc_html__( 'Article Sidebar', 'happyduck' ),
+		'id'            => 'article',
+		'description'   => esc_html__( 'Add widgets below the default content in the article section sidebar.', 'happyduck' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h6 class="widget-title text--light-grey text--medium">',
+		'before_title'  => '<h6 class="widget-title text--light-grey text--medium text--uppercase text--expanded">',
 		'after_title'   => '</h6>',
-	) );
+	] );
+
+	register_sidebar( [
+		'name'          => esc_html__( 'Footer - Left', 'happyduck' ),
+		'id'            => 'footer-left',
+		'description'   => esc_html__( 'Add widgets to the left-hand column in the footer.', 'happyduck' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h6 class="widget-title text--mid-blue text--bold text--uppercase">',
+		'after_title'   => '</h6>',
+	] );
+
+	register_sidebar( [
+		'name'          => esc_html__( 'Footer - Centre', 'happyduck' ),
+		'id'            => 'footer-centre',
+		'description'   => esc_html__( 'Add widgets to the centre column in the footer.', 'happyduck' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h6 class="widget-title text--mid-blue text--bold text--uppercase">',
+		'after_title'   => '</h6>',
+	] );
+
+	register_sidebar( [
+		'name'          => esc_html__( 'Footer - Right', 'happyduck' ),
+		'id'            => 'footer-right',
+		'description'   => esc_html__( 'Add widgets to the right-hand column in the footer.', 'happyduck' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h6 class="widget-title text--mid-blue text--bold text--uppercase">',
+		'after_title'   => '</h6>',
+	] );
+
+	register_sidebar( [
+		'name'          => esc_html__( 'Site Info Bar - Left', 'happyduck' ),
+		'id'            => 'site-info-left',
+		'description'   => esc_html__( 'Add widgets to the left-hand column in the site info bar.', 'happyduck' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '',
+		'after_title'   => '',
+	] );
+	register_sidebar( [
+		'name'          => esc_html__( 'Site Info Bar - Right', 'happyduck' ),
+		'id'            => 'site-info-right',
+		'description'   => esc_html__( 'Add widgets to the right-hand column in the site info bar.', 'happyduck' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '',
+		'after_title'   => '',
+	] );
 }
 add_action( 'widgets_init', 'happyduck_widgets_init' );
 
@@ -255,6 +304,45 @@ function clean_testimonial_quote($quote)
 	$quote = rtrim($quote, "'");
 
 	return '&quot;' . $quote . '&quot;';
+}
+
+/**
+ * A function to give an estimated article reading time
+ * in minutes based on an article's word count
+ *
+ * @param $post_content
+ *
+ * @return float
+ */
+function reading_time($post_content)
+{
+	$word = str_word_count(strip_tags($post_content));
+	$m = floor($word / 200); // 200 words per minute
+	return ($m <= 1) ? 2 : $m;
+}
+
+function format_categories($categories)
+{
+	$string = '';
+	$last_item = end($categories);
+
+	foreach($categories as $category)
+	{
+		if($category == $last_item && count($categories) > 1)
+		{
+			$string .= 'and <a href="#" class="text--bold">' . $category->name . '</a>';
+		}
+		elseif(count($categories) > 1)
+		{
+			$string .= '<a href="#" class="text--bold">' . $category->name . '</a> ';
+		}
+		else
+		{
+			$string .= '<a href="#" class="text--bold">' . $category->name . '</a>, ';
+		}
+	}
+
+	return $string;
 }
 
 // Import shortcode functions and registrations
