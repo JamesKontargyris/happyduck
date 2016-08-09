@@ -103,6 +103,16 @@ function happyduck_widgets_init() {
 	] );
 
 	register_sidebar( [
+		'name'          => esc_html__( 'Post-article Area', 'happyduck' ),
+		'id'            => 'post-article',
+		'description'   => esc_html__( 'Appears at the end of an article\'s content.', 'happyduck' ),
+		'before_widget' => '<section id="%1$s" class="%2$s article__post-article">',
+		'after_widget'  => '</section>',
+		'before_title'  => '',
+		'after_title'   => '',
+	] );
+
+	register_sidebar( [
 		'name'          => esc_html__( 'Footer - Left', 'happyduck' ),
 		'id'            => 'footer-left',
 		'description'   => esc_html__( 'Add widgets to the left-hand column in the footer.', 'happyduck' ),
@@ -178,6 +188,7 @@ function happyduck_scripts() {
 
 	wp_enqueue_script( 'happyduck-match-height-js', get_template_directory_uri() . '/js/jquery.matchHeight.js', array(), '20160805', true );
 	wp_enqueue_script( 'happyduck-slick-js', get_template_directory_uri() . '/js/slick/slick.js', array(), '20160805', true );
+	wp_enqueue_script( 'happyduck-sticky-js', get_template_directory_uri() . '/js/jquery.sticky.js', array(), '20160809', true );
 	wp_enqueue_script( 'happyduck-site-js', get_template_directory_uri() . '/js/site.js', array(), '20160728', true );
 	wp_enqueue_script( 'happyduck-testimonial-js', get_template_directory_uri() . '/js/testimonial.js', array(), '20160805', true );
 
@@ -247,7 +258,7 @@ function happyduck_comment( $comment, $args, $depth ) {
 
 	?>
 	<li <?php comment_class('comment'); ?> id="comment-<?php comment_ID(); ?>">
-		<div class="comment__meta"><span class="comment__author"><?php comment_author(); ?></span> on <?php comment_date('j F Y \a\t G:i'); ?></div>
+		<div class="comment__meta"><span class="comment__author"><?php comment_author(); ?></span>&nbsp;&nbsp;<?php echo time_ago(get_comment_date('Y-m-d G:i:s')); ?></div>
 		<div class="comment__content"><?php comment_text(); ?></div>
 		<div class="comment__reply">
 			<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply', 'happyduck' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>

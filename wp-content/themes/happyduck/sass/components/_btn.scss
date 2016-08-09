@@ -46,7 +46,7 @@
 
 .btn--secondary {
   color:$blue !important;
-  background-color:$white;
+  //background-color:$white;
   border:1px solid tint($blue, 75%) !important;
 
   &:hover {
@@ -61,7 +61,7 @@
 .btn--tertiary {
   @include font-weight('regular');
   color:darken($light-grey, 30%) !important;
-  background-color: $light-grey !important;
+  background-color: lighten($light-grey, 30%) !important;
 
   &:hover {
     background-color:tint($blue, 90%) !important;

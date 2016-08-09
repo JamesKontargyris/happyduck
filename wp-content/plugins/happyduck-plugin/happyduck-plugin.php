@@ -119,6 +119,17 @@ function searchfilter($query)
 }
 add_filter('pre_get_posts', 'searchfilter');
 
+// Add custom post types to archive pages
+function archive_add_custom_types( $query ) {
+	if( is_category() || is_tag() && empty( $query->query_vars['suppress_filters'] ) ) {
+		$query->set( 'post_type', [
+			'post', 'article' // post_types to include here
+		]);
+		return $query;
+	}
+}
+add_filter( 'pre_get_posts', 'archive_add_custom_types' );
+
 // Ensure a comment author's display name is displayed on comments
 function comment_author_display_name($author) {
 	global $comment;
@@ -155,7 +166,7 @@ function get_recent_articles($count = 5)
 		'post_type' => 'article',
 		'post_status' => 'publish',
 		'posts_per_page' => $count,
-		'orderby' => 'modified'
+		'orderby' => 'date'
 	];
 
 	return get_posts($args);

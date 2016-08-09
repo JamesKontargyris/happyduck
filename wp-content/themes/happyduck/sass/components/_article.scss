@@ -6,6 +6,10 @@
   );
 }
 
+.article__header {
+  @include rem('margin-bottom', ($vr * 3));
+}
+
 .article__title {
   @include font-weight('medium');
 
@@ -16,7 +20,7 @@
 }
 
 .article__meta {
-  @include rem('margin-bottom', $vr * 3);
+  margin-bottom:$vr;
 
   .icon svg {
     fill:$brown;
@@ -84,5 +88,12 @@
     }
   }
 
+}
+
+.article__post-article {
+  font-style: italic;
+  border:1px solid tint($light-grey, 70%);
+  background: tint($pale-grey, 10%);
+  @include all-pad();
 }
 

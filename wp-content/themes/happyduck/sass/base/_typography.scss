@@ -22,6 +22,10 @@ h6, .h6 {
   font-weight:normal;
 }
 
+.heading--inline {
+  display:inline-block;
+}
+
 .heading--with-border-top {
   @include rem('padding-top', ($vr * 2));
   @include rem('margin-top', ($vr * 2));

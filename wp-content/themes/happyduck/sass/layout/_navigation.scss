@@ -107,6 +107,24 @@
   background-size:16px 16px;
 }
 
+.breadcrumbs {
+  color:$mid-grey;
+
+  @include media($s-down) {
+    display:none;
+  }
+
+  a,
+  a:visited {
+    color:shade($blue, 15%) !important;
+  }
+  a:focus,
+  a:hover,
+  a:active {
+    color:shade($blue, 45%) !important;
+  }
+}
+
 
 // Link colour helper classes
 .link--white,

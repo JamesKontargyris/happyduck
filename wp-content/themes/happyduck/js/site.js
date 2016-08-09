@@ -6,6 +6,33 @@
         window.location.href = '/';
     });
 
+
+    // Add class to header when screen is mobile size
+    var $window = $(window),
+        $header = $('.header');
+
+    // On page load
+    if ($window.width() < 900) {
+        $header.addClass('header--is-mobile');
+        // Make header sticky on mobile devices
+        $(".header--is-mobile").sticky({topSpacing:0});
+        return;
+    }
+    // On window resize
+    $window.resize(function resize(){
+        if ($window.width() < 900) {
+            $header.addClass('header--is-mobile');
+            // Make header sticky on mobile devices
+            $(".header--is-mobile").sticky({topSpacing:0});
+            return;
+        }
+        $(".header--is-mobile").unstick();
+        $header.removeClass('header--is-mobile');
+    }).trigger('resize');
+
+
+
+
     // Show/hide toggle for siblings of the clicked element
     $('.is-toggle').on('click', function()
     {

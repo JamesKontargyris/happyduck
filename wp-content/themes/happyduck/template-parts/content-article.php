@@ -10,13 +10,16 @@
 
 	<div class="page-section">
 		<div class="page-section__container">
-			<header class="entry-header">
+			<header class="entry-header article__header">
+				<?php include('partials/breadcrumbs.php'); ?>
 				<h1 class="article__title entry-title"><?php the_title(); ?></h1>
 				<p class="article__meta"><span class="text--bold"><?php echo the_date('j F Y'); ?></span>
 					<?php if($cats = get_the_category()) : ?>in <?php echo format_categories($cats); endif; ?>
 
-					<br>Reading time: <?php echo reading_time(get_the_content(get_the_ID())); ?> minutes <span class="hide--l hide--xl"><br></span> <span class="hide--xs hide--s hide--m">|</span> <?php comments_number('0 comments', '1 comment', '% comments'); ?><span class="hide--l hide--xl"><br></span><span class="hide--xs hide--s hide--m">,</span> <?php echo getPostViews(get_the_ID()); ?> views</p>
+					<br>Reading time: <?php echo reading_time(get_the_content(get_the_ID())); ?> minutes <span class="hide--l hide--xl"><br></span> <span class="hide--xs hide--s hide--m">|</span> <?php comments_number('0 comments', '1 comment', '% comments'); ?><span class="hide--l hide--xl"><br></span> <span class="hide--xs hide--s hide--m">|</span> <?php echo getPostViews(get_the_ID()); ?> views
+				</p>
 			</header>
+
 			<section class="page-section__main article__main">
 
 				<?php if(has_post_thumbnail()) : ?>
@@ -40,6 +43,17 @@
 					<?php the_content(); ?>
 
 				</div><!-- .entry-content -->
+
+				<?php if(get_the_tags()) : ?>
+					<ul class="link-group link-group--inline">
+						<li class="link-group__item text--mid-grey text--bold">Tags:</li>
+						<?php foreach(get_the_tags() as $tag) : ?>
+							<li class="link-group__item"><a class="btn btn--tertiary btn--xsmall" href="<?php echo get_tag_link($tag); ?>"><?php echo $tag->name; ?></a></li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
+
+				<?php dynamic_sidebar('post-article'); ?>
 
 				<?php include('partials/more-articles-in-category.php'); ?>
 

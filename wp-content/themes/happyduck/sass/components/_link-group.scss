@@ -90,3 +90,9 @@
   }
 }
 
+.link-group--border-top {
+  @include rem('padding-top', ($vr * 2));
+  @include rem('margin-top', ($vr * 2));
+  border-top:1px solid rgba($dark-grey, 0.2);
+}
+

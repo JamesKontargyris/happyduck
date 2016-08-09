@@ -78,17 +78,63 @@ function format_categories($categories)
 	{
 		if($category == $last_item && count($categories) > 1)
 		{
-			$string .= 'and <a href="#" class="text--bold link--brown">' . $category->name . '</a>';
+			$string .= 'and <a href="' . get_category_link($category->cat_ID) . '" class="text--bold link--brown">' . $category->name . '</a>';
 		}
 		elseif(count($categories) == 1)
 		{
-			$string .= '<a href="#" class="text--bold link--brown">' . $category->name . '</a> ';
+			$string .= '<a href="' . get_category_link($category->cat_ID) . '" class="text--bold link--brown">' . $category->name . '</a> ';
 		}
 		else
 		{
-			$string .= '<a href="#" class="text--bold link--brown">' . $category->name . '</a>, ';
+			$string .= '<a href="' . get_category_link($category->cat_ID) . '" class="text--bold link--brown">' . $category->name . '</a>, ';
 		}
 	}
 
 	return $string;
+}
+
+
+/**
+ * Convert a timestamp to a "time ago" string
+ *
+ * @param $ptime
+ *
+ * @return string
+ */
+function time_ago( $date )
+{
+	date_default_timezone_set("Europe/London");
+
+	$etime = time() - strtotime($date);
+
+	if ($etime < 1)
+	{
+		return '0 seconds';
+	}
+
+	$a = array( 365 * 24 * 60 * 60  =>  'year',
+	            30 * 24 * 60 * 60  =>  'month',
+	            24 * 60 * 60  =>  'day',
+	            60 * 60  =>  'hour',
+	            60  =>  'minute',
+	            1  =>  'second'
+	);
+	$a_plural = array( 'year'   => 'years',
+	                   'month'  => 'months',
+	                   'day'    => 'days',
+	                   'hour'   => 'hours',
+	                   'minute' => 'minutes',
+	                   'second' => 'seconds'
+	);
+
+	foreach ($a as $secs => $str)
+	{
+		$d = $etime / $secs;
+		if ($d >= 1)
+		{
+			$r = round($d);
+			return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str) . ' ago';
+		}
+	}
+
 }
