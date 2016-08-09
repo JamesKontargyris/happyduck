@@ -111,10 +111,20 @@
 // Link colour helper classes
 .link--white,
 .link--white:visited {
-  color:$white;
+  color:$white !important;
 }
 .link--white:focus,
 .link--white:hover,
 .link--white:active {
-  color:shade($white, 25%);
+  color:shade($white, 25%) !important;
+}
+
+.link--brown,
+.link--brown:visited {
+  color:$brown !important;
+}
+.link--brown:focus,
+.link--brown:hover,
+.link--brown:active {
+  color:shade($brown, 25%) !important;
 }

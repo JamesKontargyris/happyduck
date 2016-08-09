@@ -64,11 +64,16 @@
   display:block;
 }
 
+.article-extract__image {
+  @include rem('margin-bottom', $vr);
+}
+
 .article-extract--inline {
 
   .article-extract__image {
     float:none;
     @include rem('margin-right', 15px);
+    margin-bottom:0;
 
     @include media($m) {
       float:left;

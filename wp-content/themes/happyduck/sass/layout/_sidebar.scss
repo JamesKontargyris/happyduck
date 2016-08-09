@@ -1,10 +1,27 @@
 .widget {
   @include rem('padding-top', ($vr * 2));
   @include rem('margin-top', ($vr * 2));
-  @include rem('margin-bottom', ($vr * 4));
-  @include font-size(14px, 20px);
-  border-top:1px solid $grey;
+  @include rem('margin-bottom', ($vr * 3));
+  border-top:1px solid rgba($dark-grey, 0.2);
   &:first-child {
     border-top:0;
+    padding-top:0;
+    margin-top:0;
   }
+}
+
+//Make all sidebar text smaller than default
+.page-section__sidebar {
+  @include font-size(14px, 20px);
+}
+
+// Target meta data of article extracts in the sidebar
+.page-section__sidebar .article-extract__meta {
+  color:$light-grey;
+  @include font-size(12px, 20px);
+}
+
+// Turn sidebar menu widget lis into link-group__item classes
+.widget_menu .menu-item {
+  @extend .link-group__item;
 }

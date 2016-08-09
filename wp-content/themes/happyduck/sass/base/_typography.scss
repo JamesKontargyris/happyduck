@@ -22,6 +22,12 @@ h6, .h6 {
   font-weight:normal;
 }
 
+.heading--with-border-top {
+  @include rem('padding-top', ($vr * 2));
+  @include rem('margin-top', ($vr * 2));
+  border-top:1px solid rgba($dark-grey, 0.2);
+}
+
 h1, .h1 {
   @include font-size(24px, 32px);
   @include rem('margin', 0 0 ($vr * 2) 0);
@@ -47,7 +53,7 @@ h2, .h2 {
 }
 
 h3, .h3 {
-  @include font-size(21px, 28px);
+  @include font-size(18px, 24px);
   @include rem('margin', 0 0 ($vr * 2) 0);
 
   @include media($l-up) {
@@ -120,6 +126,7 @@ a {
   &:link, &:visited {
     color: $action-color;
     text-decoration: none;
+    @include font-weight('medium');
     transition: color $base-duration $base-timing, background-color $base-duration $base-timing;
   }
 

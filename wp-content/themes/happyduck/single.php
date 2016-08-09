@@ -14,6 +14,8 @@ get_header(); ?>
 
 		<?php
 		while ( have_posts() ) : the_post();
+//			TODO: update for W3 caching
+			setPostViews(get_the_ID());
 
 			get_template_part( 'template-parts/content', get_post_type() );
 

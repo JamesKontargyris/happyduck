@@ -1,0 +1,167 @@
+.comments {
+  padding:0;
+}
+
+.comments,
+.children {
+  list-style: none;
+}
+
+.comments__title {
+  position:relative;
+
+  @include media($s-down) {
+    cursor:pointer;
+    background: url('img/arrow-down-grey.svg') no-repeat right 20px center, $pale-grey;
+    background-size:10px 10px;
+    border:none;
+    @include rem('padding', $vr);
+    border-radius: 4px;
+
+    &.is-toggle--open {
+      background:url('img/arrow-up-grey.svg') no-repeat right 20px center $pale-grey;
+      background-size:10px 10px;
+    }
+  }
+
+}
+
+.comment__container {
+  display:none;
+  @include rem('margin-bottom', ($vr * 2));
+
+  @include media($m-up) {
+    display:block;
+  }
+}
+
+.comment {
+  border:1px solid tint($light-grey, 60%);
+  border-radius: 4px;
+  @include rem('margin-bottom', $vr);
+  @include font-size(14px, 20px);
+
+  @include media($l-up) {
+    @include rem('margin-bottom', ($vr * 2));
+    //@include font-size(16, 20px);
+  }
+}
+
+.comment__content p,
+.comment__meta,
+.comment__reply {
+  @include all-pad($vr);
+  margin:0;
+}
+
+.comment__content p {
+  padding-bottom:0;
+}
+.comment__reply {
+  padding-top:($vr * 0.5);
+}
+
+.comment__content {
+  //background-color:tint($light-grey, 90%);
+}
+
+.comment__meta {
+  background-color:tint($light-grey, 90%);
+}
+.comment__meta,
+.comment__reply {
+  @include font-size(12px, 16px);
+}
+
+.comment__reply {
+  //background-color:tint($light-grey, 90%);
+}
+
+.comment__author {
+  @include font-weight('bold');
+}
+
+// Post author comments are highlighted in yello
+.comments .bypostauthor {
+  border:1px solid tint($yellow, 60px);
+
+  .comment__content,
+  .comment__reply {
+    background-color:tint($yellow, 95%);
+  }
+
+  .comment__meta {
+    background-color:tint($yellow, 60%);
+  }
+}
+
+// Replies
+.children {
+  @include media($l-up) {
+    padding-left:$vr * 6;
+  }
+
+  .comment__meta {
+    background: url('img/reply.svg') left 10px center no-repeat;
+    background-size:12px 12px;
+    padding-left:28px;
+  }
+}
+
+.comments__no-comments {
+  color:$light-grey;
+}
+
+
+/// Wordpress comment form styles
+#respond {
+  //border:1px solid $light-grey;
+  border:1px solid tint($light-grey, 80%);
+  @include all-pad();
+  border-radius: 5px;
+}
+
+#reply-title {
+  @extend .h4;
+  @include font-weight('bold');
+  color:$light-grey;
+}
+
+.comment-form {
+  input[type=text],
+  input[type=email],
+  input[type=url] {
+    width:100%;
+  }
+
+  label {
+    @include font-size(14px, 18px);
+  }
+}
+
+.comment-respond {
+  @include rem('margin-bottom', $vr * 4);
+}
+
+.comment-notes {
+  @include font-size(14px, 18px);
+}
+
+.comment-form-comment {
+  @include rem('margin-bottom', $vr * 0.5);
+  #comment {
+    height:140px !important;
+    @include font-size(14px, 18px);
+  }
+}
+
+.form-submit {
+  margin:0;
+
+  input[type=submit] {
+    @extend .btn;
+    @extend .btn--primary;
+    //@extend .btn--small;
+
+  }
+}

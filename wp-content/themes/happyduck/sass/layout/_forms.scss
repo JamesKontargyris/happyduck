@@ -1,6 +1,7 @@
 input[type=text],
 input[type=email],
-input[type=password] {
+input[type=password],
+input[type="url"] {
   @include font-size(16, 18);
   font-family: $base-font-family;
   @include rem('padding', 8px);

@@ -1,0 +1,24 @@
+.widget_categories ul,
+.widget_recent_entries ul,
+.widget_archive ul {
+  @extend .link-group;
+}
+
+.widget_categories ul li,
+.widget_recent_entries ul li,
+.widget_archive ul li {
+  @extend .link-group__item;
+  color:$light-grey;
+  @include font-weight('medium');
+}
+
+.widget_nav_menu {
+  ul {
+    @extend .link-group;
+
+    li {
+      @extend .link-group__item;
+      @include font-weight('medium');
+    }
+  }
+}

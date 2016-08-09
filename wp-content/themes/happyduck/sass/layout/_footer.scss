@@ -27,6 +27,8 @@
 }
 
 .footer, .footer__site-info {
+  @include font-size(14, 24);
+
   a {
     &:link, &:visited {
       color: $white;
@@ -49,7 +51,7 @@
 
 .footer__sections {
   @include outer-container();
-  @include font-size(14, 24);
+  @include font-size(14px, 24px);
 }
 
 .footer__section {
@@ -71,7 +73,7 @@
 
 // Mailing list signup bar
 
-.footer__mailing-list {
+.footer__post-footer {
   background-color:$mid-blue;
   @include lr-pad();
   @include tb-pad();
@@ -81,12 +83,12 @@
 .footer__site-info {
   background-color:$deep-blue;
   color: $mid-blue;
-  @include font-size(12, 14);
   @include all-pad($lr-pad, $vr * 2);
 }
 
 .footer__site-info__cols {
   @include outer-container();
+  @include font-size(12px, 14px);
 }
 
 .footer__site-info__left-col,

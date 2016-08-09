@@ -81,8 +81,7 @@ add_action( 'after_setup_theme', 'happyduck_content_width', 0 );
  */
 function register_menus() {
 	register_nav_menus([
-		'main-navigation-menu' => __( 'Main Navigation Menu' ),
-		'quicklinks-menu' => __( 'QuickLinks Footer Menu' )
+		'main-navigation-menu' => __( 'Main Navigation Menu' )
 	]);
 }
 add_action( 'init', 'register_menus' );
@@ -109,7 +108,7 @@ function happyduck_widgets_init() {
 		'description'   => esc_html__( 'Add widgets to the left-hand column in the footer.', 'happyduck' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h6 class="widget-title text--mid-blue text--bold text--uppercase">',
+		'before_title'  => '<h6 class="widget-title text--mid-blue text--bold text--uppercase text--expanded text--12">',
 		'after_title'   => '</h6>',
 	] );
 
@@ -119,7 +118,7 @@ function happyduck_widgets_init() {
 		'description'   => esc_html__( 'Add widgets to the centre column in the footer.', 'happyduck' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h6 class="widget-title text--mid-blue text--bold text--uppercase">',
+		'before_title'  => '<h6 class="widget-title text--mid-blue text--bold text--uppercase text--expanded text--12">',
 		'after_title'   => '</h6>',
 	] );
 
@@ -129,7 +128,17 @@ function happyduck_widgets_init() {
 		'description'   => esc_html__( 'Add widgets to the right-hand column in the footer.', 'happyduck' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h6 class="widget-title text--mid-blue text--bold text--uppercase">',
+		'before_title'  => '<h6 class="widget-title text--mid-blue text--bold text--uppercase text--expanded text--12">',
+		'after_title'   => '</h6>',
+	] );
+
+	register_sidebar( [
+		'name'          => esc_html__( 'Footer - Post-Footer', 'happyduck' ),
+		'id'            => 'post-footer',
+		'description'   => esc_html__( 'Add widgets to bar after the footer.', 'happyduck' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s margin--none">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h6 class="widget-title text--mid-blue text--bold text--uppercase text--expanded text--12">',
 		'after_title'   => '</h6>',
 	] );
 
@@ -204,153 +213,53 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/jetpack.php';
 
 /**
- * Import the bem_menu function for better control of Wordpress menus
- * by implementing BEM naming conventions
+ * Unregister some of the default Wordpress widgets and others
  */
-include('inc/bem_menu.php');
-
-/**
- * Allow SVG.
- *
- * @param $mimes
- *
- * @return mixed
- */
-function cc_mime_types($mimes) {
-	$mimes['svg'] = 'image/svg+xml';
-	return $mimes;
-}
-add_filter('upload_mimes', 'cc_mime_types');
-
-/**
- * Ensure svg previews display correctly on admin pages
- */
-function svg_size() {
-	echo '<style>
-    svg, img[src*=".svg"] {
-      max-width: 150px !important;
-      max-height: 150px !important;
-    }
-  </style>';
-}
-add_action('admin_head', 'svg_size');
-
-
-// Happy Duck Functions
-
-function get_service_areas()
-{
-	global $post;
-
-	$args = [
-		'post_type' => 'service-area',
-		'post_status' => 'publish',
-		'posts_per_page' => -1,
-		'orderby' => 'menu_order'
-	];
-
-	return get_posts($args);
+function unregister_widgets() {
+	unregister_widget('WP_Widget_Pages');
+	unregister_widget('WP_Widget_Calendar');
+	unregister_widget('WP_Widget_Archives');
+	unregister_widget('WP_Widget_Links');
+	unregister_widget('WP_Widget_Meta');
+	unregister_widget('WP_Widget_Search');
+//	unregister_widget('WP_Widget_Text');
+//	unregister_widget('WP_Widget_Categories');
+	unregister_widget('WP_Widget_Recent_Posts');
+	unregister_widget('WP_Widget_Recent_Comments');
+	unregister_widget('WP_Widget_RSS');
+	unregister_widget('WP_Widget_Tag_Cloud');
+	unregister_widget('WP_Nav_Menu_Widget');
+	unregister_widget('bcn_widget');  // breadcrumb NavXT widget
+	unregister_widget('Twenty_Eleven_Ephemera_Widget');
 }
 
-/**
- * Helper function to return a theme image
- * @param $filename
- *
- * @return string
- */
-function t_img($filename)
-{
-	return get_template_directory_uri() . '/img/' . $filename;
-}
-
-/**
- * Include a script in the inc folder
- * @param $filename
- *
- * @return string
- */
-function t_include($filename)
-{
-	return get_template_directory_uri() . '/inc/' . $filename;
-}
-
-/**
- * Helper function to truncate text to a desired length,
- * cutting off text at the first white space beyond the
- * character count
- * @param $text
- * @param int $chars
- *
- * @return string
- */
-function truncate($text, $chars = 25)
-{
-	if(strlen($text) <= $chars) return $text;
-
-	$text = $text." ";
-	$text = substr($text,0,$chars);
-	$text = substr($text,0,strrpos($text,' '));
-	$text = $text."...";
-
-	return $text;
-}
-
-function clean_testimonial_quote($quote)
-{
-	$quote = trim($quote);
-	$quote = ltrim($quote, '"');
-	$quote = ltrim($quote, "'");
-	$quote = rtrim($quote, '"');
-	$quote = rtrim($quote, "'");
-
-	return '&quot;' . $quote . '&quot;';
-}
-
-/**
- * A function to give an estimated article reading time
- * in minutes based on an article's word count
- *
- * @param $post_content
- *
- * @return float
- */
-function reading_time($post_content)
-{
-	$word = str_word_count(strip_tags($post_content));
-	$m = floor($word / 200); // 200 words per minute
-	return ($m <= 1) ? 2 : $m;
-}
-
-function format_categories($categories)
-{
-	$string = '';
-	$last_item = end($categories);
-
-	foreach($categories as $category)
-	{
-		if($category == $last_item && count($categories) > 1)
-		{
-			$string .= 'and <a href="#" class="text--bold">' . $category->name . '</a>';
-		}
-		elseif(count($categories) > 1)
-		{
-			$string .= '<a href="#" class="text--bold">' . $category->name . '</a> ';
-		}
-		else
-		{
-			$string .= '<a href="#" class="text--bold">' . $category->name . '</a>, ';
-		}
-	}
-
-	return $string;
-}
-
-// Import shortcode functions and registrations
-include 'inc/shortcodes.php';
-
-// Import custom post types
-//include 'inc/custom-post-types.php';
-
+add_action('widgets_init', 'unregister_widgets', 11);
 
 // Add site css styles for the Wordpress editor
 add_editor_style('style.css');
+
+//Process shortcodes in the text/HTML widget
+add_filter('widget_text', 'do_shortcode');
+
+// Custom comment layout for articles
+function happyduck_comment( $comment, $args, $depth ) {
+	$GLOBALS['comment'] = $comment;
+
+	?>
+	<li <?php comment_class('comment'); ?> id="comment-<?php comment_ID(); ?>">
+		<div class="comment__meta"><span class="comment__author"><?php comment_author(); ?></span> on <?php comment_date('j F Y \a\t G:i'); ?></div>
+		<div class="comment__content"><?php comment_text(); ?></div>
+		<div class="comment__reply">
+			<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply', 'happyduck' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+		</div>
+	</li>
+	<?php
+}
+
+// Change the default "Leave a reply" title on the comment form
+function change_comment_form_title($defaults) {
+	$defaults['title_reply'] = 'Leave a comment';
+	$defaults['title_reply_to'] = 'Reply to %s';
+	return $defaults;
+}
+add_filter('comment_form_defaults', 'change_comment_form_title');

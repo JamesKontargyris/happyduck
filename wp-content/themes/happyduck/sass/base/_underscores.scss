@@ -267,9 +267,9 @@ select,
 textarea {
   color: #404040;
   font-family: sans-serif;
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 1.5;
+  //font-size: 16px;
+  //font-size: 1rem;
+  //line-height: 1.5;
 }
 
 h1,
@@ -466,6 +466,7 @@ input[type="time"],
 input[type="datetime"],
 input[type="datetime-local"],
 input[type="color"],
+input[type="url"],
 textarea {
   color: #666;
   border: 1px solid #ccc;
