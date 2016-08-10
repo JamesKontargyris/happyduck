@@ -78,15 +78,15 @@ function format_categories($categories)
 	{
 		if($category == $last_item && count($categories) > 1)
 		{
-			$string .= 'and <a href="' . get_category_link($category->cat_ID) . '" class="text--bold link--brown">' . $category->name . '</a>';
+			$string .= 'and <a href="' . get_category_link($category->cat_ID) . '" class="text--bold">' . $category->name . '</a>';
 		}
 		elseif(count($categories) == 1)
 		{
-			$string .= '<a href="' . get_category_link($category->cat_ID) . '" class="text--bold link--brown">' . $category->name . '</a> ';
+			$string .= '<a href="' . get_category_link($category->cat_ID) . '" class="text--bold">' . $category->name . '</a> ';
 		}
 		else
 		{
-			$string .= '<a href="' . get_category_link($category->cat_ID) . '" class="text--bold link--brown">' . $category->name . '</a>, ';
+			$string .= '<a href="' . get_category_link($category->cat_ID) . '" class="text--bold">' . $category->name . '</a>, ';
 		}
 	}
 

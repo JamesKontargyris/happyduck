@@ -28,6 +28,7 @@ add_image_size( 'small-thumb', 90, 58, true );
 add_image_size( 'medium-thumb', 120, 80, true );
 add_image_size( 'large-thumb', 150, 100, true );
 add_image_size( 'article-feature', 1200, 792, true );
+add_image_size( 'article-archive', 600, 400, true );
 
 /**
  * Allow SVG.

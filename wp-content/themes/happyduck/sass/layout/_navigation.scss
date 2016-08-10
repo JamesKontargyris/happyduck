@@ -108,7 +108,7 @@
 }
 
 .breadcrumbs {
-  color:$mid-grey;
+  color:$brown;
 
   @include media($s-down) {
     display:none;
@@ -116,12 +116,12 @@
 
   a,
   a:visited {
-    color:shade($blue, 15%) !important;
+    color:$brown !important;
   }
   a:focus,
   a:hover,
   a:active {
-    color:shade($blue, 45%) !important;
+    color:shade($blue, 25%) !important;
   }
 }
 

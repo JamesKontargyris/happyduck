@@ -1,13 +1,17 @@
 .widget {
   @include rem('padding-top', ($vr * 2));
   @include rem('margin-top', ($vr * 2));
-  @include rem('margin-bottom', ($vr * 3));
-  border-top:1px solid rgba($dark-grey, 0.2);
-  &:first-child {
+  @include rem('margin-bottom', ($vr * 2));
+  border-top:1px solid rgba($dark-grey, 0.1);
+  &:first-of-type {
     border-top:0;
     padding-top:0;
     margin-top:0;
   }
+}
+
+.widget--no-border {
+  border-top:0;
 }
 
 //Make all sidebar text smaller than default
@@ -24,4 +28,13 @@
 // Turn sidebar menu widget lis into link-group__item classes
 .widget_menu .menu-item {
   @extend .link-group__item;
+}
+
+.tagcloud {
+  a {
+    @extend .btn;
+    @extend .btn--tertiary;
+    @extend .btn--small;
+    font-size:1.2rem !important;
+  }
 }

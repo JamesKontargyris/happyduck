@@ -27,9 +27,15 @@ h6, .h6 {
 }
 
 .heading--with-border-top {
-  @include rem('padding-top', ($vr * 2));
-  @include rem('margin-top', ($vr * 2));
+  @include rem('padding-top', ($vr * 1.5));
+  @include rem('margin-top', ($vr * 1.5));
   border-top:1px solid rgba($dark-grey, 0.2);
+}
+
+.heading--with-border-bottom {
+  @include rem('padding-bottom', ($vr * 1.5));
+  @include rem('margin-bottom', ($vr * 1.5));
+  border-bottom:1px solid rgba($dark-grey, 0.2);
 }
 
 h1, .h1 {

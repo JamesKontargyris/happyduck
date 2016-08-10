@@ -14,7 +14,7 @@
 				<?php include('partials/breadcrumbs.php'); ?>
 				<h1 class="article__title entry-title"><?php the_title(); ?></h1>
 				<p class="article__meta"><span class="text--bold"><?php echo the_date('j F Y'); ?></span>
-					<?php if($cats = get_the_category()) : ?>in <?php echo format_categories($cats); endif; ?>
+					<?php if(get_the_category()) : ?>in <?php the_category(', '); endif; ?>
 
 					<br>Reading time: <?php echo reading_time(get_the_content(get_the_ID())); ?> minutes <span class="hide--l hide--xl"><br></span> <span class="hide--xs hide--s hide--m">|</span> <?php comments_number('0 comments', '1 comment', '% comments'); ?><span class="hide--l hide--xl"><br></span> <span class="hide--xs hide--s hide--m">|</span> <?php echo getPostViews(get_the_ID()); ?> views
 				</p>

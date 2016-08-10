@@ -95,7 +95,7 @@ function happyduck_widgets_init() {
 	register_sidebar( [
 		'name'          => esc_html__( 'Article Sidebar', 'happyduck' ),
 		'id'            => 'article',
-		'description'   => esc_html__( 'Add widgets below the default content in the article section sidebar.', 'happyduck' ),
+		'description'   => esc_html__( 'Add widgets to the sidebar on article pages.', 'happyduck' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
 		'before_title'  => '<h6 class="widget-title text--light-grey text--medium text--uppercase text--expanded">',
@@ -110,6 +110,16 @@ function happyduck_widgets_init() {
 		'after_widget'  => '</section>',
 		'before_title'  => '',
 		'after_title'   => '',
+	] );
+
+	register_sidebar( [
+		'name'          => esc_html__( 'Archive Sidebar', 'happyduck' ),
+		'id'            => 'archive',
+		'description'   => esc_html__( 'Add widgets to the sidebar on archive pages.', 'happyduck' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h5 class="widget-title text--coral text--medium">',
+		'after_title'   => '</h5>',
 	] );
 
 	register_sidebar( [
@@ -229,7 +239,7 @@ require get_template_directory() . '/inc/jetpack.php';
 function unregister_widgets() {
 	unregister_widget('WP_Widget_Pages');
 	unregister_widget('WP_Widget_Calendar');
-	unregister_widget('WP_Widget_Archives');
+//	unregister_widget('WP_Widget_Archives');
 	unregister_widget('WP_Widget_Links');
 	unregister_widget('WP_Widget_Meta');
 	unregister_widget('WP_Widget_Search');
@@ -238,7 +248,7 @@ function unregister_widgets() {
 	unregister_widget('WP_Widget_Recent_Posts');
 	unregister_widget('WP_Widget_Recent_Comments');
 	unregister_widget('WP_Widget_RSS');
-	unregister_widget('WP_Widget_Tag_Cloud');
+//	unregister_widget('WP_Widget_Tag_Cloud');
 	unregister_widget('WP_Nav_Menu_Widget');
 	unregister_widget('bcn_widget');  // breadcrumb NavXT widget
 	unregister_widget('Twenty_Eleven_Ephemera_Widget');
@@ -274,3 +284,16 @@ function change_comment_form_title($defaults) {
 	return $defaults;
 }
 add_filter('comment_form_defaults', 'change_comment_form_title');
+
+// Include custom post types in the archive widget
+function custom_getarchives_where( $where ){
+	$where = str_replace( "post_type = 'post'", "post_type IN ( 'post', 'article' )", $where );
+	return $where;
+}
+add_filter( 'getarchives_where', 'custom_getarchives_where' );
+
+
+// Strip title prefix from archive titles
+add_filter('get_the_archive_title', function ($title) {
+	return preg_replace('/^\w+: /', '', $title);
+});

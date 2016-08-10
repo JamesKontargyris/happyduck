@@ -9,39 +9,73 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
+	<div id="primary" class="content-area archive">
 		<main id="main" class="site-main" role="main">
-
-		<?php
-		if ( have_posts() ) : ?>
-
-			<header class="page-header">
-				<?php
-					the_archive_title( '<h1 class="page-title">', '</h1>' );
+			<div class="page-header hero hero--grey margin--none">
+				<div class="hero__content hero__content--shallow">
+					<?php include('template-parts/partials/breadcrumbs.php'); ?>
+					<?php
+					the_archive_title( '<h1 class="page-title text--medium margin--none">', '</h1>' );
 					the_archive_description( '<div class="archive-description">', '</div>' );
-				?>
-			</header><!-- .page-header -->
+					?>
+				</div>
+			</div>
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) : the_post();
+			<div class="page-section">
+				<div class="page-section__container">
 
-				/*
-				 * Include the Post-Format-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_format() );
+					<section class="page-section__main archive__main">
+						<?php if ( have_posts() ) : ?>
+							<?php
+							/* Start the Loop */
+							while ( have_posts() ) : the_post();
 
-			endwhile;
+								switch(get_post_type()) {
+									case 'article':
+										get_template_part( 'template-parts/extract', 'article' );
+										break;
+									default:
+	//						By default, load the template part with the suffix that matches the page layout selected for the current page
+										get_template_part( 'template-parts/content', 'page-' . get_field('page_layout') );
+										break;
+								}
 
-			the_posts_navigation();
+							endwhile;
 
-		else :
+							//			the_posts_navigation();
 
-			get_template_part( 'template-parts/content', 'none' );
+							else :
 
-		endif; ?>
+								get_template_part( 'template-parts/content', 'none' );
+							?>
+
+						<?php endif; ?>
+
+					</section>
+
+					<section class="page-section__sidebar">
+						<?php dynamic_sidebar('archive'); ?>
+<!--						<div class="archive-list">-->
+<!--							<h4 class="text--coral text--medium heading--with-border-bottom">By Category</h4>-->
+<!--							<ul class="link-group">-->
+<!--								--><?php //foreach(get_categories() as $category) : ?>
+<!--									<li class="link-group__item"><a href="--><?php //echo get_category_link($category); ?><!--">--><?php //echo $category->name; ?><!--</a></li>-->
+<!--								--><?php //endforeach; ?>
+<!--							</ul>-->
+<!--						</div>-->
+<!--						<div class="archive-list">-->
+<!--							<h4 class="text--coral text--medium heading--with-border-bottom">By Tag</h4>-->
+<!--							<ul class="link-group">-->
+<!--								<li class="link-group__item"><a href="/article">All</a></li>-->
+<!--								--><?php //foreach(get_tags() as $tag) : ?>
+<!--									<li class="link-group__item"><a href="--><?php //echo get_tag_link($tag); ?><!--" class="btn btn--secondary btn--small">--><?php //echo $tag->name; ?><!--</a></li>-->
+<!--								--><?php //endforeach; ?>
+<!--							</ul>-->
+<!--						</div>-->
+					</section>
+
+				</div>
+			</div>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->

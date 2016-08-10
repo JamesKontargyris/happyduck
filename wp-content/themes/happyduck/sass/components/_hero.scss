@@ -18,9 +18,18 @@
   }
 }
 
+.hero__content--shallow {
+  @include all-pad(($vr * 3), $lr-pad);
+}
+
 .hero--coral {
   background-color:$coral;
   @include background(linear-gradient(to bottom, $coral 50%, shade($coral, 6%) 100%));
+}
+
+.hero--grey {
+  background-color:$pale-grey;
+  @include background(linear-gradient(to bottom, $pale-grey 50%, $pale-grey 100%));
 }
 
 .hero--yellow {

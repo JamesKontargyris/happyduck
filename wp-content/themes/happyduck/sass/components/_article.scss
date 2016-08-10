@@ -1,8 +1,8 @@
 // Wordpress class for all single article post types
 .type-article {
   @include background(
-                  linear-gradient(to bottom, rgba($orange, 0.5) 0, $yellow 150px, $white 500px),
-                  linear-gradient(to bottom, $yellow 0, $white 500px)
+                  linear-gradient(to bottom, rgba($orange, 0.5) 0, tint($yellow, 30%) 150px, $white 500px),
+                  linear-gradient(to bottom, tint($yellow, 30%) 0, $white 500px)
   );
 }
 
@@ -95,5 +95,70 @@
   border:1px solid tint($light-grey, 70%);
   background: tint($pale-grey, 10%);
   @include all-pad();
+}
+
+
+.article-archive {
+  @include rem('margin-bottom', $vr * 2);
+  @include rem('padding-bottom', $vr * 2);
+  &:not(:last-child) {
+    border-bottom:1px solid shade($pale-grey, 10%);
+  }
+
+  @include media($m-up) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}
+
+.article-archive__image {
+  display: block;
+  border:1px solid tint($light-grey, 60%);
+  @include rem('margin-right', 20px);
+
+  @include media($s-down) {
+    @include rem('margin-bottom', $vr);
+  }
+  @include media($m) {
+    max-width:140px;
+  }
+
+  @include media($l-up) {
+    max-width:230px;
+  }
+}
+
+.article-archive__title {
+  @include rem('margin-bottom', 0);
+  line-height:1.2;
+}
+
+.article-archive__meta {
+  @include rem('margin-top', $vr);
+  @include font-size(14px, 24px);
+  color:$brown;
+}
+
+.article-archive__extract {
+  margin-bottom:0;
+  @include font-size(14px, 20px);
+  @include rem('margin-top', $vr * 0.5);
+}
+
+.article-archive__tags {
+  @include rem('margin-top', $vr);
+  @include font-size(12px, 14px);
+  font-style: italic;
+}
+
+.article-archive__icon {
+  max-width:16px;
+  fill: $brown;
+  vertical-align: middle;
+
+  &:not(:first-of-type) {
+    margin-left:10px;
+  }
 }
 
