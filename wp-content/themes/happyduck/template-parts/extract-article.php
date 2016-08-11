@@ -12,7 +12,7 @@
 
 		<div class="article-archive__meta">
 			<?php the_date('j F Y'); ?> in <?php the_category(', '); ?><br>
-			<img src="<?php echo t_img('icon-comment.svg'); ?>" alt="" class="svg article-archive__icon"> <?php comments_number('0 comments', '1 comment', '% comments'); ?> <img src="<?php echo t_img('icon-clock.svg'); ?>" alt="" class="svg article-archive__icon"> <?php echo reading_time(get_the_content()); ?> minutes <img src="<?php echo t_img('icon-eye.svg'); ?>" alt="" class="svg article-archive__icon"> <?php echo getPostViews(get_the_ID()); ?> views
+			<span class="hide--s hide--xs"><img src="<?php echo t_img('icon-comment.svg'); ?>" alt="" class="svg article-archive__icon"> <?php comments_number('0 comments', '1 comment', '% comments'); ?> <img src="<?php echo t_img('icon-clock.svg'); ?>" alt="" class="svg article-archive__icon"> <?php echo reading_time(get_the_content()); ?> minutes <img src="<?php echo t_img('icon-eye.svg'); ?>" alt="" class="svg article-archive__icon"> <?php echo getPostViews(get_the_ID()); ?> views</span>
 		</div>
 
 		<?php if(get_field('lead_paragraph')) : ?>

@@ -6,6 +6,7 @@
 
   @include media($l-up) {
     @include rem('margin-bottom', ($vr * 6));
+    @include font-size(18px, 30px);
   }
 }
 

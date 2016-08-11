@@ -60,6 +60,7 @@ h2, .h2 {
     @include font-size(32px, 36px);
     @include rem('margin', 0 0 ($vr * 3) 0);
   }
+
 }
 
 h3, .h3 {
@@ -67,7 +68,7 @@ h3, .h3 {
   @include rem('margin', 0 0 ($vr * 2) 0);
 
   @include media($l-up) {
-    @include font-size(24px, 36px);
+    @include font-size(26px, 36px);
     @include rem('margin', 0 0 ($vr * 3) 0);
   }
 }

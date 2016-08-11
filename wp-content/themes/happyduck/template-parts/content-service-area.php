@@ -9,16 +9,18 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
 
-		<?php include('partials/page-menu-service-area.php'); ?>
+		<?php echo do_shortcode('[service-area-page-menu]'); ?>
 
 		<section class="hero hero--coral hero--align-centre">
 			<div class="hero__content">
 				<?php if(has_post_thumbnail()) : ?>
-					<i class="icon icon--xxxlarge hide--xs hide--s">
-						<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="Crystal Ball">
-					</i>
+					<div class="hero__icon">
+						<i class="icon icon--xxxlarge hide--xs hide--s margin--bottom-small">
+							<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="Crystal Ball">
+						</i>
+					</div>
 				<?php endif; ?>
-				<h1 class="entry-title heading--show-as-h6 text--white text--uppercase hide--l-up"><?php the_title(); ?></h1>
+				<h1 class="entry-title heading--show-as-h6 text--white text--expanded text--uppercase hide--l-up margin--bottom-small"><?php the_title(); ?></h1>
 				<h2 class="text--white text--regular"><?php echo get_field('headline'); ?></h2>
 				<?php if(get_field('lead_paragraph')) : ?>
 					<hr class="divider divider--narrow divider--overlay-light">

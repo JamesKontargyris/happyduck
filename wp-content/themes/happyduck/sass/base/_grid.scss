@@ -15,6 +15,7 @@ $s-down: new-breakpoint(max-width map-get($breakpoints, 's'));
 //M 8 column grid
 $m: new-breakpoint(min-width map-get($breakpoints, 's') max-width map-get($breakpoints, 'm'));
 $m-up: new-breakpoint(min-width map-get($breakpoints, 's') + 1);
+$m-down: new-breakpoint(max-width map-get($breakpoints, 'm'));
 //L & XL 12 column grid
 $l: new-breakpoint(min-width map-get($breakpoints, 'm') max-width map-get($breakpoints, 'l'));
 $l-up: new-breakpoint(min-width map-get($breakpoints, 'm') + 1);

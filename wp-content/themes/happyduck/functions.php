@@ -239,7 +239,7 @@ require get_template_directory() . '/inc/jetpack.php';
 function unregister_widgets() {
 	unregister_widget('WP_Widget_Pages');
 	unregister_widget('WP_Widget_Calendar');
-//	unregister_widget('WP_Widget_Archives');
+	unregister_widget('WP_Widget_Archives');
 	unregister_widget('WP_Widget_Links');
 	unregister_widget('WP_Widget_Meta');
 	unregister_widget('WP_Widget_Search');

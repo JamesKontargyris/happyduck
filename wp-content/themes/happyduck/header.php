@@ -32,7 +32,7 @@
 			<nav class="header__nav">
 <!--				TODO: add search bar-->
 <!--				TODO: add widget area for this link-group-->
-				<ul class="link-group link-group--inline link-group--align-right hide--xs hide--s hide--m">
+				<ul class="link-group link-group--inline link-group--align-right hide--xs hide--s hide--m margin--none">
 					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--facebook" href="http://facebook.com"><img class="svg" src="<?php echo t_img('facebook-logo.svg'); ?>" alt="Facebook"></a></li>
 					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--twitter" href="http://twitter.com"><img class="svg" src="<?php echo t_img('twitter-logo.svg'); ?>" alt="Twitter"></a></li>
 					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--googleplus" href="http://plus.google.com"><img class="svg" src="<?php echo t_img('googleplus-logo.svg'); ?>" alt="Google+"></a></li>
@@ -41,14 +41,6 @@
 				</ul>
 
 				<?php bem_menu('main-navigation-menu', 'menu', ['menu--inline', 'menu--no-bottom-margin', 'menu--align-right', 'margin--none']); ?>
-<!--				<ul class="menu menu--inline menu--no-bottom-margin menu--align-right">-->
-<!--
-					<li class="menu__item"><a href="#" class="menu__link">About Us</a></li>
-					<li class="menu__item"><a href="#" class="menu__link menu__link--active">Our Services</a></li>
-					<li class="menu__item"><a href="#" class="menu__link">Articles</a></li>
-					<li class="menu__item"><a href="#" class="menu__link">Contact Us</a></li>
-				</ul>-->
-
 			</nav>
 		</div>
 	</header>

@@ -1,8 +1,21 @@
+.site-content {
+  @include media($m-down) {
+    margin-top:80px; // allows for the fixed header on mobile
+  }
+}
+
 .header {
   position: relative;
   @include lr-pad($vr * 0.7);
   background-color: white;
-  z-index: z('high');
+  z-index: z('above-all');
+
+  @include media($m-down) { // Fixed header on mobile
+    @include rem('height', 80px);
+    position:fixed;
+    top:0;
+    width:100%;
+  }
 
   @include media($l-up) {
     @include lr-pad($lr-pad * 1.5);

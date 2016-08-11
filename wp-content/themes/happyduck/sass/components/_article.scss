@@ -135,7 +135,7 @@
 }
 
 .article-archive__meta {
-  @include rem('margin-top', $vr);
+  @include rem('margin-top', $vr * 0.5);
   @include font-size(14px, 24px);
   color:$brown;
 }

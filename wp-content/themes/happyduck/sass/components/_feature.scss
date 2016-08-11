@@ -1,7 +1,10 @@
 .feature {
   width:100%;
   @include lr-pad();
-  @include tb-pad($vr * 4);
+  @include tb-pad($vr * 3);
+  &:not(:first-of-type) {
+    border-top:2px solid tint($pale-grey, 40%);
+  }
 
   @include media($l-up) {
     @include tb-pad($vr * 8);
@@ -9,7 +12,7 @@
 }
 
 .feature--light-grey {
-  background-color:$pale-grey;
+  background-color:tint($pale-grey, 40%);
 }
 
 .feature__content {
@@ -19,30 +22,63 @@
 .feature__icon {
   margin:0 auto;
   @include rem('margin-bottom', ($vr * 2));
-  @include rem('max-width', 100px);
+  @include rem('width', 100px);
+  @include rem('height', 100px);
+  overflow:hidden;
 
   @include media($m-up) {
-    @include rem('max-width', 200px);
+    @include rem('width', 150px);
+    @include rem('height', 150px);
   }
   @include media($l-up) {
     @include span-columns(3);
     @include shift(1);
-    @include rem('max-width', 300px);
+    @include rem('width', 200px);
+    @include rem('height', 200px);
     @include rem('margin-right', $column);
+  }
+}
+
+.feature__icon--padded {
+  @include all-pad($vr, $vr);
+
+  & > svg {
+    transform: scale(0.8);
+  }
+
+  @include media($l-up) {
+    @include all-pad($vr * 1.5, $vr * 1.5);
   }
 }
 
 .feature__icon--circle {
   border-radius: 50%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
 
   & > img, & > svg {
-    border-radius: 50%;
+    //border-radius: 50%;
   }
+}
+
+.feature__icon--yellow {
+  background:$yellow;
+}
+.feature__icon--coral {
+  background:$coral;
+}
+.feature__icon--orange {
+  background:$orange;
+}
+.feature__icon--brown {
+  background:$brown;
 }
 
 .feature__text {
   @include media($l-up) {
-    @include span-columns(6);
+    @include span-columns(7);
     @include omega();
   }
 }
@@ -60,17 +96,19 @@
   @include direction-context($direction: right-to-left) {
 
     .feature__icon {
+
       @include media($l-up) {
         @include span-columns(3);
         @include shift(1);
-        @include rem('max-width', 300px);
         @include rem('margin-left', $column);
+        @include rem('width', 200px);
+        @include rem('height', 200px);
       }
     }
 
     .feature__text {
       @include media($l-up) {
-        @include span-columns(6);
+        @include span-columns(7);
       }
     }
   }
