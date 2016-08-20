@@ -3,7 +3,7 @@
 // Form container
 .signup-form {
   @include outer-container();
-  background-color:$mid-blue;
+  background-color:$pale-grey;
   @include rem('margin-bottom', $vr * 2);
 }
 
@@ -29,6 +29,10 @@
 .signup-form__intro {
   @include rem('margin-bottom', $vr);
   @include font-size(16px, 21px);
+}
+
+.signup-form__title {
+  color:$coral;
 }
 
 // Each field and/or label should be contained
@@ -72,5 +76,18 @@
     .signup-form__submit {
       @include span-columns(2);
     }
+  }
+}
+
+.signup-form--blue {
+  background-color:$mid-blue;
+
+  .signup-form__title {
+    color:$yellow;
+  }
+
+  .signup-form__intro,
+  .signup-form__fieldgroup label {
+    color:$white;
   }
 }
