@@ -45,4 +45,5 @@ get_header(); ?>
 	</div><!-- #primary -->
 
 <?php
+include('template-parts/partials/testimonials.php');
 get_footer();

@@ -20,12 +20,6 @@
   }
 }
 
-.page-section__main--full-width {
-  @include media($l-up) {
-    @include span-columns(12);
-  }
-}
-
 .page-section__sidebar {
   @include media($l-up) {
     @include span-columns(4);
@@ -50,4 +44,21 @@
     }
   }
 
+}
+
+// Additional formatting niceness for page content, if the user selects it
+.page-section__content-format {
+  h1, .h1,
+  h2, .h2,
+  h3, .h3,
+  h4, .h4,
+  h5, .h5,
+  h6, .h6 {
+    color:$coral;
+    @include font-weight('medium');
+  }
+
+  ul {
+    @include rem('margin-bottom', ($vr * 2));
+  }
 }

@@ -21,21 +21,10 @@
 
 .article__meta {
   margin-bottom:$vr;
+  color:$brown;
 
-  .icon svg {
+  svg {
     fill:$brown;
-  }
-}
-
-.article__content {
-  h1, .h1,
-  h2, .h2,
-  h3, .h3,
-  h4, .h4,
-  h5, .h5,
-  h6, .h6 {
-    color:$coral;
-    @include font-weight('bold');
   }
 }
 
@@ -155,6 +144,16 @@
 .article-archive__icon {
   max-width:16px;
   fill: $brown;
+  vertical-align: middle;
+
+  &:not(:first-of-type) {
+    margin-left:10px;
+  }
+}
+
+.article__icon {
+  max-width:16px;
+  //fill: $brown;
   vertical-align: middle;
 
   &:not(:first-of-type) {

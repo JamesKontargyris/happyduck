@@ -93,6 +93,16 @@ add_action( 'init', 'register_menus' );
  */
 function happyduck_widgets_init() {
 	register_sidebar( [
+		'name'          => esc_html__( 'Default Page Sidebar', 'happyduck' ),
+		'id'            => 'default',
+		'description'   => esc_html__( 'Add widgets to the default sidebar on standard pages.', 'happyduck' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h5 class="widget-title text--coral text--medium">',
+		'after_title'   => '</h5>',
+	] );
+
+	register_sidebar( [
 		'name'          => esc_html__( 'Article Sidebar', 'happyduck' ),
 		'id'            => 'article',
 		'description'   => esc_html__( 'Add widgets to the sidebar on article pages.', 'happyduck' ),

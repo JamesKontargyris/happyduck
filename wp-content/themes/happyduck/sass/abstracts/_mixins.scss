@@ -114,7 +114,7 @@
 
 /// Helper function for font weights
 @mixin font-weight($weight: 'regular') {
-  font-family: "UniformRounded--#{$weight}", sans-serif;
+  font-family: "UniformRounded--#{$weight}", sans-serif !important;
 }
 
 

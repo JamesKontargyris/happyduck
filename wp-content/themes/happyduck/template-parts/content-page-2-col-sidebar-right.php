@@ -1,10 +1,14 @@
+<?php include('partials/page-title.php'); ?>
+
 <div class="page-section">
 	<div class="page-section__container">
 		<div class="page-section__main">
-			<?php the_content(); ?>
+
+			<?php include('partials/page-content.php'); ?>
+
 		</div>
 		<div class="page-section__sidebar">
-			<?php get_sidebar(); ?>
+			<?php dynamic_sidebar('default'); ?>
 		</div>
 	</div>
 </div>

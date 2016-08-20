@@ -27,5 +27,9 @@ a img {
   }
 }
 
+strong {
+  @include font-weight('bold');
+}
+
 
 
