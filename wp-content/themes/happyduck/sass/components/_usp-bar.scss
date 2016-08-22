@@ -1,0 +1,10 @@
+.usp-bar {
+  @include media($l-up) {
+    @include lr-pad();
+  }
+}
+.usp-bar__block {
+  @include media($l-up) {
+    @include lr-pad($vr * 2);
+  }
+}

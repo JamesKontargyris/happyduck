@@ -1,0 +1,71 @@
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
+}
+
+@keyframes move-ltr {
+  100% {
+    transform: translate(9999px, 0);
+  }
+}
+
+@keyframes move-rtl {
+  100% {
+    transform: translate(-9999px, 0);
+  }
+}
+
+@keyframes waves-ltr {
+  100% {
+    transform: translate(50px, 0);
+  }
+}
+
+@keyframes waves-rtl {
+  100% {
+    transform: translate(-50px, 0);
+  }
+}
+
+@keyframes bobbing-ship-ltr {
+  0% {
+    transform: translate(0, -3px) rotate(-5deg);
+  }
+
+  50% {
+    transform: translate(0, 6px) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(0, -3px) rotate(-5deg);
+  }
+}
+
+@keyframes bobbing-ship-rtl {
+  0% {
+    transform: translate(0, -3px) rotate(5deg);
+  }
+
+  50% {
+    transform: translate(0, 6px) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(0, -3px) rotate(5deg);
+  }
+}
+
+@keyframes device-appear {
+  from {transform:translate(0, 600px);}
+  to {transform:translate(0, 0);}
+}
+
+@keyframes device-bob {
+  0% {transform:translate(0, 0);}
+  50% {transform:translate(0, 4px);}
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}

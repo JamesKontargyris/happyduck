@@ -1,0 +1,333 @@
+.home-anim-banner {
+  position:relative;
+  overflow:hidden;
+  @include background(
+                  url('img/home/clouds.svg') top left repeat-x,
+                  url('img/home/hills.svg') left calc(100% - 10.5rem) repeat-x,
+                  linear-gradient(to bottom, #baeaff 0%, #dff0fb 60%)
+  );
+  background-size:325px 28px, 700px 40px, contain;
+
+  @include media($l-up) {
+    @include background(
+                    url('img/home/clouds.svg') top left repeat-x,
+                    url('img/home/hills.svg') left calc(100% - 20rem) repeat-x,
+                    linear-gradient(to bottom, #baeaff 0%, #dff0fb 60%)
+    );
+    background-size:325px 28px, 1400px 80px, contain;
+  }
+}
+
+.home-anim-banner__content {
+  position:relative;
+  @include outer-container();
+  @include lr-pad($vr * 2);
+  @include tb-pad($vr * 4, $vr * 5);
+  text-align: center;
+  z-index: 2001;
+  @include rem('max-width', 900px);
+
+  @include media($m-up) {
+    @include tb-pad($vr * 8, $vr * 9);
+  }
+}
+
+.home-anim-banner__title {
+  @include font-size(24px, 26px);
+  @include font-weight('bold');
+  color:$coral;
+  letter-spacing: -1px;
+
+
+  @include media($m-up) {
+    @include font-size(32px, 34px);
+  }
+
+  @include media($l-up) {
+    @include font-size(50px, 54px);
+  }
+}
+
+.home-anim-banner__sub-title {
+  @include font-size(16px, 20px);
+  color:$mid-grey;
+  @include font-weight('medium');
+  margin-bottom:$vr * 2;
+
+  @include media($m-up) {
+    @include font-size(20px, 30px);
+    margin-bottom:$vr * 3;
+  }
+
+  @include media($l-up) {
+    @include lr-pad(($column + $gutter));
+  }
+}
+
+.home-anim-banner__links {
+  margin-bottom:$vr * 2;
+
+  @include media($m-up) {
+    margin-bottom:$vr * 5;
+  }
+}
+
+.home-anim-banner__devices {
+  opacity:0;
+
+  .device {
+    animation-fill-mode: forwards;
+  }
+}
+
+
+
+
+.home-anim-banner__waves-white {
+  position:absolute;
+  width:140%;
+  bottom:-2px;
+  left:-40%;
+  z-index:5000;
+  @include background(url('img/home/wave_white.svg') top left repeat-x);
+}
+
+.home-anim-banner__waves-light-blue {
+  position:absolute;
+  width:140%;
+  bottom:2.0rem;
+  left:0%;
+  z-index:4000;
+  @include background(url('img/home/wave_light-blue.svg') top left repeat-x);
+
+  @include media($m-up) {
+    bottom:4.0rem;
+  }
+}
+
+.home-anim-banner__waves-mid-blue {
+  position:absolute;
+  width:140%;
+  bottom:4.0rem;
+  left:-40%;
+  z-index:3000;
+  @include background(url('img/home/wave_mid-blue.svg') top left repeat-x);
+
+  @include media($m-up) {
+    bottom:8.0rem;
+  }
+}
+
+.home-anim-banner__waves-darker-mid-blue {
+  position:absolute;
+  width:140%;
+  bottom:6.0rem;
+  left:0%;
+  z-index:2000;
+  @include background(url('img/home/wave_darker-mid-blue.svg') top left repeat-x);
+
+  @include media($m-up) {
+    bottom:12.0rem;
+  }
+}
+
+.home-anim-banner__waves-dark-blue {
+  position:absolute;
+  width:140%;
+  bottom:8.0rem;
+  left:-40%;
+  z-index:1000;
+  @include background(url('img/home/wave_dark-blue.svg') top left repeat-x);
+
+  @include media($m-up) {
+    bottom:16.0rem;
+  }
+}
+
+.home-anim-banner__waves {
+  @include rem('background-size', 35px 38px);
+  height:3.8rem;
+
+  @include media($m-up) {
+    @include rem('background-size', 70px 77px);
+    height:7.7rem;
+  }
+}
+
+
+
+.home-anim-banner__sailing-ship-large-container {
+  position: absolute;
+  bottom:17rem;
+  right:10.0rem;
+  @include size(80px);
+  z-index:1000;
+
+  @include media($m-down) {
+    display: none;
+  }
+}
+
+.home-anim-banner__sailing-ship-small-container {
+  position: absolute;
+  bottom:21.6rem;
+  left:10.0rem;
+  @include size(45px);
+  z-index:0;
+
+  @include media($s-down) {
+    display: none;
+  }
+}
+
+.home-anim-banner__sun, .home-anim-banner__sun > svg {
+  position:absolute;
+  top:3rem;
+  right:5.0rem;
+  @include size(120px);
+
+  @include media($m-down) {
+    display: none;
+  }
+}
+
+.home-anim-banner__cloud-1 {
+  position: absolute;
+  top:6rem;
+  left:5.0rem;
+  @include size(200px 60px);
+  z-index:50;
+  @include background(url('img/home/cloud-large.svg') top left no-repeat);
+}
+
+.home-anim-banner__cloud-2 {
+  position: absolute;
+  top:30rem;
+  left:20.0rem;
+  @include size(76px 32px);
+  z-index:50;
+  @include background(url('img/home/cloud-small.svg') top left no-repeat);
+}
+
+.home-anim-banner__cloud-3 {
+  position: absolute;
+  top:13rem;
+  right:-5.0rem;
+  @include size(150px 65px);
+  z-index:50;
+  @include background(url('img/home/cloud-small.svg') top left no-repeat);
+
+  @include media($s-down) {
+    display: none;
+  }
+}
+
+.home-anim-banner__plane {
+  position: absolute;
+  top:30rem;
+  left:-15rem;
+  @include size(100px 20px);
+  z-index:100;
+  @include background(url('img/home/plane.svg') top left no-repeat);
+  opacity:0.7;
+
+  @include media($m-down) {
+    display: none;
+  }
+}
+
+
+// Animations
+.sun-outline {
+  animation-name: spin;
+  animation-duration: 24000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  transform-origin: center;
+}
+
+.home-anim-banner__cloud-1 {
+  animation: move-ltr 2000s linear infinite;
+}
+
+.home-anim-banner__cloud-2 {
+  animation: move-ltr 4000s linear infinite;
+}
+
+.home-anim-banner__cloud-3 {
+  animation: move-rtl 4000s linear infinite;
+}
+
+.home-anim-banner__plane {
+  animation: move-ltr 900s linear infinite;
+}
+
+.home-anim-banner__waves-white {
+ animation: waves-ltr 5s ease-in-out alternate infinite;
+}
+
+.home-anim-banner__waves-light-blue {
+  animation: waves-rtl 6s ease-in-out alternate infinite;
+}
+
+.home-anim-banner__waves-mid-blue {
+  animation: waves-ltr 6.5s ease-in-out alternate infinite;
+}
+
+.home-anim-banner__waves-darker-mid-blue {
+  animation: waves-rtl 4s ease-in-out alternate infinite;
+}
+
+.home-anim-banner__waves-dark-blue {
+  animation: waves-ltr 5.5s ease-in-out alternate infinite;
+}
+
+.home-anim-banner__sailing-ship-large-container {
+  animation: move-rtl 2000s linear;
+}
+
+.home-anim-banner__sailing-ship-large {
+  animation: bobbing-ship-rtl 4s ease-in-out infinite;
+}
+
+.home-anim-banner__sailing-ship-small-container {
+  animation: move-ltr 5000s linear;
+}
+
+.home-anim-banner__sailing-ship-small {
+  animation: bobbing-ship-ltr 6s ease-in-out infinite;
+}
+
+
+.home-anim-banner__devices {
+  animation: fadeIn 1s linear;
+  animation-fill-mode: forwards;
+  animation-delay:0.8s;
+}
+
+.laptop-container {
+  animation: device-appear 2s ease-in-out;
+
+  .laptop {
+    animation: fadeIn 0.5s linear, device-bob 3s ease-in-out infinite;
+  }
+}
+
+.tablet-container {
+  animation: device-appear 2.25s ease-in-out;
+  animation-delay:0.1s;
+
+  .tablet {
+    animation: fadeIn 0.5s linear, device-bob 2.5s ease-in-out infinite;
+    animation-fill-mode: forwards;
+  }
+}
+
+.mobile-container {
+  animation: device-appear 2s ease-in-out;
+  animation-delay:0.2s;
+
+  .mobile {
+    animation: fadeIn 0.5s linear, device-bob 2.8s ease-in-out infinite;
+  }
+}

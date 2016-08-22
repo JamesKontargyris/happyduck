@@ -22,7 +22,8 @@
 'base/base',
 'base/grid',
 'base/helpers',
-'base/typography';
+'base/typography',
+'base/animations';
 
 /// Layout (page partials)
 @import
@@ -52,9 +53,10 @@
 'components/testimonial',
 'components/gallery',
 'components/comments',
+'components/usp-bar',
 'components/widgets';
 
 /// Page-specific stylesheets
 @import
-'pages/archive';
-//'pages/contact';
+'pages/archive',
+'pages/home';

@@ -20,18 +20,23 @@ get_header(); ?>
 			<?php
 			while ( have_posts() ) : the_post();
 
-				switch(get_post_type()) {
-					case 'service-area':
-						get_template_part( 'template-parts/content', 'service-area' );
-						break;
-					case 'article':
-						get_template_part( 'template-parts/content', 'article' );
-						break;
-					default:
+				if(is_front_page()) {
+					get_template_part( 'template-parts/content', 'home' );
+				} else {
+					switch(get_post_type()) {
+						case 'service-area':
+							get_template_part( 'template-parts/content', 'service-area' );
+							break;
+						case 'article':
+							get_template_part( 'template-parts/content', 'article' );
+							break;
+						default:
 //						By default, load the template part with the suffix that matches the page layout selected for the current page
-						get_template_part( 'template-parts/content', 'page-' . get_field('page_layout') );
-						break;
+							get_template_part( 'template-parts/content', 'page-' . get_field('page_layout') );
+							break;
+					}
 				}
+
 
 				// If comments are open or we have at least one comment, load up the comment template.
 //				if ( comments_open() || get_comments_number() ) :
