@@ -211,6 +211,7 @@ function happyduck_scripts() {
 	wp_enqueue_script( 'happyduck-sticky-js', get_template_directory_uri() . '/js/jquery.sticky.js', array(), '20160809', true );
 	wp_enqueue_script( 'happyduck-site-js', get_template_directory_uri() . '/js/site.js', array(), '20160728', true );
 	wp_enqueue_script( 'happyduck-testimonial-js', get_template_directory_uri() . '/js/testimonial.js', array(), '20160805', true );
+	wp_enqueue_script( 'happyduck-home-js', get_template_directory_uri() . '/js/home.js', array(), '20160823', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

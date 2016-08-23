@@ -24,7 +24,7 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'happyduck' ); ?></a>
 
-	<header class="header <?php if(! is_front_page()) : ?>has-drop-shadow<?php endif;?>">
+	<header class="header has-drop-shadow">
 		<div class="header__content">
 			<h1 class="header__logo heading--show-as-h4 text--black text--coral margin--none"><?php bloginfo(); ?></h1>
 			<a class="btn btn--secondary btn--small text--uppercase header__nav-mobile-menu-toggle is-toggle" data-toggle-items=".header__nav">Menu</a>

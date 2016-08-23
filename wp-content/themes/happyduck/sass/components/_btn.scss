@@ -15,7 +15,7 @@
   @include all-pad(($vr * 0.6), 8px);
 }
 .btn--large {
-  @include font-size(18px, 21px);
+  @include font-size(16px, 21px);
 
   @include media($l-up) {
     @include font-size(21px, 28px);
@@ -92,7 +92,8 @@
 .btn-group--align-left {
   text-align:left;
 }
-.btn-group--align-centre {
+.btn-group--align-centre,
+.btn-group--align-center {
   text-align:center;
 }
 .btn-group--align-right {

@@ -2,6 +2,7 @@ ul.gallery {
   @include clearfix();
   @include outer-container();
   list-style: none;
+  padding:0;
   @include rem('margin-bottom', ($vr * 3));
 
   @include media($m-down) {
@@ -27,10 +28,10 @@ ul.gallery--row-of-3 {
     @include rem('margin-bottom', ($vr * 2));
     @include span-columns(12);
 
-    @include media($m) {
-      @include span-columns(6);
-      @include omega(2n);
-    }
+    //@include media($m) {
+    //  @include span-columns(6);
+    //  @include omega(2n);
+    //}
 
     @include media($l-up) {
       @include span-columns(4);

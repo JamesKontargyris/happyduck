@@ -5,13 +5,13 @@
 
 @keyframes move-ltr {
   100% {
-    transform: translate(9999px, 0);
+    transform: translate(3000px, 0);
   }
 }
 
 @keyframes move-rtl {
   100% {
-    transform: translate(-9999px, 0);
+    transform: translate(-3000px, 0);
   }
 }
 
