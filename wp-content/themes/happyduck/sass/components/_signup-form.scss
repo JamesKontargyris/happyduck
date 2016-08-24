@@ -9,7 +9,7 @@
 
 // Add padding if needed
 .signup-form--padded {
-  @include all-pad(($vr * 2));
+  @include all-pad(($vr * 2), ($vr * 2), 0);
 }
 
 // Make corners rounded
@@ -56,8 +56,11 @@
       }
     }
 
-    .signup-form__fields {
+    .signup-form__form {
       @include span-columns(8);
+    }
+
+    .signup-form__fields {
       display:flex;
       justify-content: space-between;
       align-content:center;

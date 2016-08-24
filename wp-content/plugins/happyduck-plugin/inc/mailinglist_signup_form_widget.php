@@ -33,19 +33,22 @@ class Mailinglist_Signup_Form_Widget extends WP_Widget {
 				<h4 class="signup-form__title text--bold margin--none"><?php echo $instance['title']; ?></h4>
 				<?php echo $instance['intro']; ?>
 			</div>
-			<div class="signup-form__fields">
-				<div class="signup-form__fieldgroup">
-					<label for="name">Your name</label>
-					<input type="text" class="input--full-span">
-				</div>
-				<div class="signup-form__fieldgroup">
-					<label for="email">Your email address</label>
-					<input type="text" class="input--full-span">
-				</div>
-				<div class="signup-form__fieldgroup">
-					<input type="submit" value="Join" class="btn btn--primary btn--fill-parent">
-				</div>
+
+			<div class="signup-form__form">
+				<?php echo do_shortcode('[contact-form-7 id="241" title="Mailing List Sign-up"]'); ?>
 			</div>
+
+<!--				<div class="signup-form__fieldgroup">-->
+<!--					<label for="name">Your name</label>-->
+<!--					<input type="text" class="input--full-span">-->
+<!--				</div>-->
+<!--				<div class="signup-form__fieldgroup">-->
+<!--					<label for="email">Your email address</label>-->
+<!--					<input type="text" class="input--full-span">-->
+<!--				</div>-->
+<!--				<div class="signup-form__fieldgroup">-->
+<!--					<input type="submit" value="Join" class="btn btn--primary btn--fill-parent">-->
+<!--				</div>-->
 		</div>
 
 	<?php echo $args['after_widget'];
