@@ -3,14 +3,14 @@
   overflow:hidden;
   @include background(
                   url('img/home/hills.svg') left calc(100% - 10.5rem) repeat-x,
-                  linear-gradient(to bottom, #baeaff 0%, #dff0fb 60%)
+                  linear-gradient(to bottom, #baeaff 0%, #dff0fb 60%, white 100%)
   );
   background-size:700px 40px, contain;
 
   @include media($l-up) {
     @include background(
                     url('img/home/hills.svg') left calc(100% - 16rem) repeat-x,
-                    linear-gradient(to bottom, #baeaff 0%, #dff0fb 60%)
+                    linear-gradient(to bottom, #baeaff 0%, #dff0fb 60%, white 100%)
     );
     background-size:1400px 80px, contain;
   }
@@ -19,15 +19,15 @@
 .home-anim-banner__content {
   position:relative;
   @include outer-container();
-  @include lr-pad($vr * 2);
+  @include lr-pad($vr * 6);
   @include tb-pad($vr * 4, $vr * 5);
   text-align: center;
   z-index: 2001;
   @include rem('max-width', 900px);
 
-  @include media($m-up) {
-    @include lr-pad($vr * 6);
-    @include tb-pad($vr * 8, $vr * 6);
+  @include media($l-up) {
+    @include lr-pad($vr * 10);
+    @include tb-pad($vr * 4, $vr * 3);
   }
 }
 
@@ -39,24 +39,23 @@
 
 
   @include media($m-up) {
-    @include font-weight('regular');
-    @include font-size(32px, 34px);
+    @include font-size(40px, 42px);
   }
 
   @include media($l-up) {
-    @include font-size(50px, 54px);
+    //@include font-size(50px, 54px);
   }
 }
 
 .home-anim-banner__sub-title {
-  @include font-size(16px, 20px);
+  @include font-size(18px, 24px);
   color:$mid-grey;
   //@include font-weight('medium');
   margin-bottom:$vr * 2;
 
   @include media($l-up) {
-    @include font-size(20px, 30px);
-    margin-bottom:$vr * 3;
+    @include font-size(19px, 26px);
+    margin-bottom:$vr * 2;
   }
 }
 
@@ -64,7 +63,7 @@
   margin-bottom:$vr * 2;
 
   @include media($m-up) {
-    margin-bottom:$vr * 5;
+    margin-bottom:$vr * 3;
   }
 }
 
@@ -79,7 +78,7 @@
 
 .home-anim-banner__waves {
   @include rem('background-size', 35px 38px);
-  height:3.8rem;
+  height:3.9rem;
   filter: drop-shadow( 0 -2px 5px rgba($dark-grey, 0.2) );
 
   @include media($m-up) {

@@ -93,6 +93,16 @@ add_action( 'init', 'register_menus' );
  */
 function happyduck_widgets_init() {
 	register_sidebar( [
+		'name'          => esc_html__( 'Header Links', 'happyduck' ),
+		'id'            => 'header_links',
+		'description'   => esc_html__( 'Add widgets to the header above the main navigation.', 'happyduck' ),
+		'before_widget' => '',
+		'after_widget'  => '',
+		'before_title'  => '',
+		'after_title'   => '',
+	] );
+
+	register_sidebar( [
 		'name'          => esc_html__( 'Default Page Sidebar', 'happyduck' ),
 		'id'            => 'default',
 		'description'   => esc_html__( 'Add widgets to the default sidebar on standard pages.', 'happyduck' ),
@@ -308,3 +318,28 @@ add_filter( 'getarchives_where', 'custom_getarchives_where' );
 add_filter('get_the_archive_title', function ($title) {
 	return preg_replace('/^\w+: /', '', $title);
 });
+
+// Change logo in admin bar to duck mascot
+function custom_admin_logo() { ?>
+	<style type="text/css">
+		#wp-admin-bar-wp-logo {
+			background: url(<?php echo t_img('hdc_mascot_admin.png') ?>) center no-repeat !important;
+			background-size:30px 28px !important;
+		}
+		#wp-admin-bar-wp-logo > .ab-item .ab-icon:before {
+			content: '' !important;
+		}
+	</style>
+	<?php
+}
+add_action('admin_head', 'custom_admin_logo');
+add_action('admin_bar_menu', 'custom_admin_logo');
+
+// custom admin login logo
+function custom_login_logo() {
+	echo '<style type="text/css">
+	h1 a { background: url(' . t_img('hdc_mascot_login.png') . ') center no-repeat !important;
+			background-size:84px 78px !important; }
+	</style>';
+}
+add_action('login_head', 'custom_login_logo');

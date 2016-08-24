@@ -1,4 +1,4 @@
-<?php if(get_field('testimonials')) : ?>
+<?php if(get_field('testimonials') && ! is_search()) : ?>
 	<div class="testimonial">
 		<?php foreach(get_field('testimonials') as $testimonial_id) : ?>
 			<figure class="testimonial__content">

@@ -1,48 +1,68 @@
 <?php
 /**
- * The template for displaying search results pages.
+ * The template for displaying all pages.
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#search-result
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages
+ * and that other 'pages' on your WordPress site may use a
+ * different template.
+ *
+ * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package happyduck
  */
 
 get_header(); ?>
 
-	<section id="primary" class="content-area">
+	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
-		<?php
-		if ( have_posts() ) : ?>
+			<div class="page-section">
+				<div class="page-section__container">
+					<div class="page-section__main">
 
-			<header class="page-header">
-				<h1 class="page-title"><?php printf( esc_html__( 'Search Results for: %s', 'happyduck' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
-			</header><!-- .page-header -->
+						<header class="entry-header">
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) : the_post();
+							<h1 class="page-title"><?php printf( esc_html__( 'Search results for: %s', '_s' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
+						</header>
 
-				/**
-				 * Run the loop for the search to output the results.
-				 * If you want to overload this in a child theme then include a file
-				 * called content-search.php and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', 'search' );
+						<?php if(have_posts()) : ?>
 
-			endwhile;
+							<?php
+							while ( have_posts() ) : the_post();
 
-			the_posts_navigation();
+								switch(get_post_type()) {
+									case 'service-area':
+										get_template_part( 'template-parts/content', 'search-service-area' );
+										break;
+									case 'article':
+										get_template_part( 'template-parts/content', 'search-article' );
+										break;
+									default:
+										// By default, load the template part with the suffix that matches the page layout selected for the current page
+										get_template_part( 'template-parts/content', 'search' );
+										break;
+								}
 
-		else :
+							endwhile; // End of the loop.
+							?>
 
-			get_template_part( 'template-parts/content', 'none' );
+						<?php else : ?>
 
-		endif; ?>
+							No results found. Please try again with different keywords.
+
+						<?php endif; ?>
+
+					</div>
+					<div class="page-section__sidebar">
+						<?php dynamic_sidebar('default'); ?>
+					</div>
+				</div>
+			</div>
 
 		</main><!-- #main -->
-	</section><!-- #primary -->
+	</div><!-- #primary -->
 
 <?php
-get_sidebar();
+include('template-parts/partials/testimonials.php');
 get_footer();

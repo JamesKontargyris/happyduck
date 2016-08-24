@@ -1,3 +1,13 @@
+/*!
+Theme Name: Happy Duck Consulting
+Author: James Kontargyris
+Author URI: http://jameskontargyris.co.uk
+Description: Bespoke theme developed for Happy Duck Consulting.
+Version: 1.0
+Text Domain: happyduck
+(c) James Kontargyris. All Rights Reserved.
+*/
+
 @charset 'utf-8';
 
 /// Abstracts (utilities that do not output any CSS)
@@ -54,6 +64,8 @@
 'components/gallery',
 'components/comments',
 'components/usp',
+'components/search-form',
+'components/search-result',
 'components/widgets';
 
 /// Page-specific stylesheets

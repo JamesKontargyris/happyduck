@@ -34,7 +34,7 @@
 		<?php if(get_field('services')) : ?>
 			<?php foreach(get_field('services') as $service_id) : ?>
 				<div class="service">
-					<div class="service__bar is-toggle" data-toggle-items=".service__content">
+					<div class="service__bar is-toggle is-service-header" data-toggle-items=".service__content">
 						<div class="service__header">
 							<i class="service__toggle-arrow"></i>
 							<i class="service__icon icon icon--large margin--no-bottom">

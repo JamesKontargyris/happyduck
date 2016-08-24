@@ -24,21 +24,21 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'happyduck' ); ?></a>
 
+
 	<header class="header has-drop-shadow">
+
+		<?php get_search_form(); ?>
+
 		<div class="header__content">
 			<h1 class="header__logo heading--show-as-h4 text--black text--coral margin--none"><?php bloginfo(); ?></h1>
-			<a class="btn btn--secondary btn--small text--uppercase header__nav-mobile-menu-toggle is-toggle" data-toggle-items=".header__nav">Menu</a>
+			<div class="header__nav-toggle-buttons">
+				<a class="btn btn--secondary btn--small text--uppercase header__nav-mobile-search-toggle is-toggle" data-toggle-items=".header__search-form" data-focus='.search-form__field'><span class="hide--xs hide--s">Search</span></a>
+				<a class="btn btn--secondary btn--small text--uppercase header__nav-mobile-menu-toggle is-toggle" data-toggle-items=".header__nav"><span class="hide--xs hide--s">Menu</span></a>
+			</div>
 
 			<nav class="header__nav">
 <!--				TODO: add search bar-->
-<!--				TODO: add widget area for this link-group-->
-				<ul class="link-group link-group--inline link-group--align-right hide--xs hide--s hide--m margin--none">
-					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--facebook" href="http://facebook.com"><img class="svg" src="<?php echo t_img('facebook-logo.svg'); ?>" alt="Facebook"></a></li>
-					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--twitter" href="http://twitter.com"><img class="svg" src="<?php echo t_img('twitter-logo.svg'); ?>" alt="Twitter"></a></li>
-					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--googleplus" href="http://plus.google.com"><img class="svg" src="<?php echo t_img('googleplus-logo.svg'); ?>" alt="Google+"></a></li>
-					<li class="link-group__item social-media"><a  class="social-media__link social-media__link--linkedin" href="http://linkedin.com"><img class="svg" src="<?php echo t_img('linkedin-logo.svg'); ?>" alt="LinkedIn"></a></li>
-					<li class="link-group__item link-group--is-button"><a class="btn btn--primary btn--xsmall margin--none" href="#">Live Chat</a></li>
-				</ul>
+				<?php dynamic_sidebar('header_links'); ?>
 
 				<?php bem_menu('main-navigation-menu', 'menu', ['menu--inline', 'menu--no-bottom-margin', 'menu--align-right', 'margin--none']); ?>
 			</nav>

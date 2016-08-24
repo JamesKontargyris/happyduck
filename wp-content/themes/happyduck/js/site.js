@@ -9,12 +9,35 @@
     // Show/hide toggle for siblings of the clicked element
     $('.is-toggle').on('click', function()
     {
-        $(this).siblings($(this).data('toggle-items')).toggleClass('show');
-        // toggle the down/up arrow on service bar clicks
-        $(this).find('.service__header i').toggleClass('service__toggle-arrow--toggled');
-        // Toggle an .is-toggle--open class to adjust this element when toggled
+        // Toggle an .is-toggle--open class to target this element when toggled
         $(this).toggleClass('is-toggle--open');
+
+        if(typeof $(this).siblings($(this).data('toggle-items')) != 'undefined' && $(this).siblings($(this).data('toggle-items')).length >= 1) {
+            $(this).siblings($(this).data('toggle-items')).toggleClass('show');
+        } else {
+            $($(this).data('toggle-items')).toggleClass('show');
+        }
+
+        // If a data attribute is set to give focus to an element, set focus on that element
+        if(typeof $(this).data('focus') != 'undefined') {
+            $($(this).data('focus')).focus();
+        }
+
+        // toggle the down/up arrow on service bar clicks
+        if($(this).hasClass('is-service-header')) {
+            $(this).find('.service__header i').toggleClass('service__toggle-arrow--toggled');
+        }
+
         return false;
+    });
+
+    $('.is-close').on('click', function()
+    {
+        if(typeof $(this).siblings($(this).data('close-items')) != 'undefined' && $(this).siblings($(this).data('close-items')) >= 1) {
+            $(this).siblings($(this).data('close-items')).removeClass('show').css('display', 'none');
+        } else {
+            $($(this).data('close-items')).removeClass('show').css('display', 'none');
+        }
     })
 
     /*

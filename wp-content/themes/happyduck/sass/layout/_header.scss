@@ -6,19 +6,19 @@
 
 .header {
   position: relative;
-  @include lr-pad($vr * 0.7);
+  //@include lr-pad($vr * 0.7);
   background-color: white;
   z-index: z('above-all');
 
   @include media($m-down) { // Fixed header on mobile
-    @include rem('height', 80px);
+    @include rem('min-height', 80px);
     position:fixed;
     top:0;
     width:100%;
   }
 
   @include media($l-up) {
-    @include lr-pad($lr-pad * 1.5);
+    //@include lr-pad($lr-pad * 1.5);
   }
 
   &__logo {
@@ -45,10 +45,12 @@
   }
 
   &__content {
+    position:relative;
     @include outer-container();
     display:flex;
     justify-content: space-between;
     @include tb-pad($vr);
+    @include lr-pad();
     height:100%;
 
     @include media($l-up) {

@@ -121,7 +121,6 @@ function searchfilter($query)
 add_filter('pre_get_posts', 'searchfilter');
 
 // Add custom post types to archive, category and tag pages
-add_filter('pre_get_posts', 'query_post_type');
 function query_post_type($query) {
 	if(is_category() || is_tag()) {
 		$post_type = get_query_var('post_type');
@@ -133,6 +132,25 @@ function query_post_type($query) {
 		return $query;
 	}
 }
+add_filter('pre_get_posts', 'query_post_type');
+
+// Remove links from back-end
+function remove_backend_links(){
+	global $menu;
+	global $submenu;
+	unset($menu[5]); // remove posts link
+	unset($submenu['themes.php'][5]); // remove themes link
+	unset($submenu['themes.php'][6]); // remove customize link
+	unset($submenu['themes.php'][15]); // remove header link
+}
+add_action( 'admin_menu', 'remove_backend_links');
+
+// Remove links from admin bar
+function remove_admin_bar_links($wp_admin_bar)
+{
+	$wp_admin_bar->remove_node('wp-admin-bar-customize'); // remove customise link in admin bar
+}
+add_action( 'admin_bar_menu', 'remove_admin_bar_links', 999 );
 
 // Ensure a comment author's display name is displayed on comments
 function comment_author_display_name($author) {
