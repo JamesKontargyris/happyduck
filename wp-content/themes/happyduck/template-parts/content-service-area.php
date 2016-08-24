@@ -50,7 +50,7 @@
 					</div>
 					<div class="service__content">
 						<div class="service__description">
-							<p><?php echo get_field('description', $service_id); ?></p> <a class="btn btn--secondary btn--small" href="#">Contact us for more information</a>
+							<p><?php echo get_field('description', $service_id); ?></p> <a class="btn btn--secondary btn--small" href="/contact-us?subject=More information on <?php echo get_the_title($service_id); ?> please">Contact us for more information</a>
 	<!--						TODO: Update contact us link with subject line -->
 						</div>
 					</div>

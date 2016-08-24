@@ -55,23 +55,6 @@ get_header(); ?>
 
 					<section class="page-section__sidebar">
 						<?php dynamic_sidebar('archive'); ?>
-<!--						<div class="archive-list">-->
-<!--							<h4 class="text--coral text--medium heading--with-border-bottom">By Category</h4>-->
-<!--							<ul class="link-group">-->
-<!--								--><?php //foreach(get_categories() as $category) : ?>
-<!--									<li class="link-group__item"><a href="--><?php //echo get_category_link($category); ?><!--">--><?php //echo $category->name; ?><!--</a></li>-->
-<!--								--><?php //endforeach; ?>
-<!--							</ul>-->
-<!--						</div>-->
-<!--						<div class="archive-list">-->
-<!--							<h4 class="text--coral text--medium heading--with-border-bottom">By Tag</h4>-->
-<!--							<ul class="link-group">-->
-<!--								<li class="link-group__item"><a href="/article">All</a></li>-->
-<!--								--><?php //foreach(get_tags() as $tag) : ?>
-<!--									<li class="link-group__item"><a href="--><?php //echo get_tag_link($tag); ?><!--" class="btn btn--secondary btn--small">--><?php //echo $tag->name; ?><!--</a></li>-->
-<!--								--><?php //endforeach; ?>
-<!--							</ul>-->
-<!--						</div>-->
 					</section>
 
 				</div>

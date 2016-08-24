@@ -120,16 +120,19 @@ function searchfilter($query)
 }
 add_filter('pre_get_posts', 'searchfilter');
 
-// Add custom post types to archive pages
-function archive_add_custom_types( $query ) {
-	if( is_category() || is_tag() && empty( $query->query_vars['suppress_filters'] ) ) {
-		$query->set( 'post_type', [
-			'post', 'article' // post_types to include here
-		]);
+// Add custom post types to archive, category and tag pages
+add_filter('pre_get_posts', 'query_post_type');
+function query_post_type($query) {
+	if(is_category() || is_tag()) {
+		$post_type = get_query_var('post_type');
+		if($post_type)
+			$post_type = $post_type;
+		else
+			$post_type = array('nav_menu_item', 'article'); // custom post types here - leave nav_menu_item in place so menus are loaded
+		$query->set('post_type',$post_type);
 		return $query;
 	}
 }
-add_filter( 'pre_get_posts', 'archive_add_custom_types' );
 
 // Ensure a comment author's display name is displayed on comments
 function comment_author_display_name($author) {

@@ -24,7 +24,7 @@
 }
 
 .para--lead {
-  @include font-weight('bold');
+  @include font-weight('medium');
   @include media($l-up) {
     @include font-size(18, 30);
   }
