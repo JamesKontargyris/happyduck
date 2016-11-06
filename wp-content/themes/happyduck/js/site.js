@@ -72,4 +72,9 @@
 
     });
 
+    // Make all icon--badge elements the same width and height
+    var badges = jQuery('.icon--badge');
+    jQuery(badges).each(function(){
+        jQuery(this).height(jQuery(this).width());
+    });
 })();
