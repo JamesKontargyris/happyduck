@@ -58,9 +58,14 @@ class Ai1wm_Export_Enumerate {
 			$exclude_filters = array_merge( $exclude_filters, $inactive_themes );
 		}
 
+		// Exclude must-use plugins
+		if ( isset( $params['options']['no_muplugins'] ) ) {
+			$exclude_filters = array_merge( $exclude_filters, array( 'mu-plugins' ) );
+		}
+
 		// Exclude plugins
 		if ( isset( $params['options']['no_plugins'] ) ) {
-			$exclude_filters = array_merge( $exclude_filters, array( 'plugins', 'mu-plugins' ) );
+			$exclude_filters = array_merge( $exclude_filters, array( 'plugins' ) );
 		} else {
 			$inactive_plugins = array();
 
@@ -125,7 +130,6 @@ class Ai1wm_Export_Enumerate {
 					}
 				}
 			}
-
 		} catch ( Exception $e ) {
 			// Skip bad file permissions
 		}

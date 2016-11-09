@@ -32,9 +32,9 @@
 
 				<?php include AI1WM_TEMPLATES_PATH . '/common/report-problem.php'; ?>
 
-				<?php if ( is_readable( AI1WM_BACKUPS_PATH ) && is_writable( AI1WM_BACKUPS_PATH ) ): ?>
+				<?php if ( is_readable( AI1WM_BACKUPS_PATH ) && is_writable( AI1WM_BACKUPS_PATH ) ) :  ?>
 					<div class="ai1wm-clear">
-						<?php if ( $total_space ): ?>
+						<?php if ( $total_space ) :  ?>
 							<p id="ai1wm-backup-size">
 								<?php _e( 'Available disk space', AI1WM_PLUGIN_NAME ); ?>
 								<strong><?php echo size_format( $free_space, 2 ); ?></strong>
@@ -61,17 +61,17 @@
 						</thead>
 
 						<tbody>
-							<?php foreach ( $backups as $backup ): ?>
+							<?php foreach ( $backups as $backup ) :  ?>
 							<tr>
 								<td class="ai1wm-column-name">
 									<i class="ai1wm-icon-file-zip"></i>
 									<?php echo $backup['filename']; ?>
 								</td>
-								<?php if ( is_null( $backup['mtime'] ) || is_null( $backup['size'] ) ): ?>
+								<?php if ( is_null( $backup['mtime'] ) || is_null( $backup['size'] ) ) :  ?>
 									<td class="ai1wm-column-info" colspan="3">
 										<?php _e( 'The file is too large for your hosting plan.', AI1WM_PLUGIN_NAME ); ?>
 									</td>
-								<?php else: ?>
+								<?php else : ?>
 									<td class="ai1wm-column-date">
 										<?php echo human_time_diff( $backup['mtime'] ); ?> <?php _e( 'ago', AI1WM_PLUGIN_NAME ); ?>
 									</td>
@@ -107,7 +107,7 @@
 							</a>
 						</p>
 					</div>
-				<?php else: ?>
+				<?php else : ?>
 					<br />
 					<br />
 					<div class="ai1wm-clear ai1wm-message ai1wm-red-message">

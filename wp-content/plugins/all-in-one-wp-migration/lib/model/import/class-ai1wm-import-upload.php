@@ -51,7 +51,7 @@ class Ai1wm_Import_Upload {
 	public static function execute( $params ) {
 		self::validate();
 
-		$error =  $_FILES['upload-file']['error'];
+		$error = $_FILES['upload-file']['error'];
 		$upload = $_FILES['upload-file']['tmp_name'];
 		$archive = ai1wm_archive_path( $params );
 

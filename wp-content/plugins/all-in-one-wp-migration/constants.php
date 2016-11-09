@@ -27,7 +27,6 @@ $local = array(
 	'iliev.local',
 	'develop.servmask.com',
 	'Borislav-MacBook-Pro.local',
-	'Simeon-PC',
 );
 
 if ( function_exists( 'gethostname' ) && in_array( gethostname(), $local ) ) {
@@ -39,7 +38,7 @@ if ( function_exists( 'gethostname' ) && in_array( gethostname(), $local ) ) {
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1WM_VERSION', '5.49' );
+define( 'AI1WM_VERSION', '5.55' );
 
 // ===============
 // = Plugin Name =
@@ -90,6 +89,11 @@ define( 'AI1WM_EXPORT_PATH', AI1WM_MODEL_PATH . DIRECTORY_SEPARATOR . 'export' )
 // = Import Path =
 // ===============
 define( 'AI1WM_IMPORT_PATH', AI1WM_MODEL_PATH . DIRECTORY_SEPARATOR . 'import' );
+
+// =============
+// = Http Path =
+// =============
+define( 'AI1WM_HTTP_PATH', AI1WM_MODEL_PATH . DIRECTORY_SEPARATOR . 'http' );
 
 // =============
 // = View Path =
@@ -181,10 +185,10 @@ define( 'AI1WM_ERROR_NAME', 'error.log' );
 // ==========
 define( 'AI1WM_URL_IP', 'ai1wm_url_ip' );
 
-// =================
-// = URL Transport =
-// =================
-define( 'AI1WM_URL_TRANSPORT', 'ai1wm_url_transport' );
+// ===============
+// = URL Adapter =
+// ===============
+define( 'AI1WM_URL_ADAPTER', 'ai1wm_url_adapter' );
 
 // ==============
 // = Secret Key =

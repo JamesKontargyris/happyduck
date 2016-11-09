@@ -265,7 +265,7 @@ function ai1wm_parse_size( $size, $default = null ) {
 
 	// Parse size format
 	if ( preg_match( '/([0-9]+)\s*(k|m|g)?(b?(ytes?)?)/i', $size, $match ) ) {
-		return $match[1] * $suffixes[strtolower( $match[2] )];
+		return $match[1] * $suffixes[ strtolower( $match[2] ) ];
 	}
 
 	return $default;
@@ -348,7 +348,7 @@ function ai1wm_storage_folder() {
  * @param  integer $blog_id Blog ID
  * @return boolean
  */
-function ai1wm_main_site( $blog_id = null) {
+function ai1wm_main_site( $blog_id = null ) {
 	return $blog_id === null || $blog_id === 0 || $blog_id === 1;
 }
 
@@ -388,7 +388,7 @@ function ai1wm_files_path( $blog_id = null ) {
  */
 function ai1wm_blogsdir_path( $blog_id = null ) {
 	if ( ai1wm_main_site( $blog_id ) ) {
-		return "/wp-content/blogs.dir/";
+		return '/wp-content/blogs.dir/';
 	}
 
 	return "/wp-content/blogs.dir/{$blog_id}/files/";
@@ -402,7 +402,7 @@ function ai1wm_blogsdir_path( $blog_id = null ) {
  */
 function ai1wm_blogsdir_url( $blog_id = null ) {
 	if ( ai1wm_main_site( $blog_id ) ) {
-		return get_site_url( $blog_id, "/wp-content/blogs.dir/" );
+		return get_site_url( $blog_id, '/wp-content/blogs.dir/' );
 	}
 
 	return get_site_url( $blog_id, "/wp-content/blogs.dir/{$blog_id}/files/" );
@@ -416,7 +416,7 @@ function ai1wm_blogsdir_url( $blog_id = null ) {
  */
 function ai1wm_uploads_path( $blog_id = null ) {
 	if ( ai1wm_main_site( $blog_id ) ) {
-		return "/wp-content/uploads/";
+		return '/wp-content/uploads/';
 	}
 
 	return "/wp-content/uploads/sites/{$blog_id}/";
@@ -430,7 +430,7 @@ function ai1wm_uploads_path( $blog_id = null ) {
  */
 function ai1wm_uploads_url( $blog_id = null ) {
 	if ( ai1wm_main_site( $blog_id ) ) {
-		return get_site_url( $blog_id, "/wp-content/uploads/" );
+		return get_site_url( $blog_id, '/wp-content/uploads/' );
 	}
 
 	return get_site_url( $blog_id, "/wp-content/uploads/sites/{$blog_id}/" );

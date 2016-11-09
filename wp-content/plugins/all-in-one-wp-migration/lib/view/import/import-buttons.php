@@ -1,4 +1,4 @@
-<?php if ( is_readable( AI1WM_STORAGE_PATH ) && is_writable( AI1WM_STORAGE_PATH ) ): ?>
+<?php if ( is_readable( AI1WM_STORAGE_PATH ) && is_writable( AI1WM_STORAGE_PATH ) ) :  ?>
 	<div class="ai1wm-import-messages"></div>
 
 	<div class="ai1wm-import-form">
@@ -35,7 +35,7 @@
 
 	<p>
 		<?php _e( 'Maximum upload file size:' ); ?>
-		<?php if ( ( $max_file_size = apply_filters( 'ai1wm_max_file_size', AI1WM_MAX_FILE_SIZE ) ) ): ?>
+		<?php if ( ( $max_file_size = apply_filters( 'ai1wm_max_file_size', AI1WM_MAX_FILE_SIZE ) ) ) :  ?>
 			<span class="ai1wm-max-upload-size"><?php echo size_format( $max_file_size ); ?></span>
 			<span class="ai1wm-unlimited-import">
 				<a href="https://servmask.com/products/unlimited-extension" target="_blank" class="ai1wm-label">
@@ -43,11 +43,11 @@
 					<?php _e( 'Get unlimited', AI1WM_PLUGIN_NAME ); ?>
 				</a>
 			</span>
-		<?php else: ?>
+		<?php else : ?>
 			<span class="ai1wm-max-upload-size"><?php _e( 'Unlimited', AI1WM_PLUGIN_NAME ); ?></span>
 		<?php endif; ?>
 	</p>
-<?php else: ?>
+<?php else : ?>
 	<div class="ai1wm-message ai1wm-red-message">
 		<?php
 		printf(

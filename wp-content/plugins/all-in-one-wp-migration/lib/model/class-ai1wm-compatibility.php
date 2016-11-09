@@ -28,8 +28,8 @@ class Ai1wm_Compatibility {
 		$extensions = Ai1wm_Extensions::get();
 
 		foreach ( $extensions as $extension_name => $extension_data ) {
-			if ( ! isset( $params[$extension_data['short']] ) ) {
-				unset( $extensions[$extension_name] );
+			if ( ! isset( $params[ $extension_data['short'] ] ) ) {
+				unset( $extensions[ $extension_name ] );
 			}
 		}
 

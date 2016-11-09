@@ -27,9 +27,6 @@ class Ai1wm_Import_Done {
 
 	public static function execute( $params ) {
 
-		// Set shutdown handler
-		@register_shutdown_function( 'Ai1wm_Import_Done::shutdown' );
-
 		// Check multisite.json file
 		if ( true === is_file( ai1wm_multisite_path( $params ) ) ) {
 
@@ -41,63 +38,14 @@ class Ai1wm_Import_Done {
 
 			// Parse multisite.json file
 			$multisite = fread( $handle, filesize( ai1wm_multisite_path( $params ) ) );
-			$multisite = json_decode( $multisite );
+			$multisite = json_decode( $multisite, true );
 
 			// Close handle
 			fclose( $handle );
 
 			// Activate plugins
-			if ( isset( $multisite->Plugins ) && ( $active_sitewide_plugins = $multisite->Plugins ) ) {
-				activate_plugins( $active_sitewide_plugins, null, is_multisite() );
-			}
-		}
-
-		// Open the archive file for reading
-		$archive = new Ai1wm_Extractor( ai1wm_archive_path( $params ) );
-
-		// Include WordPress files
-		$include_files = array_keys( _get_dropins() );
-
-		// Include mu-plugins files
-		$include_files = array_merge( $include_files, array( AI1WM_MUPLUGINS_NAME ) );
-
-		// Unpack WordPress files and mu-plugins files
-		$archive->extract_by_files_array( WP_CONTENT_DIR, $include_files );
-
-		// Close the archive file
-		$archive->close();
-
-		// Load must-use plugins
-		foreach ( wp_get_mu_plugins() as $mu_plugin ) {
-			include_once( $mu_plugin );
-		}
-
-		return $params;
-	}
-
-	public static function shutdown() {
-		$error = error_get_last();
-
-		// Set error type
-		$type = null;
-		if ( isset( $error['type'] ) ) {
-			$type = $error['type'];
-		}
-
-		// Set error file
-		$file = null;
-		if ( isset( $error['file'] ) ) {
-			$file = $error['file'];
-		}
-
-		// Deactivate must-use plugins on fatal and parse errors
-		if ( in_array( $type, array( E_ERROR, E_PARSE ) ) && stripos( $file, AI1WM_MUPLUGINS_NAME ) !== false ) {
-			foreach ( wp_get_mu_plugins() as $mu_plugin ) {
-				if ( copy( $mu_plugin, sprintf( '%s-%s', $mu_plugin, date( 'YmdHis' ) ) ) ) {
-					if ( ( $handle = fopen( $mu_plugin, 'w' ) ) ) {
-						fclose( $handle );
-					}
-				}
+			if ( isset( $multisite['Plugins'] ) && ( $active_sitewide_plugins = $multisite['Plugins'] ) ) {
+				activate_plugins( $active_sitewide_plugins, null, is_multisite(), true );
 			}
 		}
 
@@ -117,5 +65,7 @@ class Ai1wm_Import_Done {
 				AI1WM_PLUGIN_NAME
 			)
 		);
+
+		return $params;
 	}
 }

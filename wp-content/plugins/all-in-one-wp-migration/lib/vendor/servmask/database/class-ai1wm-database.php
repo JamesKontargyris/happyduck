@@ -364,11 +364,10 @@ abstract class Ai1wm_Database {
 	 *
 	 * @param  string $file_name            Name of file
 	 * @param  string $current_table_index  Current table index
-	 * @param  int    $current_table_offset Current table offset
 	 * @param  int    $timeout              Process timeout
 	 * @return bool
 	 */
-	public function export( $file_name, &$current_table_index = 0, &$current_table_offset = 0, $timeout = 0 ) {
+	public function export( $file_name, &$current_table_index = 0, $timeout = 0 ) {
 
 		// Set file handler
 		$file_handler = fopen( $file_name, 'ab' );
@@ -393,7 +392,7 @@ abstract class Ai1wm_Database {
 		$tables = $this->get_tables();
 
 		// Export tables
-		for ( ; $current_table_index < count( $tables ); $current_table_index++ ) {
+		for ( ; $current_table_index < count( $tables ); ) {
 
 			// Get table name
 			$table_name = $tables[ $current_table_index ];
@@ -401,47 +400,45 @@ abstract class Ai1wm_Database {
 			// Replace table name prefixes
 			$new_table_name = $this->replace_table_prefixes( $table_name, 0 );
 
-			// Do not insert table schema if we have current table offset
-			if ( empty( $current_table_offset ) ) {
+			// Get table structure
+			$structure = $this->query( "SHOW CREATE TABLE `$table_name`" );
+			$table = $this->fetch_assoc( $structure );
 
-				// Get table structure
-				$structure = $this->query( "SHOW CREATE TABLE `$table_name`" );
-				$table = $this->fetch_assoc( $structure );
+			// Close structure cursor
+			$this->free_result( $structure );
 
-				// Close structure cursor
-				$this->free_result( $structure );
+			// Get create table
+			if ( isset( $table['Create Table'] ) ) {
 
-				// Get create table
-				if ( isset( $table['Create Table'] ) ) {
+				// Write table drop statement
+				$drop_table = "\nDROP TABLE IF EXISTS `$new_table_name`;\n";
 
-					// Write table drop statement
-					$drop_table = "\nDROP TABLE IF EXISTS `$new_table_name`;\n";
+				// Write table statement
+				if ( fwrite( $file_handler, $drop_table ) === false ) {
+					throw new Exception( 'Unable to write database table statement' );
+				}
 
-					// Write table statement
-					if ( fwrite( $file_handler, $drop_table ) === false ) {
-						throw new Exception( 'Unable to write database table statement' );
-					}
+				// Replace create table prefixes
+				$create_table = $this->replace_table_prefixes( $table['Create Table'], 14 );
 
-					// Replace create table prefixes
-					$create_table = $this->replace_table_prefixes( $table['Create Table'], 14 );
+				// Strip table constraints
+				$create_table = $this->strip_table_constraints( $create_table );
 
-					// Strip table constraints
-					$create_table = $this->strip_table_constraints( $create_table );
+				// Write table structure
+				if ( fwrite( $file_handler, $create_table ) === false ) {
+					throw new Exception( 'Unable to write database table structure' );
+				}
 
-					// Write table structure
-					if ( fwrite( $file_handler, $create_table ) === false ) {
-						throw new Exception( 'Unable to write database table structure' );
-					}
-
-					// Write end of statement
-					if ( fwrite( $file_handler, ";\n\n" ) === false ) {
-						throw new Exception( 'Unable to write database end of statement' );
-					}
+				// Write end of statement
+				if ( fwrite( $file_handler, ";\n\n" ) === false ) {
+					throw new Exception( 'Unable to write database end of statement' );
 				}
 			}
 
+			$current_table_offset = 0;
+
 			// Set query
-			$query = sprintf( "SELECT * FROM `$table_name` %s ORDER BY 1 ASC LIMIT {$current_table_offset}, 2147483647", $this->get_table_query_clauses( $table_name ) );
+			$query = sprintf( "SELECT * FROM `$table_name` %s", $this->get_table_query_clauses( $table_name ) );
 
 			// Apply additional table prefix columns
 			$columns = $this->get_table_prefix_columns( $table_name );
@@ -488,30 +485,26 @@ abstract class Ai1wm_Database {
 						throw new Exception( 'Unable to write database end of transaction' );
 					}
 				}
+			}
 
-				// Time elapsed
-				if ( $timeout ) {
-					if ( ( microtime( true ) - $start ) > $timeout ) {
-						$completed = false;
-						break;
-					}
+			// Write end of transaction
+			if ( $current_table_offset % Ai1wm_Database::QUERIES_PER_TRANSACTION !== 0 ) {
+				if ( fwrite( $file_handler, "COMMIT;\n" ) === false ) {
+					throw new Exception( 'Unable to write database end of transaction' );
 				}
 			}
+
+			$current_table_index += 1;
 
 			// Close result cursor
 			$this->free_result( $result );
 
-			// Write end of transaction
-			if ( $completed ) {
-				if ( $current_table_offset % Ai1wm_Database::QUERIES_PER_TRANSACTION !== 0 ) {
-					if ( fwrite( $file_handler, "COMMIT;\n" ) === false ) {
-						throw new Exception( 'Unable to write database end of transaction' );
-					}
+			// Time elapsed
+			if ( $timeout ) {
+				if ( ( microtime( true ) - $start ) > $timeout ) {
+					$completed = false;
+					break;
 				}
-
-				$current_table_offset = 0;
-			} else {
-				break;
 			}
 		}
 
@@ -528,9 +521,6 @@ abstract class Ai1wm_Database {
 	 * @return bool
 	 */
 	public function import( $file_name ) {
-
-		// Set collation name
-		$collation = $this->get_collation( 'utf8mb4_general_ci' );
 
 		// Set max allowed packet
 		$max_allowed_packet = $this->get_max_allowed_packet();
@@ -561,10 +551,8 @@ abstract class Ai1wm_Database {
 					// Replace table values
 					$query = $this->replace_table_values( $query, true );
 
-					// Replace table collation
-					if ( empty( $collation ) ) {
-						$query = $this->replace_table_collation( $query );
-					}
+					// Replace table collations
+					$query = $this->replace_table_collations( $query );
 
 					try {
 
@@ -788,13 +776,29 @@ abstract class Ai1wm_Database {
 	}
 
 	/**
-	 * Replace table collation
+	 * Replace table collations
 	 *
 	 * @param  string $input SQL statement
 	 * @return string
 	 */
-	protected function replace_table_collation($input) {
-		return str_ireplace( 'utf8mb4', 'utf8', $input );
+	protected function replace_table_collations( $input ) {
+		static $search = array();
+		static $replace = array();
+
+		// Replace table collations
+		if ( empty( $search ) || empty( $replace ) ) {
+			if ( ! $this->wpdb->has_cap( 'utf8mb4_520' ) ) {
+				if ( ! $this->wpdb->has_cap( 'utf8mb4' ) ) {
+					$search = array( 'utf8mb4_unicode_520_ci', 'utf8mb4' );
+					$replace = array( 'utf8_unicode_ci', 'utf8' );
+				} else {
+					$search = array( 'utf8mb4_unicode_520_ci' );
+					$replace = array( 'utf8mb4_unicode_ci' );
+				}
+			}
+		}
+
+		return str_ireplace( $search, $replace, $input );
 	}
 
 	/**
@@ -803,7 +807,7 @@ abstract class Ai1wm_Database {
 	 * @param  string $input SQL statement
 	 * @return string
 	 */
-	protected function strip_table_constraints($input) {
+	protected function strip_table_constraints( $input ) {
 		$pattern = array(
 			'/\s+CONSTRAINT(.+)REFERENCES(.+),/i',
 			'/,\s+CONSTRAINT(.+)REFERENCES(.+)/i',

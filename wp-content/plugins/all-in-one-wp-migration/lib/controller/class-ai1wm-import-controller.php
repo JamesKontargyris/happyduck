@@ -64,17 +64,15 @@ class Ai1wm_Import_Controller {
 		// Get hook
 		if ( isset( $wp_filter['ai1wm_import'] ) && ( $filters = $wp_filter['ai1wm_import'] ) && ksort( $filters ) ) {
 			while ( $hooks = current( $filters ) ) {
-				if ( $priority == key( $filters ) ) {
-					foreach ( $hooks as  $hook ) {
+				if ( $priority === key( $filters ) ) {
+					foreach ( $hooks as $hook ) {
 						try {
 							$params = call_user_func_array( $hook['function'], array( $params ) );
-						}
-						catch ( Ai1wm_Import_Retry_Exception $exception ) {
+						} catch ( Ai1wm_Import_Retry_Exception $exception ) {
 							status_header( $exception->getCode() );
 							echo json_encode( array( 'message' => $exception->getMessage() ) );
 							exit;
-						}
-						catch ( Exception $e ) {
+						} catch ( Exception $e ) {
 							Ai1wm_Status::error( $e->getMessage(), __( 'Unable to import', AI1WM_PLUGIN_NAME ) );
 							exit;
 						}
@@ -93,7 +91,13 @@ class Ai1wm_Import_Controller {
 
 					// Do request
 					if ( $completed === false || ( $next = next( $filters ) ) && ( $params['priority'] = key( $filters ) ) ) {
-						return Ai1wm_Http::post( admin_url( 'admin-ajax.php?action=ai1wm_import' ), $params );
+
+						// Check the status, maybe we need to stop it
+						if ( ! is_file( ai1wm_import_path( $params ) ) ) {
+							exit;
+						}
+
+						return Ai1wm_Http::get( admin_url( 'admin-ajax.php?action=ai1wm_import' ), $params );
 					}
 				}
 

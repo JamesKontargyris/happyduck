@@ -58,8 +58,4 @@ class Ai1wm_Status {
 			update_option( AI1WM_STATUS, $data );
 		}
 	}
-
-	public static function flush() {
-		delete_option( AI1WM_STATUS );
-	}
 }

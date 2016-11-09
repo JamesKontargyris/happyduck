@@ -69,7 +69,7 @@ class Ai1wm_Updater {
 
 		// Get extension updates
 		foreach ( $updates as $slug => $update ) {
-			if ( isset( $extensions[ $slug ]) && ( $extension = $extensions[ $slug ] ) ) {
+			if ( isset( $extensions[ $slug ] ) && ( $extension = $extensions[ $slug ] ) ) {
 				if ( get_option( $extension['key'] ) ) {
 					if ( version_compare( $extension['version'], $update['version'], '<' ) ) {
 

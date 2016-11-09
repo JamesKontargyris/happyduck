@@ -43,23 +43,23 @@ class Ai1wm_Import_Blogs {
 
 			// Parse multisite.json file
 			$multisite = fread( $handle, filesize( ai1wm_multisite_path( $params ) ) );
-			$multisite = json_decode( $multisite );
+			$multisite = json_decode( $multisite, true );
 
 			// Close handle
 			fclose( $handle );
 
 			// Validate
-			if ( empty( $multisite->Network ) ) {
-				if ( isset( $multisite->Sites ) && ( $sites = $multisite->Sites ) ) {
+			if ( empty( $multisite['Network'] ) ) {
+				if ( isset( $multisite['Sites'] ) && ( $sites = $multisite['Sites'] ) ) {
 					if ( count( $sites ) === 1 && ( $site = current( $sites ) ) ) {
 						$blogs[] = array(
 							'Old' => array(
-								'Id'      => (int) $site->BlogID,
-								'SiteURL' => $site->SiteURL,
-								'HomeURL' => $site->HomeURL,
+								'BlogID'  => $site['BlogID'],
+								'SiteURL' => $site['SiteURL'],
+								'HomeURL' => $site['HomeURL'],
 							),
 							'New' => array(
-								'Id'      => 1,
+								'BlogID'  => null,
 								'SiteURL' => site_url(),
 								'HomeURL' => home_url(),
 							),

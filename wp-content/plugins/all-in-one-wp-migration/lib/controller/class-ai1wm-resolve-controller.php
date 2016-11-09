@@ -51,16 +51,16 @@ class Ai1wm_Resolve_Controller {
 		}
 
 		// Set IP address
-		if ( isset( $params['url_ip'] ) && ( $ip = $params['url_ip' ] ) ) {
+		if ( isset( $params['url_ip'] ) && ( $ip = $params['url_ip'] ) ) {
 			update_option( AI1WM_URL_IP, $ip );
 		}
 
-		// Set transport layer
-		if ( isset( $params['url_transport'] ) && ( $transport = $params['url_transport'] ) ) {
-			if ( $transport === 'curl' ) {
-				update_option( AI1WM_URL_TRANSPORT, array( 'curl', 'ai1wm' ) );
+		// Set adapter
+		if ( isset( $params['url_adapter'] ) && ( $adapter = $params['url_adapter'] ) ) {
+			if ( $adapter === 'curl' ) {
+				update_option( AI1WM_URL_ADAPTER, 'curl' );
 			} else {
-				update_option( AI1WM_URL_TRANSPORT, array( 'ai1wm', 'curl' ) );
+				update_option( AI1WM_URL_ADAPTER, 'stream' );
 			}
 		}
 	}

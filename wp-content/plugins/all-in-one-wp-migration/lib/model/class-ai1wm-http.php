@@ -25,74 +25,122 @@
 
 class Ai1wm_Http {
 
-	public static $transports = array( 'ai1wm', 'curl' );
-
-	public static function post( $url, $params = array() ) {
-
-		// Check the status, maybe we need to stop it
-		if ( ! is_file( ai1wm_export_path( $params ) ) && ! is_file( ai1wm_import_path( $params ) ) ) {
-			exit;
-		}
+	public static function get( $url, $params = array(), Ai1wm_Http_Abstract $client = null ) {
 
 		// Get IP address
 		$ip = get_option( AI1WM_URL_IP );
 
-		// HTTP request
-		Ai1wm_Http::request( $url, $ip, $params );
+		// Get adapter
+		$adapter = get_option( AI1WM_URL_ADAPTER );
+
+		// Get host
+		$host = parse_url( $url, PHP_URL_HOST );
+
+		// Get port
+		$port = parse_url( $url, PHP_URL_PORT );
+
+		// Set HTTP client
+		if ( is_null( $client ) ) {
+			$client = Ai1wm_Http_Factory::create( $adapter );
+		}
+
+		// Set HTTP host
+		if ( empty( $port ) ) {
+			$client->set_header( 'Host', $host );
+		} else {
+			$client->set_header( 'Host', "{$host}:{$port}" );
+		}
+
+		// Set HTTP authorization
+		if ( ( $user = get_option( AI1WM_AUTH_USER ) ) && ( $password = get_option( AI1WM_AUTH_PASSWORD ) ) ) {
+			if ( ( $hash = base64_encode( "{$user}:{$password}" ) ) ) {
+				$client->set_header( 'Authorization', "Basic {$hash}" );
+			}
+		}
+
+		$blocking = false;
+
+		// Run non-blocking HTTP request
+		$client->get( add_query_arg( ai1wm_urlencode( $params ), str_replace( "//{$host}", "//{$ip}", $url ) ), $blocking );
 	}
 
-	public static function resolve( $url ) {
+	public static function resolve( $url, $params = array(), Ai1wm_Http_Abstract $client = null ) {
 
-		// Reset IP address and transport layer
+		// Reset IP address and adapter
 		delete_option( AI1WM_URL_IP );
-		delete_option( AI1WM_URL_TRANSPORT );
+		delete_option( AI1WM_URL_ADAPTER );
 
 		// Set secret
 		$secret_key = get_option( AI1WM_SECRET_KEY );
 
-		// Set scheme
-		$scheme = parse_url( $url, PHP_URL_SCHEME );
-
-		// Set host name
+		// Set host
 		$host = parse_url( $url, PHP_URL_HOST );
+
+		// Get port
+		$port = parse_url( $url, PHP_URL_PORT );
 
 		// Set server IP address
 		if ( ! empty( $_SERVER['SERVER_ADDR'] ) ) {
-			$ip = $_SERVER['SERVER_ADDR'];
+			$server = $_SERVER['SERVER_ADDR'];
 		} else if ( ! empty( $_SERVER['LOCAL_ADDR'] ) ) {
-			$ip = $_SERVER['LOCAL_ADDR'];
+			$server = $_SERVER['LOCAL_ADDR'];
 		} else {
-			$ip = '127.0.0.1';
+			$server = '127.0.0.1';
 		}
 
-		// Set domain IP address
-		$domain = gethostbyname( $host );
+		// Set local IP address
+		$local = gethostbyname( $host );
 
 		// HTTP resolve
-		foreach ( array( 'ai1wm', 'curl' ) as $transport ) {
-			foreach ( array( $ip, $domain, $host ) as $ip ) {
+		foreach ( array( 'stream', 'curl' ) as $adapter ) {
+			foreach ( array( $server, $local, $host ) as $ip ) {
 
-			    // Set transport
-			    Ai1wm_Http::$transports = array( $transport );
+				// Add IPv6 support
+				if ( filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) {
+					$ip = "[$ip]";
+				}
 
-				// HTTP request
-				Ai1wm_Http::request( $url, $ip, array(
-					'secret_key' => $secret_key,
-					'url_ip' => $ip,
-					'url_transport' => $transport
+				// Set HTTP params
+				$params = array_merge( $params, array(
+					'secret_key'  => $secret_key,
+					'url_ip'      => $ip,
+					'url_adapter' => $adapter,
 				) );
 
-				// HTTP response
-				for ( $i = 0; $i < 5; $i++, sleep( 1 ) ) {
+				// Set HTTP client
+				if ( is_null( $client ) ) {
+					$client = Ai1wm_Http_Factory::create( $adapter );
+				}
 
-					// Flush WP cache
-					ai1wm_cache_flush();
+				// Set HTTP host
+				if ( empty( $port ) ) {
+					$client->set_header( 'Host', $host );
+				} else {
+					$client->set_header( 'Host', "{$host}:{$port}" );
+				}
 
-					// Is valid transport layer?
-					if ( get_option( AI1WM_URL_IP ) && get_option( AI1WM_URL_TRANSPORT ) ) {
-						return;
+				// Set HTTP authorization
+				if ( ( $user = get_option( AI1WM_AUTH_USER ) ) && ( $password = get_option( AI1WM_AUTH_PASSWORD ) ) ) {
+					if ( ( $hash = base64_encode( "{$user}:{$password}" ) ) ) {
+						$client->set_header( 'Authorization', "Basic {$hash}" );
 					}
 				}
+
+				$blocking = true;
+
+				// Run blocking HTTP request
+				$client->get( add_query_arg( ai1wm_urlencode( $params ), str_replace( "//{$host}", "//{$ip}", $url ) ), $blocking );
+
+				// Flush WP cache
+				ai1wm_cache_flush();
+
+				// Is valid adapter?
+				if ( get_option( AI1WM_URL_IP ) && get_option( AI1WM_URL_ADAPTER ) ) {
+					return;
+				}
+
+				// Reset HTTP client
+				$client = null;
 			}
 		}
 
@@ -102,56 +150,5 @@ class Ai1wm_Http {
 			'Contact <a href="mailto:support@servmask.com">support@servmask.com</a> for assistance.',
 			AI1WM_PLUGIN_NAME
 		) );
-	}
-
-	public static function request( $url, $ip, $params = array() ) {
-
-		// Set request order
-		add_filter( 'http_api_transports', 'Ai1wm_Http::transports', 100 );
-
-		// Set host name
-		$host = parse_url( $url, PHP_URL_HOST );
-
-		// Set accept header
-		$headers = array( 'Accept' => '*/*' );
-
-		// Add authorization header
-		if ( ( $user = get_option( AI1WM_AUTH_USER ) ) && ( $password = get_option( AI1WM_AUTH_PASSWORD ) ) ) {
-			$headers['Authorization'] = sprintf( 'Basic %s', base64_encode( "{$user}:{$password}" ) );
-		}
-
-		// Add host header
-		if ( ( $port = parse_url( $url, PHP_URL_PORT ) ) ) {
-			$headers['Host'] = sprintf( '%s:%s', $host, $port );
-		} else {
-			$headers['Host'] = sprintf( '%s', $host );
-		}
-
-		// Add IPv6 support
-		if ( filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) {
-			$ip = "[$ip]";
-		}
-
-		// Replace IP address
-		if ( ! empty( $ip ) ) {
-			$url = str_replace( "//{$host}", "//{$ip}", $url );
-		}
-
-		// HTTP request
-		remove_all_filters( 'http_request_args' );
-		wp_remote_post(
-			$url,
-			array(
-				'timeout'   => apply_filters( 'ai1wm_http_timeout', 5 ),
-				'blocking'  => false,
-				'sslverify' => false,
-				'headers'   => $headers,
-				'body'      => $params,
-			)
-		);
-	}
-
-	public static function transports( $transports ) {
-		return get_option( AI1WM_URL_TRANSPORT, Ai1wm_Http::$transports );
 	}
 }

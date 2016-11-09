@@ -38,31 +38,31 @@ class Ai1wm_Export_Config {
 		$options = wp_load_alloptions();
 
 		// Set config
-		$config = new Ai1wm_Config;
+		$config = array();
 
 		// Set Site URL
 		if ( isset( $options['siteurl'] ) ) {
-			$config->SiteURL = untrailingslashit( $options['siteurl'] );
+			$config['SiteURL'] = untrailingslashit( $options['siteurl'] );
 		} else {
-			$config->SiteURL = site_url();
+			$config['SiteURL'] = site_url();
 		}
 
 		// Set Home URL
 		if ( isset( $options['home'] ) ) {
-			$config->HomeURL = untrailingslashit( $options['home'] );
+			$config['HomeURL'] = untrailingslashit( $options['home'] );
 		} else {
-			$config->HomeURL = home_url();
+			$config['HomeURL'] = home_url();
 		}
 
 		// Set Plugin Version
-		$config->Plugin = (object) array( 'Version' => AI1WM_VERSION );
+		$config['Plugin'] = array( 'Version' => AI1WM_VERSION );
 
 		// Set WordPress Version and Content
-		$config->WordPress = (object) array( 'Version' => $wp_version, 'Content' => WP_CONTENT_DIR );
+		$config['WordPress'] = array( 'Version' => $wp_version, 'Content' => WP_CONTENT_DIR );
 
 		// Set No Replace Email
 		if ( isset( $params['options']['no_email_replace'] ) ) {
-			$config->NoEmailReplace = true;
+			$config['NoEmailReplace'] = true;
 		}
 
 		// Save package.json file

@@ -49,7 +49,7 @@
 			<div class="home-service-areas-intro__right-col">
 				<h2 class="home-service-areas-intro__title"><?php echo get_field('service_areas_title'); ?></h2>
 				<p class="home-service-areas-intro__text"><?php echo get_field('service_areas_text'); ?></p>
-				<a href="/our-services" class="btn btn--primary hide--l hide--xl">Learn more</a>
+				<a href="/services" class="btn btn--primary hide--l hide--xl">Learn more</a>
 			</div>
 		<?php else : ?>
 			<h2 class="text--medium"><?php echo get_field('service_areas_title'); ?></h2>

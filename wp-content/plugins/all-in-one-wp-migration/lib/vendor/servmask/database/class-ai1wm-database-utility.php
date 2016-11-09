@@ -35,7 +35,7 @@ class Ai1wm_Database_Utility {
 	 * @return mixed        The original string with all elements replaced as needed.
 	 */
 	public static function replace_values( $from = array(), $to = array(), $data = '' ) {
-		return str_ireplace( $from, $to, $data );
+		return strtr( $data, array_combine( $from, $to ) );
 	}
 
 	/**
@@ -53,35 +53,33 @@ class Ai1wm_Database_Utility {
 		try {
 
 			// Some unserialized data cannot be re-serialized eg. SimpleXMLElements
-			if ( $data ) {
-				if ( is_serialized( $data ) && ( $unserialized = @unserialize( $data ) ) !== false ) {
-					$data = self::replace_serialized_values( $from, $to, $unserialized, true );
-				} else if ( is_array( $data ) ) {
-					$tmp = array();
-					foreach ( $data as $key => $value ) {
-						$tmp[$key] = self::replace_serialized_values( $from, $to, $value, false );
-					}
-
-					$data = $tmp;
-					unset( $tmp );
-				} elseif ( is_object( $data ) ) {
-					$tmp = $data;
-					$props = get_object_vars( $data );
-					foreach ( $props as $key => $value ) {
-						$tmp->$key = self::replace_serialized_values( $from, $to, $value, false );
-					}
-
-					$data = $tmp;
-					unset( $tmp );
-				} else {
-					if ( is_string( $data ) ) {
-						$data = str_ireplace( $from, $to, $data );
-					}
+			if ( is_serialized( $data ) && ( $unserialized = @unserialize( $data ) ) !== false ) {
+				$data = self::replace_serialized_values( $from, $to, $unserialized, true );
+			} else if ( is_array( $data ) ) {
+				$tmp = array();
+				foreach ( $data as $key => $value ) {
+					$tmp[$key] = self::replace_serialized_values( $from, $to, $value, false );
 				}
 
-				if ( $serialized ) {
-					return serialize( $data );
+				$data = $tmp;
+				unset( $tmp );
+			} elseif ( is_object( $data ) ) {
+				$tmp = $data;
+				$props = get_object_vars( $data );
+				foreach ( $props as $key => $value ) {
+					$tmp->$key = self::replace_serialized_values( $from, $to, $value, false );
 				}
+
+				$data = $tmp;
+				unset( $tmp );
+			} else {
+				if ( is_string( $data ) ) {
+					$data = strtr( $data, array_combine( $from, $to ) );
+				}
+			}
+
+			if ( $serialized ) {
+				return serialize( $data );
 			}
 
 		} catch ( Exception $e ) {
@@ -103,14 +101,5 @@ class Ai1wm_Database_Utility {
 			array( '\\', '\0', "\n", "\r", "\x1a", "'", '"', "\0" ),
 			$data
 		);
-	}
-	/**
-	 * Unescape quote characters
-	 *
-	 * @param  string $data Data to replace.
-	 * @return string
-	 */
-	public static function unescape_quotes( $data ) {
-		return str_ireplace( '\"', '"', $data );
 	}
 }

@@ -96,10 +96,10 @@ class Ai1wm_Export_Content {
 				try {
 
 					// Add file to archive
-					if ( ( $content_offset = $archive->add_file( WP_CONTENT_DIR . DIRECTORY_SEPARATOR . $path, $path, $current_filesize, $content_offset, 10 ) ) ) {
+					if ( ( $current_offset = $archive->add_file( WP_CONTENT_DIR . DIRECTORY_SEPARATOR . $path, $path, $current_filesize, $content_offset, 10 ) ) ) {
 
-						// Set progress
-						if ( ( $processed += $content_offset ) ) {
+						// What percent of files have we processed?
+						if ( ( $processed += ( $current_offset - $content_offset ) ) ) {
 							$progress = (int) ( ( $processed / $total_size ) * 100 );
 						}
 
@@ -110,10 +110,13 @@ class Ai1wm_Export_Content {
 						$params['current_filesize'] = $archive->get_current_filesize();
 
 						// Set content offset
-						$params['content_offset'] = $content_offset;
+						$params['content_offset'] = $current_offset;
 
 						// Set filemap offset
 						$params['filemap_offset'] = $filemap_offset;
+
+						// Set processed files
+						$params['processed'] = $processed;
 
 						// Set completed flag
 						$params['completed'] = false;
@@ -122,6 +125,11 @@ class Ai1wm_Export_Content {
 						fclose( $filemap );
 
 						return $params;
+					}
+
+					// Increment processed files
+					if ( empty( $content_offset ) ) {
+						$processed += $archive->get_current_filesize();
 					}
 
 					// Set current filesize
@@ -137,9 +145,6 @@ class Ai1wm_Export_Content {
 					// Skip bad file permissions
 				}
 
-				// Increment processed files
-				$processed += $archive->get_current_filesize();
-
 				// More than 10 seconds have passed, break and do another request
 				if ( ( microtime( true ) - $start ) > 10 ) {
 					$completed = false;
@@ -147,6 +152,7 @@ class Ai1wm_Export_Content {
 				}
 			}
 
+			// Close the archive file
 			$archive->close();
 		}
 
