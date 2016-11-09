@@ -7,7 +7,7 @@
 					<div class="article-extract">
 						<a href="<?php echo get_the_permalink($article->ID); ?>">
 							<?php if(has_post_thumbnail($article->ID)) : ?>
-								<img class="article-extract__image" src="<?php echo get_the_post_thumbnail_url($article->ID, $instance['large-thumb']); ?>" alt="<?php echo get_the_title($article->ID); ?>">
+								<img class="article-extract__image" src="<?php echo get_the_post_thumbnail_url($article->ID, 'large-thumb'); ?>" alt="<?php echo get_the_title($article->ID); ?>">
 							<?php endif; ?>
 							<span class="article-extract__title text--medium"><?php echo truncate( get_the_title($article->ID), 80 ); ?></span>
 						</a>

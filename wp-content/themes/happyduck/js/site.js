@@ -77,4 +77,11 @@
     jQuery(badges).each(function(){
         jQuery(this).height(jQuery(this).width());
     });
+
+    // Get filename of the current image
+    String.prototype.filename=function(extension){
+        var s= this.replace(/\\/g, '/');
+        s= s.substring(s.lastIndexOf('/')+ 1);
+        return extension? s.replace(/[?#].+$/, ''): s.split('.')[0];
+    }
 })();

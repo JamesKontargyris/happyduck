@@ -25,7 +25,7 @@
 			<section class="page-section__main article__main">
 
 				<?php if(has_post_thumbnail()) : ?>
-					<img src="<?php echo get_the_post_thumbnail_url($article->ID, 'article-feature'); ?>" alt="<?php the_title(); ?>" class="article__featured-image">
+					<img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'article-feature'); ?>" alt="<?php the_title(); ?>" class="article__featured-image">
 				<?php endif; ?>
 
 
