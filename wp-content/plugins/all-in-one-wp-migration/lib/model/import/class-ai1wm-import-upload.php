@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2016 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,10 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
 
 class Ai1wm_Import_Upload {
 
@@ -51,8 +55,8 @@ class Ai1wm_Import_Upload {
 	public static function execute( $params ) {
 		self::validate();
 
-		$error = $_FILES['upload-file']['error'];
-		$upload = $_FILES['upload-file']['tmp_name'];
+		$error   = $_FILES['upload-file']['error'];
+		$upload  = $_FILES['upload-file']['tmp_name'];
 		$archive = ai1wm_archive_path( $params );
 
 		switch ( $error ) {
@@ -60,11 +64,11 @@ class Ai1wm_Import_Upload {
 				try {
 					ai1wm_copy( $upload, $archive );
 					ai1wm_unlink( $upload );
-				} catch ( Exception $exception ) {
+				} catch ( Exception $e ) {
 					throw new Ai1wm_Import_Retry_Exception(
 						sprintf(
 							__( 'Unable to upload the file because %s', AI1WM_PLUGIN_NAME ),
-							$exception->getMessage()
+							$e->getMessage()
 						),
 						400
 					);
@@ -74,9 +78,9 @@ class Ai1wm_Import_Upload {
 			case UPLOAD_ERR_FORM_SIZE:
 			case UPLOAD_ERR_PARTIAL:
 			case UPLOAD_ERR_NO_FILE:
-				// File is too large, reduce the size and try again
+				// File is too large
 				throw new Ai1wm_Import_Retry_Exception(
-					__( 'The file is too large, retrying with smaller size.', AI1WM_PLUGIN_NAME ),
+					__( 'The file is too large for this server.', AI1WM_PLUGIN_NAME ),
 					413
 				);
 			case UPLOAD_ERR_NO_TMP_DIR:
@@ -103,6 +107,8 @@ class Ai1wm_Import_Upload {
 					400
 				);
 		}
+
+		echo json_encode( array( 'errors' => array() ) );
 		exit;
 	}
 }

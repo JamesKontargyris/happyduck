@@ -6,6 +6,7 @@
  * @subpackage Taxonomies
  * @author WebDevStudios
  * @since 1.0.0
+ * @license GPL-2.0+
  */
 
 // Exit if accessed directly.
@@ -28,15 +29,22 @@ function cptui_taxonomies_enqueue_scripts() {
 		return;
 	}
 
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+	if ( wp_doing_ajax() ) {
 		return;
 	}
 
 	wp_enqueue_script( 'cptui' );
-	wp_localize_script(	'cptui', 'cptui_tax_data',
+	wp_enqueue_style( 'cptui-css' );
+
+	$core    = get_taxonomies( array( '_builtin' => true ) );
+	$public  = get_taxonomies( array( '_builtin' => false, 'public' => true ) );
+	$private = get_taxonomies( array( '_builtin' => false, 'public' => false ) );
+	$registered_taxonomies = array_merge( $core, $public, $private );
+	wp_localize_script( 'cptui', 'cptui_tax_data',
 		array(
-			'confirm' => esc_html__( 'Are you sure you want to delete this? Deleting will NOT remove created content.', 'custom-post-type-ui' ),
-			'no_associated_type' => esc_html( 'Please select a post type to associate with.', 'custom-post-type-ui' )
+			'confirm'            => esc_html__( 'Are you sure you want to delete this? Deleting will NOT remove created content.', 'custom-post-type-ui' ),
+			'no_associated_type' => esc_html( 'Please select a post type to associate with.', 'custom-post-type-ui' ),
+			'existing_taxonomies' => $registered_taxonomies,
 		)
 	);
 }
@@ -49,8 +57,8 @@ add_action( 'admin_enqueue_scripts', 'cptui_taxonomies_enqueue_scripts' );
  *
  * @internal
  *
- * @param array  $tabs         Array of tabs to display.
- * @param string $current_page Current page being shown.
+ * @param array  $tabs         Array of tabs to display. Optional.
+ * @param string $current_page Current page being shown. Optional. Default empty string.
  * @return array Amended array of tabs to show.
  */
 function cptui_taxonomy_tabs( $tabs = array(), $current_page = '' ) {
@@ -59,7 +67,7 @@ function cptui_taxonomy_tabs( $tabs = array(), $current_page = '' ) {
 		$taxonomies = cptui_get_taxonomy_data();
 		$classes    = array( 'nav-tab' );
 
-		$tabs['page_title'] = esc_html__( 'Manage Taxonomies', 'custom-post-type-ui' );
+		$tabs['page_title'] = get_admin_page_title();
 		$tabs['tabs']       = array();
 		// Start out with our basic "Add new" tab.
 		$tabs['tabs']['add'] = array(
@@ -97,7 +105,7 @@ function cptui_taxonomy_tabs( $tabs = array(), $current_page = '' ) {
 			$tabs['tabs']['export'] = array(
 				'text'          => esc_html__( 'Import/Export Taxonomies', 'custom-post-type-ui' ),
 				'classes'       => array( 'nav-tab' ), // Prevent notices.
-				'url'           => esc_url( cptui_admin_url( 'admin.php?page=cptui_importexport&action=taxonomies' ) ),
+				'url'           => esc_url( cptui_admin_url( 'admin.php?page=cptui_tools&action=taxonomies' ) ),
 				'aria-selected' => 'false',
 			);
 		}
@@ -117,8 +125,10 @@ add_filter( 'cptui_get_tabs', 'cptui_taxonomy_tabs', 10, 2 );
  */
 function cptui_manage_taxonomies() {
 
-	$tab = ( ! empty( $_GET ) && ! empty( $_GET['action'] ) && 'edit' == $_GET['action'] ) ? 'edit' : 'new';
-	$tab_class = 'cptui-' . $tab; ?>
+	$tab       = ( ! empty( $_GET ) && ! empty( $_GET['action'] ) && 'edit' == $_GET['action'] ) ? 'edit' : 'new';
+	$tab_class = 'cptui-' . $tab;
+	$current   = null;
+	?>
 
 	<div class="wrap <?php echo esc_attr( $tab_class ); ?>">
 
@@ -140,7 +150,7 @@ function cptui_manage_taxonomies() {
 	$taxonomy_deleted = apply_filters( 'cptui_taxonomy_deleted', false );
 
 	// Create our tabs.
-	cptui_settings_tab_menu( $page = 'taxonomies' );
+	cptui_settings_tab_menu( 'taxonomies' );
 
 	/**
 	 * Fires below the output for the tab menu on the taxonomy add/edit screen.
@@ -171,6 +181,8 @@ function cptui_manage_taxonomies() {
 			<?php
 			cptui_taxonomies_dropdown( $taxonomies );
 
+			wp_nonce_field( 'cptui_select_taxonomy_nonce_action', 'cptui_select_taxonomy_nonce_field' );
+
 			/**
 			 * Filters the text value to use on the select taxonomy button.
 			 *
@@ -179,7 +191,7 @@ function cptui_manage_taxonomies() {
 			 * @param string $value Text to use for the button.
 			 */
 			?>
-			<input type="submit" class="button-secondary" name="cptui_select_taxonomy_submit" value="<?php echo esc_attr( apply_filters( 'cptui_taxonomy_submit_select', esc_attr__( 'Select', 'custom-post-type-ui' ) ) ); ?>" />
+			<input type="submit" class="button-secondary" id="cptui_select_taxonomy_submit" name="cptui_select_taxonomy_submit" value="<?php echo esc_attr( apply_filters( 'cptui_taxonomy_submit_select', esc_attr__( 'Select', 'custom-post-type-ui' ) ) ); ?>" />
 		</form>
 	<?php
 
@@ -212,8 +224,10 @@ function cptui_manage_taxonomies() {
 							echo $ui->get_label( 'name', esc_html__( 'Taxonomy Slug', 'custom-post-type-ui' ) ) . $ui->get_required_span();
 
 							if ( 'edit' == $tab ) {
-								echo '<p id="slugchanged" class="hidemessage">' . __( 'Slug has changed', 'custom_post_type_ui' ) . '</p>';
+								echo '<p id="slugchanged" class="hidemessage">' . esc_html__( 'Slug has changed', 'custom-post-type-ui' ) . '<span class="dashicons dashicons-warning"></span></p>';
 							}
+							echo '<p id="slugexists" class="hidemessage">' . esc_html__( 'Slug already exists', 'custom-post-type-ui' ) . '<span class="dashicons dashicons-warning"></span></p>';
+
 							echo $ui->get_th_end() . $ui->get_td_start();
 
 							echo $ui->get_text_input( array(
@@ -228,7 +242,7 @@ function cptui_manage_taxonomies() {
 							) );
 
 							echo '<p class="cptui-slug-details">';
-							esc_html_e( 'Slugs should only contain alphanumeric, latin characters. Underscores or dashes should be used in place of spaces.', 'custom-post-type-ui' );
+							esc_html_e( 'Slugs should only contain alphanumeric, latin characters. Underscores should be used in place of spaces. Set "Custom Rewrite Slug" field to make slug use dashes for URLs.', 'custom-post-type-ui' );
 							echo '</p>';
 
 							if ( 'edit' == $tab ) {
@@ -273,7 +287,7 @@ function cptui_manage_taxonomies() {
 							echo $ui->get_td_end() . $ui->get_tr_end();
 
 							echo $ui->get_tr_start() . $ui->get_th_start() . esc_html__( 'Attach to Post Type', 'custom-post-type-ui' ) . $ui->get_required_span();
-							echo $ui->get_p( esc_html__( 'Add support for available registered post types. At least one is required.', 'custom-post-type-ui' ) );
+							echo $ui->get_p( esc_html__( 'Add support for available registered post types. At least one is required. Only public post types listed by default.', 'custom-post-type-ui' ) );
 							echo $ui->get_th_end() . $ui->get_td_start() . $ui->get_fieldset_start();
 
 							/**
@@ -335,7 +349,7 @@ function cptui_manage_taxonomies() {
 								 * @param string $value Text to use for the button.
 								 */
 								?>
-								<input type="submit" class="button-primary" name="cpt_submit" value="<?php echo esc_attr( apply_filters( 'cptui_taxonomy_submit_edit', esc_attr__( 'Save Taxonomy', 'custom-post-type-ui' ) ) ); ?>" />
+								<input type="submit" class="button-primary cptui-taxonomy-submit" name="cpt_submit" value="<?php echo esc_attr( apply_filters( 'cptui_taxonomy_submit_edit', esc_attr__( 'Save Taxonomy', 'custom-post-type-ui' ) ) ); ?>" />
 								<?php
 
 								/**
@@ -579,11 +593,7 @@ function cptui_manage_taxonomies() {
 							$select             = array(
 								'options' => array(
 									array( 'attr' => '0', 'text' => esc_attr__( 'False', 'custom-post-type-ui' ) ),
-									array(
-										'attr'    => '1',
-										'text'    => esc_attr__( 'True', 'custom-post-type-ui' ),
-										'default' => 'true'
-									),
+									array( 'attr' => '1', 'text' => esc_attr__( 'True', 'custom-post-type-ui' ), 'default' => 'true' ),
 								),
 							);
 							$selected           = ( isset( $current ) ) ? disp_boolean( $current['public'] ) : '';
@@ -592,7 +602,23 @@ function cptui_manage_taxonomies() {
 								'namearray'  => 'cpt_custom_tax',
 								'name'       => 'public',
 								'labeltext'  => esc_html__( 'Public', 'custom-post-type-ui' ),
-								'aftertext'  => esc_html__( '(default: true) Whether or not the taxonomy should be publicly queryable.', 'custom-post-type-ui' ),
+								'aftertext'  => esc_html__( '(default: true) Whether a taxonomy is intended for use publicly either via the admin interface or by front-end users.', 'custom-post-type-ui' ),
+								'selections' => $select,
+							) );
+
+							$select             = array(
+								'options' => array(
+									array( 'attr' => '0', 'text' => esc_attr__( 'False', 'custom-post-type-ui' ) ),
+									array( 'attr' => '1', 'text' => esc_attr__( 'True', 'custom-post-type-ui' ), 'default' => 'true' ),
+								),
+							);
+							$selected           = ( isset( $current ) ) ? disp_boolean( $current['publicly_queryable'] ) : '';
+							$select['selected'] = ( ! empty( $selected ) ) ? $current['publicly_queryable'] : '';
+							echo $ui->get_select_input( array(
+								'namearray'  => 'cpt_custom_tax',
+								'name'       => 'publicly_queryable',
+								'labeltext'  => esc_html__( 'Public Queryable', 'custom-post-type-ui' ),
+								'aftertext'  => esc_html__( '(default: value of "public" setting) Whether or not the taxonomy should be publicly queryable.', 'custom-post-type-ui' ),
 								'selections' => $select,
 							) );
 
@@ -799,9 +825,12 @@ function cptui_manage_taxonomies() {
 									array(
 										'attr'    => '0',
 										'text'    => esc_attr__( 'False', 'custom-post-type-ui' ),
-										'default' => 'false'
 									),
-									array( 'attr' => '1', 'text' => esc_attr__( 'True', 'custom-post-type-ui' ) ),
+									array(
+										'attr'    => '1',
+										'text'    => esc_attr__( 'True', 'custom-post-type-ui' ),
+										'default' => 'true',
+									),
 								),
 							);
 							$selected           = ( isset( $current ) ) ? disp_boolean( $current['show_in_rest'] ) : '';
@@ -810,7 +839,7 @@ function cptui_manage_taxonomies() {
 								'namearray'  => 'cpt_custom_tax',
 								'name'       => 'show_in_rest',
 								'labeltext'  => esc_html__( 'Show in REST API', 'custom-post-type-ui' ),
-								'aftertext'  => esc_html__( '(default: false) Whether to show this taxonomy data in the WP REST API.', 'custom-post-type-ui' ),
+								'aftertext'  => esc_html__( '(Custom Post Type UI default: true) Whether to show this taxonomy data in the WP REST API.', 'custom-post-type-ui' ),
 								'selections' => $select,
 							) );
 
@@ -820,6 +849,14 @@ function cptui_manage_taxonomies() {
 								'labeltext' => esc_html__( 'REST API base slug', 'custom-post-type-ui' ),
 								'helptext'  => esc_attr__( 'Slug to use in REST API URLs.', 'custom-post-type-ui' ),
 								'textvalue' => ( isset( $current['rest_base'] ) ) ? esc_attr( $current['rest_base'] ) : '',
+							) );
+
+							echo $ui->get_text_input( array(
+								'namearray' => 'cpt_custom_tax',
+								'name'      => 'rest_controller_class',
+								'labeltext' => esc_html__( 'REST API controller class', 'custom-post-type-ui' ),
+								'aftertext' => esc_attr__( '(default: WP_REST_Terms_Controller) Custom controller to use instead of WP_REST_Terms_Controller.', 'custom-post-type-ui' ),
+								'textvalue' => ( isset( $current['rest_controller_class'] ) ) ? esc_attr( $current['rest_controller_class'] ) : '',
 							) );
 
 							$select             = array(
@@ -840,6 +877,14 @@ function cptui_manage_taxonomies() {
 								'labeltext'  => esc_html__( 'Show in quick/bulk edit panel.', 'custom-post-type-ui' ),
 								'aftertext'  => esc_html__( '(default: false) Whether to show the taxonomy in the quick/bulk edit panel.', 'custom-post-type-ui' ),
 								'selections' => $select,
+							) );
+
+							echo $ui->get_text_input( array(
+								'namearray' => 'cpt_custom_tax',
+								'name'      => 'meta_box_cb',
+								'textvalue' => ( isset( $current['meta_box_cb'] ) ) ? esc_attr( $current['meta_box_cb'] ) : '',
+								'labeltext' => esc_html__( 'Metabox callback', 'custom-post-type-ui' ),
+								'helptext'  => esc_html__( 'Sets a callback function name for the meta box display. Hierarchical default: post_categories_meta_box, non-hierarchical default: post_tags_meta_box. To remove the metabox completely, use "false".', 'custom-post-type-ui' ),
 							) );
 							?>
 						</table>
@@ -893,7 +938,7 @@ function cptui_manage_taxonomies() {
 					 * @param string $value Text to use for the button.
 					 */
 					?>
-					<input type="submit" class="button-primary" name="cpt_submit" value="<?php echo esc_attr( apply_filters( 'cptui_taxonomy_submit_add', esc_attr__( 'Add Taxonomy', 'custom-post-type-ui' ) ) ); ?>" />
+					<input type="submit" class="button-primary cptui-taxonomy-submit" name="cpt_submit" value="<?php echo esc_attr( apply_filters( 'cptui_taxonomy_submit_add', esc_attr__( 'Add Taxonomy', 'custom-post-type-ui' ) ) ); ?>" />
 				<?php } ?>
 
 				<?php if ( ! empty( $current ) ) { ?>
@@ -915,7 +960,7 @@ function cptui_manage_taxonomies() {
  *
  * @since 1.0.0
  *
- * @param array $taxonomies Array of taxonomies that are registered.
+ * @param array $taxonomies Array of taxonomies that are registered. Optional.
  */
 function cptui_taxonomies_dropdown( $taxonomies = array() ) {
 
@@ -933,6 +978,17 @@ function cptui_taxonomies_dropdown( $taxonomies = array() ) {
 		$current = cptui_get_current_taxonomy();
 
 		$select['selected'] = $current;
+
+		/**
+		 * Filters the taxonomy dropdown options before rendering.
+		 *
+		 * @since 1.6.0
+		 *
+		 * @param array $select     Array of options for the dropdown.
+		 * @param array $taxonomies Array of original passed in post types.
+		 */
+		$select = apply_filters( 'cptui_taxonomies_dropdown_options', $select, $taxonomies );
+
 		echo $ui->get_select_input( array(
 			'namearray'     => 'cptui_selected_taxonomy',
 			'name'          => 'taxonomy',
@@ -949,7 +1005,7 @@ function cptui_taxonomies_dropdown( $taxonomies = array() ) {
  *
  * @internal
  *
- * @param bool $taxonomy_deleted Whether or not a taxonomy was recently deleted.
+ * @param bool $taxonomy_deleted Whether or not a taxonomy was recently deleted. Optional. Default false.
  * @return bool|string False on no result, sanitized taxonomy if set.
  */
 function cptui_get_current_taxonomy( $taxonomy_deleted = false ) {
@@ -957,13 +1013,22 @@ function cptui_get_current_taxonomy( $taxonomy_deleted = false ) {
 	$tax = false;
 
 	if ( ! empty( $_POST ) ) {
+		if ( ! empty( $_POST['cptui_select_taxonomy_nonce_field'] ) ) {
+			check_admin_referer( 'cptui_select_taxonomy_nonce_action', 'cptui_select_taxonomy_nonce_field' );
+		}
 		if ( isset( $_POST['cptui_selected_taxonomy']['taxonomy'] ) ) {
 			$tax = sanitize_text_field( $_POST['cptui_selected_taxonomy']['taxonomy'] );
 		} else if ( $taxonomy_deleted ) {
 			$taxonomies = cptui_get_taxonomy_data();
 			$tax = key( $taxonomies );
 		} else if ( isset( $_POST['cpt_custom_tax']['name'] ) ) {
-			$tax = sanitize_text_field( $_POST['cpt_custom_tax']['name'] );
+			// Return the submitted value.
+			if ( ! in_array( $_POST['cpt_custom_tax']['name'], cptui_reserved_taxonomies(), true ) ) {
+				$tax = sanitize_text_field( $_POST['cpt_custom_tax']['name'] );
+			} else {
+				// Return the original value since user tried to submit a reserved term.
+				$tax = sanitize_text_field( $_POST['tax_original'] );
+			}
 		}
 	} else if ( ! empty( $_GET ) && isset( $_GET['cptui_taxonomy'] ) ) {
 		$tax = sanitize_text_field( $_GET['cptui_taxonomy'] );
@@ -992,7 +1057,7 @@ function cptui_get_current_taxonomy( $taxonomy_deleted = false ) {
  *
  * @internal
  *
- * @param array $data The $_POST values.
+ * @param array $data The $_POST values. Optional.
  * @return bool|string False on failure, string on success.
  */
 function cptui_delete_taxonomy( $data = array() ) {
@@ -1064,7 +1129,7 @@ function cptui_delete_taxonomy( $data = array() ) {
  *
  * @internal
  *
- * @param array $data Array of taxonomy data to update.
+ * @param array $data Array of taxonomy data to update. Optional.
  * @return bool|string False on failure, string on success.
  */
 function cptui_update_taxonomy( $data = array() ) {
@@ -1084,7 +1149,8 @@ function cptui_update_taxonomy( $data = array() ) {
 	}
 
 	if ( empty( $data['cpt_post_types'] ) ) {
-		return cptui_admin_notices( 'error', '', false, esc_html__( 'Please provide a post type to attach to.', 'custom-post-type-ui' ) );
+		add_filter( 'cptui_custom_error_message', 'cptui_empty_cpt_on_taxonomy' );
+		return 'error';
 	}
 
 	if ( ! empty( $data['tax_original'] ) && $data['tax_original'] != $data['cpt_custom_tax']['name'] ) {
@@ -1122,11 +1188,9 @@ function cptui_update_taxonomy( $data = array() ) {
 	 * @param array  $post_types Array of existing post types from CPTUI.
 	 */
 	$slug_exists = apply_filters( 'cptui_taxonomy_slug_exists', false, $data['cpt_custom_tax']['name'], $taxonomies );
-	if ( 'new' == $data['cpt_tax_status'] ) {
-		if ( true === $slug_exists ) {
-			add_filter( 'cptui_custom_error_message', 'cptui_slug_matches_taxonomy' );
-			return 'error';
-		}
+	if ( true === $slug_exists ) {
+		add_filter( 'cptui_custom_error_message', 'cptui_slug_matches_taxonomy' );
+		return 'error';
 	}
 
 	foreach ( $data['cpt_tax_labels'] as $key => $label ) {
@@ -1152,36 +1216,57 @@ function cptui_update_taxonomy( $data = array() ) {
 		$singular_label = str_replace( '"', '', htmlspecialchars_decode( $data['cpt_custom_tax']['singular_label'] ) );
 		$singular_label = htmlspecialchars( stripslashes( $singular_label ) );
 	}
-	$description = stripslashes_deep( $data['cpt_custom_tax']['description'] );
-	$query_var_slug = trim( $data['cpt_custom_tax']['query_var_slug'] );
-	$rewrite_slug = trim( $data['cpt_custom_tax']['rewrite_slug'] );
-	$rest_base = trim( $data['cpt_custom_tax']['rest_base'] );
-	$show_quickpanel_bulk = ( ! empty( $data['cpt_custom_tax']['show_in_quick_edit'] ) ) ? disp_boolean( $data['cpt_custom_tax']['show_in_quick_edit'] ) : '';
+	$description           = stripslashes_deep( $data['cpt_custom_tax']['description'] );
+	$query_var_slug        = trim( $data['cpt_custom_tax']['query_var_slug'] );
+	$rewrite_slug          = trim( $data['cpt_custom_tax']['rewrite_slug'] );
+	$rest_base             = trim( $data['cpt_custom_tax']['rest_base'] );
+	$rest_controller_class = trim( $data['cpt_custom_tax']['rest_controller_class'] );
+	$show_quickpanel_bulk  = ( ! empty( $data['cpt_custom_tax']['show_in_quick_edit'] ) ) ? disp_boolean( $data['cpt_custom_tax']['show_in_quick_edit'] ) : '';
+
+	$meta_box_cb = trim( $data['cpt_custom_tax']['meta_box_cb'] );
+	// We may or may not need to force a boolean false keyword
+	$maybe_false = strtolower( trim( $data['cpt_custom_tax']['meta_box_cb'] ) );
+	if ( 'false' === $maybe_false ) {
+		$meta_box_cb = $maybe_false;
+	}
 
 	$taxonomies[ $data['cpt_custom_tax']['name'] ] = array(
-		'name'                 => $name,
-		'label'                => $label,
-		'singular_label'       => $singular_label,
-		'description'          => $description,
-		'public'               => disp_boolean( $data['cpt_custom_tax']['public'] ),
-		'hierarchical'         => disp_boolean( $data['cpt_custom_tax']['hierarchical'] ),
-		'show_ui'              => disp_boolean( $data['cpt_custom_tax']['show_ui'] ),
-		'show_in_menu'         => disp_boolean( $data['cpt_custom_tax']['show_in_menu'] ),
-		'show_in_nav_menus'    => disp_boolean( $data['cpt_custom_tax']['show_in_nav_menus'] ),
-		'query_var'            => disp_boolean( $data['cpt_custom_tax']['query_var'] ),
-		'query_var_slug'       => $query_var_slug,
-		'rewrite'              => disp_boolean( $data['cpt_custom_tax']['rewrite'] ),
-		'rewrite_slug'         => $rewrite_slug,
-		'rewrite_withfront'    => $data['cpt_custom_tax']['rewrite_withfront'],
-		'rewrite_hierarchical' => $data['cpt_custom_tax']['rewrite_hierarchical'],
-		'show_admin_column'    => disp_boolean( $data['cpt_custom_tax']['show_admin_column'] ),
-		'show_in_rest'         => disp_boolean( $data['cpt_custom_tax']['show_in_rest'] ),
-		'show_in_quick_edit'   => $show_quickpanel_bulk,
-		'rest_base'            => $rest_base,
-		'labels'               => $data['cpt_tax_labels'],
+		'name'                  => $name,
+		'label'                 => $label,
+		'singular_label'        => $singular_label,
+		'description'           => $description,
+		'public'                => disp_boolean( $data['cpt_custom_tax']['public'] ),
+		'publicly_queryable'    => disp_boolean( $data['cpt_custom_tax']['publicly_queryable'] ),
+		'hierarchical'          => disp_boolean( $data['cpt_custom_tax']['hierarchical'] ),
+		'show_ui'               => disp_boolean( $data['cpt_custom_tax']['show_ui'] ),
+		'show_in_menu'          => disp_boolean( $data['cpt_custom_tax']['show_in_menu'] ),
+		'show_in_nav_menus'     => disp_boolean( $data['cpt_custom_tax']['show_in_nav_menus'] ),
+		'query_var'             => disp_boolean( $data['cpt_custom_tax']['query_var'] ),
+		'query_var_slug'        => $query_var_slug,
+		'rewrite'               => disp_boolean( $data['cpt_custom_tax']['rewrite'] ),
+		'rewrite_slug'          => $rewrite_slug,
+		'rewrite_withfront'     => $data['cpt_custom_tax']['rewrite_withfront'],
+		'rewrite_hierarchical'  => $data['cpt_custom_tax']['rewrite_hierarchical'],
+		'show_admin_column'     => disp_boolean( $data['cpt_custom_tax']['show_admin_column'] ),
+		'show_in_rest'          => disp_boolean( $data['cpt_custom_tax']['show_in_rest'] ),
+		'show_in_quick_edit'    => $show_quickpanel_bulk,
+		'rest_base'             => $rest_base,
+		'rest_controller_class' => $rest_controller_class,
+		'labels'                => $data['cpt_tax_labels'],
+		'meta_box_cb'           => $meta_box_cb,
 	);
 
 	$taxonomies[ $data['cpt_custom_tax']['name'] ]['object_types'] = $data['cpt_post_types'];
+
+	/**
+	 * Filters final data to be saved right before saving taxoomy data.
+	 *
+	 * @since 1.6.0
+	 *
+	 * @param array  $taxonomies Array of final taxonomy data to save.
+	 * @param string $name       Taxonomy slug for taxonomy being saved.
+	 */
+	$taxonomies = apply_filters( 'cptui_pre_save_taxonomy', $taxonomies, $name );
 
 	/**
 	 * Filters whether or not 3rd party options were saved successfully within taxonomy add/update.
@@ -1227,6 +1312,7 @@ function cptui_update_taxonomy( $data = array() ) {
 function cptui_reserved_taxonomies() {
 
 	$reserved = array(
+		'action',
 		'attachment',
 		'attachment_id',
 		'author',
@@ -1250,6 +1336,7 @@ function cptui_reserved_taxonomies() {
 		'feed',
 		'fields',
 		'hour',
+		'include',
 		'link_category',
 		'm',
 		'minute',
@@ -1306,6 +1393,7 @@ function cptui_reserved_taxonomies() {
 		'withcomments',
 		'withoutcomments',
 		'year',
+		'output',
 	);
 
 	/**
@@ -1336,18 +1424,19 @@ function cptui_reserved_taxonomies() {
  *
  * @internal
  *
- * @param string $original_slug Original taxonomy slug.
- * @param string $new_slug      New taxonomy slug.
+ * @param string $original_slug Original taxonomy slug. Optional. Default empty string.
+ * @param string $new_slug      New taxonomy slug. Optional. Default empty string.
  */
 function cptui_convert_taxonomy_terms( $original_slug = '', $new_slug = '' ) {
 	global $wpdb;
 
 	$args = array(
+		'taxonomy'   => $original_slug,
 		'hide_empty' => false,
 		'fields'     => 'ids',
 	);
 
-	$term_ids = get_terms( $original_slug, $args );
+	$term_ids = get_terms( $args );
 
 	if ( is_int( $term_ids ) ) {
 		$term_ids = (array) $term_ids;
@@ -1370,9 +1459,9 @@ function cptui_convert_taxonomy_terms( $original_slug = '', $new_slug = '' ) {
  *
  * @since 1.3.0
  *
- * @param bool   $slug_exists   Whether or not the post type slug exists.
- * @param string $taxonomy_slug The post type slug being saved.
- * @param array  $taxonomies    Array of CPTUI-registered post types.
+ * @param bool   $slug_exists   Whether or not the post type slug exists. Optional. Default false.
+ * @param string $taxonomy_slug The post type slug being saved. Optional. Default empty string.
+ * @param array  $taxonomies    Array of CPTUI-registered post types. Optional.
  *
  * @return bool
  */
@@ -1394,7 +1483,9 @@ function cptui_check_existing_taxonomy_slugs( $slug_exists = false, $taxonomy_sl
 	}
 
 	// Check if other plugins have registered this same slug.
-	$registered_taxonomies = get_post_types( array( '_builtin' => false, 'public' => false ) );
+	$public  = get_taxonomies( array( '_builtin' => false, 'public' => true ) );
+	$private = get_taxonomies( array( '_builtin' => false, 'public' => false ) );
+	$registered_taxonomies = array_merge( $public, $private );
 	if ( in_array( $taxonomy_slug, $registered_taxonomies ) ) {
 		return true;
 	}
@@ -1411,7 +1502,7 @@ add_filter( 'cptui_taxonomy_slug_exists', 'cptui_check_existing_taxonomy_slugs',
  */
 function cptui_process_taxonomy() {
 
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+	if ( wp_doing_ajax() ) {
 		return;
 	}
 
@@ -1433,8 +1524,12 @@ function cptui_process_taxonomy() {
 			$result = cptui_delete_taxonomy( $_POST );
 			add_filter( 'cptui_taxonomy_deleted', '__return_true' );
 		}
+
+		// @TODO Utilize anonymous function to admin_notice `$result` if it happens to error.
 		if ( $result ) {
-			add_action( 'admin_notices', "cptui_{$result}_admin_notice" );
+			if ( is_callable( "cptui_{$result}_admin_notice" ) ) {
+				add_action( 'admin_notices', "cptui_{$result}_admin_notice" );
+			}
 		}
 	}
 }
@@ -1457,7 +1552,32 @@ function cptui_do_convert_taxonomy_terms() {
 	 * @param bool $value Whether or not to convert.
 	 */
 	if ( apply_filters( 'cptui_convert_taxonomy_terms', false ) ) {
+		check_admin_referer( 'cptui_addedit_taxonomy_nonce_action', 'cptui_addedit_taxonomy_nonce_field' );
+
 		cptui_convert_taxonomy_terms( sanitize_text_field( $_POST['tax_original'] ), sanitize_text_field( $_POST['cpt_custom_tax']['name'] ) );
 	}
 }
 add_action( 'init', 'cptui_do_convert_taxonomy_terms' );
+
+/**
+ * Handles slug_exist checks for cases of editing an existing taxonomy.
+ *
+ * @since 1.5.3
+ *
+ * @param bool   $slug_exists   Current status for exist checks.
+ * @param string $taxonomy_slug Taxonomy slug being processed.
+ * @param array  $taxonomies    CPTUI taxonomies.
+ * @return bool
+ */
+function cptui_updated_taxonomy_slug_exists( $slug_exists, $taxonomy_slug = '', $taxonomies = array() ) {
+	if (
+		( ! empty( $_POST['cpt_tax_status'] ) && 'edit' == $_POST['cpt_tax_status'] ) &&
+		! in_array( $taxonomy_slug, cptui_reserved_taxonomies() ) &&
+		( ! empty( $_POST['tax_original'] ) && $taxonomy_slug === $_POST['tax_original'] )
+	)
+		{
+		$slug_exists = false;
+	}
+	return $slug_exists;
+}
+add_filter( 'cptui_taxonomy_slug_exists', 'cptui_updated_taxonomy_slug_exists', 11, 3 );

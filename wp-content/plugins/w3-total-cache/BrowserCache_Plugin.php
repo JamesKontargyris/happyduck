@@ -30,16 +30,64 @@ class BrowserCache_Plugin {
 				0, 2 );
 		}
 
-		if ( $this->can_ob() ) {
+		$url_uniqualize_enabled = $this->url_uniqualize_enabled();
+
+		if ( $this->url_clean_enabled() || $url_uniqualize_enabled ) {
 			$this->browsercache_rewrite =
 				$this->_config->get_boolean( 'browsercache.rewrite' );
-			Util_Bus::add_ob_callback( 'browsercache', array( $this, 'ob_callback' ) );
 
-			// modify CDN urls too
+			// modify CDN urls
 			add_filter( 'w3tc_cdn_url',
-				array( $this, 'w3tc_cdn_url' ),
-				0, 3 );
+				array( $this, 'w3tc_cdn_url' ), 0, 3 );
+
+			if ( $url_uniqualize_enabled ) {
+				add_action( 'w3tc_flush_all',
+					array( $this, 'w3tc_flush_all' ), 1050, 1 );
+			}
+
+
+			if ( $this->can_ob() ) {
+				Util_Bus::add_ob_callback( 'browsercache',
+					array( $this, 'ob_callback' ) );
+			}
 		}
+
+        $v = $this->_config->get_string( 'browsercache.security.session.cookie_httponly' );
+        if ( !empty( $v ) ) {
+            @ini_set( 'session.cookie_httponly', $v == 'on' ? '1': '0' );
+        }
+        $v = $this->_config->get_string( 'browsercache.security.session.cookie_secure' );
+        if ( !empty( $v ) ) {
+            @ini_set( 'session.cookie_secure', $v == 'on' ? '1': '0' );
+        }
+        $v = $this->_config->get_string( 'browsercache.security.session.use_only_cookies' );
+        if ( !empty( $v ) ) {
+            @ini_set( 'session.use_only_cookies', $v == 'on' ? '1': '0' );
+        }
+
+		add_filter( 'w3tc_minify_http2_preload_url',
+			array( $this, 'w3tc_minify_http2_preload_url' ), 4000 );
+	}
+
+	private function url_clean_enabled() {
+		return
+			$this->_config->get_boolean( 'browsercache.cssjs.querystring' ) ||
+			$this->_config->get_boolean( 'browsercache.html.querystring' ) ||
+			$this->_config->get_boolean( 'browsercache.other.querystring' );
+	}
+
+	private function url_uniqualize_enabled() {
+		return $this->_config->get_boolean( 'browsercache.cssjs.replace' ) ||
+			$this->_config->get_boolean( 'browsercache.html.replace' ) ||
+			$this->_config->get_boolean( 'browsercache.other.replace' );
+	}
+
+	public function w3tc_flush_all( $extras = array() ) {
+		if ( isset( $extras['only'] ) && $extras['only'] != 'browsercache' )
+			return;
+
+		update_option( 'w3tc_browsercache_flush_timestamp',
+			rand( 10000, 99999 ) . '' );
 	}
 
 	/**
@@ -48,13 +96,6 @@ class BrowserCache_Plugin {
 	 * @return boolean
 	 */
 	function can_ob() {
-		/**
-		 * Replace feature should be enabled
-		 */
-		if ( !$this->_config->get_boolean( 'browsercache.cssjs.replace' ) && !$this->_config->get_boolean( 'browsercache.html.replace' ) && !$this->_config->get_boolean( 'browsercache.other.replace' ) ) {
-			return false;
-		}
-
 		/**
 		 * Skip if admin
 		 */
@@ -115,13 +156,13 @@ class BrowserCache_Plugin {
 	 * @return mixed
 	 */
 	function ob_callback( $buffer ) {
-		if ( $buffer != '' && Util_Content::is_html( $buffer ) ) {
+		if ( $buffer != '' && Util_Content::is_html_xml( $buffer ) ) {
 			$domain_url_regexp = Util_Environment::home_domain_root_url_regexp();
 
 			$buffer = preg_replace_callback(
 				'~(href|src|action|extsrc|asyncsrc|w3tc_load_js\()=?([\'"])((' .
 				$domain_url_regexp .
-				')?(/[^\'"]*\.([a-z-_]+)(\?[^\'"]*)?))[\'"]~Ui', array(
+				')?(/[^\'"/][^\'"]*\.([a-z-_]+)([\?#][^\'"]*)?))[\'"]~Ui', array(
 					$this,
 					'link_replace_callback'
 				), $buffer );
@@ -139,14 +180,45 @@ class BrowserCache_Plugin {
 	function link_replace_callback( $matches ) {
 		list ( $match, $attr, $quote, $url, , , , , $extension ) = $matches;
 
-		if ( !$this->_url_has_to_be_replaced( $url, $extension ) )
+		$ops = $this->_get_url_mutation_operations( $url, $extension );
+		if ( is_null( $ops ) )
 			return $match;
 
-		$url = $this->mutate_url( $url, !$this->browsercache_rewrite );
+		$url = $this->mutate_url( $url, $ops, !$this->browsercache_rewrite );
 
 		if ( $attr != 'w3tc_load_js(' )
 			return $attr . '=' . $quote . $url . $quote;
 		return sprintf( '%s\'%s\'', $attr, $url );
+	}
+
+	/**
+	 * Mutate http/2 header links
+	 */
+	public function w3tc_minify_http2_preload_url( $data ) {
+		if ( isset( $data['browsercache_processed'] ) ) {
+			return $data;
+		}
+
+		$data['browsercache_processed'] = '*';
+		$url = $data['result_link'];
+
+		// decouple extension
+		$matches = array();
+		if ( !preg_match( '/\.([a-zA-Z0-9]+)($|[\?])/', $url, $matches ) ) {
+			return $data;
+		}
+		$extension = $matches[1];
+
+		$ops = $this->_get_url_mutation_operations( $url, $extension );
+		if ( is_null( $ops ) ) {
+			return $data;
+		}
+
+		$mutate_by_querystring = !$this->browsercache_rewrite;
+
+		$url = $this->mutate_url( $url, $ops, $mutate_by_querystring );
+		$data['result_link'] = $url;
+		return $data;
 	}
 
 	/**
@@ -162,63 +234,83 @@ class BrowserCache_Plugin {
 			return $url;
 		$extension = $matches[1];
 
-		if ( !$this->_url_has_to_be_replaced( $original_url, $extension ) )
+		$ops = $this->_get_url_mutation_operations( $original_url, $extension );
+		if ( is_null( $ops ) )
 			return $url;
 
 		// for push cdns each flush would require manual reupload of files
 		$mutate_by_querystring = !$this->browsercache_rewrite || !$is_cdn_mirror;
 
-		$url = $this->mutate_url( $url, $mutate_by_querystring );
+		$url = $this->mutate_url( $url, $ops, $mutate_by_querystring );
 		return $url;
 	}
 
-	private function mutate_url( $url, $mutate_by_querystring ) {
-		$id = $this->get_filename_uniqualizator();
-
-		$url = Util_Environment::remove_query( $url );
+	private function mutate_url( $url, $ops, $mutate_by_querystring ) {
 		$query_pos = strpos( $url, '?' );
-
-		if ( $mutate_by_querystring ) {
-			$url .= ( $query_pos !== false ? '&amp;' : '?' ) . $id;
-		} else {
-			// add $id to url before extension
-
-			$url_query = '';
-			if ( $query_pos !== false ) {
-				$url_query = substr( $url, $query_pos );
-				$url = substr( $url, 0, $query_pos );
-			}
-
-			$ext_pos = strrpos( $url, '.' );
-			$extension = substr( $url, $ext_pos );
-
-			$url = substr( $url, 0, strlen( $url ) - strlen( $extension ) ) . '.' .
-				$id . $extension . $url_query;
+		if ( isset( $ops['querystring'] ) && $query_pos !== false ) {
+			$url = substr( $url, 0, $query_pos );
+			$query_pos = false;
 		}
+
+		if ( isset( $ops['replace'] ) ) {
+			$id = $this->get_filename_uniqualizator();
+
+			if ( $mutate_by_querystring ) {
+				if ( $query_pos !== false ) {
+					$url = substr( $url, 0, $query_pos + 1 ) . $id . '&amp;' .
+						substr( $url, $query_pos + 1 );
+				} else {
+					$tag_pos = strpos( $url, '#' );
+					if ( $tag_pos === false ) {
+						$url .= '?' . $id;
+					} else {
+						$url = substr( $url, 0, $tag_pos ) . '?' . $id .
+							substr( $url, $tag_pos );
+					}
+				}
+
+			} else {
+				// add $id to url before extension
+
+				$url_query = '';
+				if ( $query_pos !== false ) {
+					$url_query = substr( $url, $query_pos );
+					$url = substr( $url, 0, $query_pos );
+				}
+
+				$ext_pos = strrpos( $url, '.' );
+				$extension = substr( $url, $ext_pos );
+
+				$url = substr( $url, 0, strlen( $url ) - strlen( $extension ) ) .
+					'.' . $id . $extension . $url_query;
+			}
+		}
+
 		return $url;
 	}
 
-	function _url_has_to_be_replaced( $url, $extension ) {
+	function _get_url_mutation_operations( $url, $extension ) {
 		static $extensions = null;
 		if ( $extensions === null ) {
 			$core = Dispatcher::component( 'BrowserCache_Core' );
-			$extensions = $core->get_replace_extensions( $this->_config );
+			$extensions = $core->get_replace_querystring_extensions( $this->_config );
 		}
 
 		static $exceptions = null;
 		if ( $exceptions === null )
 			$exceptions = $this->_config->get_array( 'browsercache.replace.exceptions' );
 
-		if ( !in_array( $extension, $extensions ) )
-			return false;
+		if ( !isset( $extensions[$extension] ) )
+			return null;
 
 		$test_url = Util_Environment::remove_query( $url );
 		foreach ( $exceptions as $exception ) {
-			if ( trim( $exception ) && preg_match( '~' . $exception . '~', $test_url ) )
-				return false;
+			$escaped = str_replace( '~', '\~', $exception );
+			if ( trim( $exception ) && preg_match( '~' . $escaped . '~', $test_url ) )
+				return null;
 		}
 
-		return true;
+		return $extensions[$extension];
 	}
 
 	/**

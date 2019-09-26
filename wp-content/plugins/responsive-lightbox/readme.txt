@@ -1,28 +1,42 @@
-=== Responsive Lightbox by dFactory ===
+=== Responsive Lightbox & Gallery ===
 Contributors: dfactory
 Donate link: http://www.dfactory.eu/
-Tags: gallery, images, lightbox, links, photos, template, theme, photo, image, picture, slideshow, modal, overlay, YouTube, Vimeo, video, videos
+Tags: gallery, images, lightbox, photos, theme, photo, image, picture, slideshow, modal, overlay, video
 Requires at least: 4.0
-Tested up to: 4.6
-Stable tag: 1.6.9
+Tested up to: 5.0.3
+Stable tag: 2.1.0
+Requires PHP: 5.2.4
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
-Responsive Lightbox allows users to view larger versions of images and galleries in a lightbox (overlay) effect optimized for mobile devices.
+Responsive Lightbox & Gallery allows users to create galleries and view larger versions of images, galleries and videos in a lightbox (overlay) effect optimized for mobile devices.
 
 == Description ==
 
-[Responsive Lightbox](http://www.dfactory.eu/plugins/responsive-lightbox/) allows users to view larger versions of images and galleries in a lightbox (overlay) effect optimized for mobile devices.
+[Responsive Lightbox & Gallery](http://www.dfactory.eu/plugins/responsive-lightbox/) allows users to create galleries and view larger versions of images, galleries and videos in a lightbox (overlay) effect optimized for mobile devices.
 
 For more information, check out plugin page at [dFactory](http://www.dfactory.eu/) or see the [Live demo](http://www.dfactory.eu/plugins/responsive-lightbox/) on our site.
 
 = Features include: =
 
-* Select from 6 responsive lightbox scripts (SwipeBox, prettyPhoto, FancyBox, Nivo Lightbox, Image Lightbox, Tos "R" Us)
+* Powerful, but easy to use gallery builder
+* 3 beautiful basic gallery templates - Grid, Slider and Masonry
+* 8 responsive lightbox scripts (SwipeBox, prettyPhoto, FancyBox, Nivo Lightbox, Image Lightbox, Tos "R" Us, Featherlight, Magnific Popup)
+* Create galleries from Media Library or Post attached images
+* Drag n drop reordering of images
+* Gallery picker to insert shortcodes
+* Media Folders with a drag & drop interface
+* Iframe, Ajax, HTML5 and Inline lightbox content support
+* Advanced pagination, incl. AJAX and infinite scroll
 * Automatically add lightbox to WordPress image galleries
 * Automatically add lightbox to WordPress image links
 * Automatically add lightbox to WordPress video links (YouTube, Vimeo)
+* Automatically add lightbox to widgets content
+* Automatically add lightbox to WordPress comments content
 * WooCommerce product gallery support
+* Visual Composer compatibility
+* Gallery widget
+* Single image widget
 * Option to display single post images as a gallery
 * Option to modify native WP gallery links image size
 * Option to set gallery images title from image title, caption, alt or description
@@ -35,14 +49,18 @@ For more information, check out plugin page at [dFactory](http://www.dfactory.eu
 * Filter hook for embeddding different scripts based on any custom conditions (page, post, category, user id, etc.)
 * .pot file for translations included
 
-= Available Extensions: =
-
-* [Justified Gallery](https://www.dfactory.eu/products/justified-gallery/)
-* [Masonry Image Gallery](https://www.dfactory.eu/products/masonry-image-gallery/)
-* [Lightcase Lightbox](https://www.dfactory.eu/products/lightcase-lightbox/)
-* [PhotoSwipe Lightbox](https://www.dfactory.eu/products/photoswipe-lightbox/)
-* [Strip Lightbox](https://www.dfactory.eu/products/strip-lightbox/)
-
+> <strong>Premium Extensions:</strong>
+> [Photo & Art bundle](https://www.dfactory.eu/products/photo-art-bundle/)
+> [Justified Gallery](https://www.dfactory.eu/products/justified-gallery/)
+> [Expander Gallery](https://www.dfactory.eu/products/expander-gallery/)
+> [Hidden Gallery](https://www.dfactory.eu/products/hidden-gallery/)
+> [Masonry Image Gallery](https://www.dfactory.eu/products/masonry-image-gallery/)
+> [Slider Gallery](https://www.dfactory.eu/products/slider-gallery/)
+> [Lightcase Lightbox](https://www.dfactory.eu/products/lightcase-lightbox/)
+> [PhotoSwipe Lightbox](https://www.dfactory.eu/products/photoswipe-lightbox/)
+> [Lightgallery Lightbox](https://www.dfactory.eu/products/lightgallery-lightbox/)
+> [Strip Lightbox](https://www.dfactory.eu/products/strip-lightbox/)
+> [Fancybox Pro](https://www.dfactory.eu/products/fancybox-pro/)
 
 == Installation ==
 
@@ -60,6 +78,77 @@ No questions yet.
 2. screenshot-2.jpg
 
 == Changelog ==
+
+= 2.1.0 =
+* New: Introducing Media Library Folders
+* New: Media folder gallery type
+* New: Filter gallery by category
+* Fix: Ajax Pagination not working when logged out
+* Fix: CSS issues with multiple Basic grid galleries on one page
+* Fix: Removed call to a sanitize_field function
+
+= 2.0.5 =
+* Fix: Escaped characters on titles and descriptions
+* Fix: Gallery shortcode not accepting image order
+* Fix: Gallery using default parameters instead of the settings
+* Fix: PHP fatal error if gallery builder is disabled
+
+= 2.0.4 =
+* Fix: Gallery sorting and orderby not working
+* Fix: Slow db query on post edit screen
+* Fix: WooCommerce gallery undefined method for get_gallery_image_ids
+* Fix: Uncaught Argument in preview_post_link function
+* Fix: Removed a callback to sanitize_textarea_field
+
+= 2.0.3 =
+* Fix: Gallery shortcode thumbnails not accepting size parameter
+* Fix: Basic templates for WooCommerce gallery 
+
+= 2.0.2 =
+* Fix: Default WordPress gallery issue
+
+= 2.0.1 =
+* Fix: Syntax error in frontend.php on line 522
+
+= 2.0 =
+* New: Powerful gallery builder
+* New: 3 gallery templates - Basic Grid, Slider and Masonry
+* New: Magnific Popup lightbox
+* New: Iframe, Ajax, HTML5 and Inline lightbox content support
+* Tweak: Improved Visual Composer compatibility
+* Tweak: Revamped admin interface
+
+= 1.7.1 =
+* New: Tos "R" Us overlay close option
+* Fix: License activation issues
+* Tweak: Featherlight script update to 1.7.0
+* Tweak: Imagelightbox script update
+
+= 1.7.0 =
+* New: Add lightbox to widgets content
+* New: Add lightbox to WordPress comments
+* New: Gallery widget
+* New: Single image widget
+* New: Visual Composer compatibility
+* New: WooCommerce 3.0 compatibility
+* New: [Fancybox Pro](https://www.dfactory.eu/products/fancybox-pro/) premium extension
+* New: [Expander Gallery](https://www.dfactory.eu/products/expander-gallery/) premium extension
+* New: [Hidden Gallery](https://www.dfactory.eu/products/hidden-gallery/) premium extension
+* Tweak: Attachment ID query optimization
+* Tweak: Revamped lightbox settings screen
+* Tweak: Improved custom galleries compatibility
+
+= 1.6.12 =
+* Fix: WooCommerce single product image lightbox
+
+= 1.6.11 =
+* Tweak: Added plugin documentation link
+* Tweak: Nivo lightbox update to 1.3.1
+
+= 1.6.10 =
+* New: Featherlight lightbox script
+* New: [Lightgallery Lightbox](https://www.dfactory.eu/products/lightgallery-lightbox/) premium extension
+* New: [Slider Gallery](https://www.dfactory.eu/products/slider-gallery/) premium extension
 
 = 1.6.9 =
 * New: [PhotoSwipe Lightbox](https://www.dfactory.eu/products/photoswipe-lightbox/) premium extension
@@ -277,6 +366,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.6.9 =
-* New: [PhotoSwipe Lightbox](https://www.dfactory.eu/products/photoswipe-lightbox/) premium extension
-* Fix: data-rel attribute missing in multiline links
+= 2.1.0 =
+* New: Introducing Media Library Folders

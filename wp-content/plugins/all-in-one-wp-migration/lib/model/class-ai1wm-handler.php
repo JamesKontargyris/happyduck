@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2016 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,10 @@
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
+
 class Ai1wm_Handler {
 
 	/**
@@ -41,5 +45,16 @@ class Ai1wm_Handler {
 			'File'    => $errfile,
 			'Line'    => $errline,
 		) );
+	}
+
+	/**
+	 * Shutdown handler
+	 *
+	 * @return void
+	 */
+	public static function shutdown() {
+		if ( ( $error = error_get_last() ) ) {
+			Ai1wm_Log::error( $error );
+		}
 	}
 }
